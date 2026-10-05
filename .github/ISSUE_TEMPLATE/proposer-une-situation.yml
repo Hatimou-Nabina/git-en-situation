@@ -1,0 +1,49 @@
+name: Proposer une situation
+description: Une situation Git ou GitHub que tu as vécue et qui mériterait une page.
+title: "[Situation] "
+labels: ["situation", "à trier"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci ! Une bonne page part d'un vécu : ce que tu voulais faire, ce qui s'est passé, ce que tu as fini par comprendre. Pas besoin d'avoir la réponse pour proposer.
+  - type: textarea
+    id: symptome
+    attributes:
+      label: Ce que tu as vu
+      description: Le message, le comportement, ce qui t'a surpris. Colle la sortie exacte si tu l'as, dans un bloc de code.
+      placeholder: |
+        $ git push
+        ! [rejected] main -> main (fetch first)
+    validations:
+      required: true
+  - type: textarea
+    id: contexte
+    attributes:
+      label: Ce que tu essayais de faire
+      description: Le but, et le contexte utile (seul ou en équipe, GitHub ou autre, etc.).
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Ce qui a résolu la situation, si tu le sais
+      description: Facultatif. On peut chercher ensemble.
+  - type: dropdown
+    id: niveau
+    attributes:
+      label: Niveau estimé
+      options:
+        - Je ne sais pas
+        - Débutant
+        - Intermédiaire
+        - Avancé
+    validations:
+      required: true
+  - type: checkboxes
+    id: verification
+    attributes:
+      label: Vérification
+      options:
+        - label: J'ai cherché sur le site et dans les issues, cette situation n'existe pas encore.
+          required: true

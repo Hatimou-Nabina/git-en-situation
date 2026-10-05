@@ -1,0 +1,42 @@
+name: Signaler une erreur
+description: Une commande fausse, une sortie qui ne correspond pas, une explication trompeuse, une faute.
+title: "[Erreur] "
+labels: ["erreur"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page concernée
+      description: L'adresse de la page, ou le chemin du fichier dans src/content/docs/.
+    validations:
+      required: true
+  - type: textarea
+    id: ecrit
+    attributes:
+      label: Ce qui est écrit
+      description: Cite le passage tel qu'il apparaît.
+    validations:
+      required: true
+  - type: textarea
+    id: juste
+    attributes:
+      label: Ce qui est juste, ou ce que tu observes
+      description: Si la sortie d'une commande diffère, colle la tienne dans un bloc de code.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version de Git
+      description: Le résultat de `git --version`.
+      placeholder: git version 2.50.0
+  - type: dropdown
+    id: systeme
+    attributes:
+      label: Système
+      options:
+        - Linux
+        - macOS
+        - Windows (Git Bash)
+        - Windows (PowerShell ou cmd)
+        - Autre
