@@ -158,7 +158,7 @@ dc9a44a chore: fusion par union pour le changelog
 ac88ea6 feat(export): ajoute l export CSV
 ```
 
-Le numéro suit le versionnage sémantique : *Versions et tags* (à venir) détaille le choix du numéro et le tag.
+Le numéro suit le versionnage sémantique : [Versions et tags](/equipe/versions-et-tags/) détaille le choix du numéro et le tag.
 
 ## Sur GitHub
 

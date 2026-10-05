@@ -7,9 +7,35 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 2, lot 8 : travailler en équipe, trois pages
+## [Non publié] — Phase 2, lot 9 : la section « Travailler en équipe » est complète
 
-Branche `equipe/lot-8`, partie de `main` (`25d9589`).
+Branche `equipe/lot-9`, partie de `main` (`4e0b6d4`).
+
+### Contenu
+
+- **Quatre pages « Travailler en équipe »**, chacune avec son script dans `scripts/equipe/` et ses sorties réelles :
+  - « Versions et tags » (tag annoté, `push` qui n'emporte pas les tags, `describe`, `tag --contains` pour savoir dans quelle version un correctif est arrivé, retour à une version, les tags chez un collègue ; Git 2.50) ;
+  - « CODEOWNERS, gabarits d'issue et de PR » (`shortlog` pour savoir qui connaît quoi, les trois fichiers de `.github/` et leurs pièges silencieux ; Git 2.50) ;
+  - « Une CI qui vérifie ce que les postes ne voient pas » (bit d'exécution, casse des noms, fichier qui n'existe que sur le poste, un script de vérification et le workflow qui le lance ; sorties du rejeu sur Ubuntu, Git 2.55, parce que le bit d'exécution et la casse n'existent pas sous Windows) ;
+  - « Forker et contribuer à un projet open source » (`origin` et `upstream`, une branche par contribution partie d'`upstream/main`, rebase et `--force-with-lease` pendant la relecture, le fork remis au niveau ; Git 2.50).
+- **La section « Travailler en équipe » est complète** : douze pages. Le sommaire n'a plus de « à venir » ; la dernière mention « (à venir) » des situations vers cette section (« Mes scripts cassent sur le serveur » vers la page CI) devient un lien, ainsi que celles des pages « prod » et « changelog » vers « Versions et tags ».
+- `CONTRIBUTING.md` renvoie à la page « Forker et contribuer » pour aller plus loin que la première contribution.
+
+### Pour les contributeurs
+
+- `_lib.sh` : la ligne de commande affichée par `run` et `run_sh` est nettoyée comme la sortie. Un chemin du bac à sable passé en argument (`git remote add upstream …`) s'affiche en adresse de serveur.
+
+### Suite prévue
+
+- **Phase 2, fin** : les fiches « Commandes », à cadrer avec le mainteneur avant de commencer.
+- **Phase 3** : vérification automatique en CI que les sorties des pages correspondent toujours aux scripts ; exercices dans un dépôt bac à sable.
+- **Phase 4** : traduction anglaise, animation de la communauté.
+
+---
+
+## 5 octobre 2026 · Phase 2, lot 8 : travailler en équipe, trois pages — en ligne le 5 octobre 2026
+
+Branche `equipe/lot-8`, partie de `main` (`25d9589`), fusionnée par la PR #17 (`4e0b6d4`).
 
 ### Contenu
 
