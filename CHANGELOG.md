@@ -7,7 +7,26 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — 5 octobre 2026 · Phase 0 : fondations
+## [Non publié] — Phase 1, lot 1 : au quotidien
+
+Branche `situations/lot-1-quotidien`, partie de `main` (`7e6a90e`).
+
+### Contenu
+
+- **Six situations**, avec leurs scripts et leurs sorties réelles (Git 2.50, 5 octobre 2026) :
+  - « Premier push d'une branche, « has no upstream branch » » (`push -u`, `push.autoSetupRemote`) ;
+  - « Après un clone, je ne vois pas les branches des autres » (références distantes, `git switch` qui crée la branche locale, `fetch`) ;
+  - « git pull me demande de choisir entre merge et rebase » (les deux options comparées sur l'historique, `pull.rebase`, `pull.ff only`) ;
+  - « Mettre mon travail en cours de côté pour changer de branche » (`stash push -u`, `list`, `pop`) ;
+  - « Voir ce qui a changé entre ma branche et main » (`log A..B`, `log A...B --left-right`, `diff A...B`, et pourquoi `..` et `...` diffèrent entre `log` et `diff`) ;
+  - « Renommer une branche, en local et sur le serveur » (`branch -m`, `push -u`, `push --delete`, `branch -u`, renommage depuis GitHub et effet sur les PR).
+- Scripts : `GIT_EDITOR=true` dans `_lib.sh`, pour qu'un merge ou un rebase n'ouvre jamais d'éditeur.
+
+---
+
+## 5 octobre 2026 · Phase 0 : fondations — en ligne le 5 octobre 2026
+
+Squelette poussé directement sur `main`, puis identité visuelle par la PR #1. Site : https://hatimou-nabina.github.io/git-en-situation/
 
 ### Contenu
 
@@ -36,9 +55,10 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ### ⚠️ Actions requises
 
-1. **GitHub → Settings → Pages → Source : « GitHub Actions »**, une seule fois, avant ou juste après le premier push. Sans ce réglage, le workflow de déploiement échoue (la CI, elle, reste verte).
-2. **GitHub → Settings → Branches → protéger `main`** : pull request obligatoire, statut CI requis, push forcé interdit. À faire après le push du squelette.
+1. ✅ *Fait le 5 octobre 2026.* **GitHub → Settings → Pages → Source : « GitHub Actions »**, une seule fois, avant ou juste après le premier push. Sans ce réglage, le workflow de déploiement échoue (la CI, elle, reste verte).
+2. ✅ *Fait le 5 octobre 2026 (ruleset `main`, actif).* **GitHub → Settings → Rules → protéger `main`** : pull request obligatoire (0 approbation tant qu'il n'y a qu'un mainteneur), check « Vérifier et construire le site » requis, suppressions et push forcé interdits. Tout passe désormais par des pull requests.
 3. **Sur chaque poste de travail** : `npm ci`.
+4. ✅ *Fait le 5 octobre 2026.* `gh` (GitHub CLI) installé et connecté sur le poste principal : les PR peuvent être ouvertes depuis le terminal.
 
 ### Suite prévue
 
