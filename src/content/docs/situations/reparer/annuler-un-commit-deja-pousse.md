@@ -107,7 +107,7 @@ Ce qui est poussé est, par convention, définitif. Cette règle rend tout le re
 - [Annuler mon dernier commit, pas encore poussé](/situations/reparer/annuler-mon-dernier-commit/)
 - [J'ai commité sur la mauvaise branche](/situations/reparer/commit-sur-la-mauvaise-branche/)
 - [Mon push est refusé, « rejected », « fetch first »](/situations/quotidien/push-refuse-fetch-first/)
-- Travailler en équipe : *Protéger la branche principale* (à venir)
+- [Travailler en équipe : protéger la branche principale](/equipe/proteger-la-branche-principale/)
 
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/annuler-un-commit-deja-pousse.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/annuler-un-commit-deja-pousse.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.

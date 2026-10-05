@@ -142,7 +142,7 @@ Rien de tout cela ne retire le secret de la mémoire de ceux qui l'ont vu. D'où
 
 - [.gitignore ne marche pas, le fichier est déjà suivi](/situations/fichiers/gitignore-fichier-deja-suivi/)
 - [Annuler un commit déjà poussé](/situations/reparer/annuler-un-commit-deja-pousse/), pour tout ce qui n'est pas un secret
-- Travailler en équipe : *Les secrets ne vont jamais dans le dépôt* (à venir)
+- [Travailler en équipe : les secrets ne vont jamais dans le dépôt](/equipe/secrets-jamais-dans-le-depot/), pour que ça n'arrive plus
 
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/secret-pousse-par-erreur.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/secret-pousse-par-erreur.sh), exécuté avec Git 2.50 et git-filter-repo le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple. La révocation de la clé, hors Git, n'est pas jouée.

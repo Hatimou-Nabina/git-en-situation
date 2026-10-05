@@ -115,7 +115,7 @@ Les commits, eux, ne transportent aucune authentification. GitHub rattache un co
 
 - [Travailler sur le même projet depuis deux machines](/situations/avec-les-autres/travailler-depuis-deux-machines/)
 - [Annuler mon dernier commit, pas encore poussé](/situations/reparer/annuler-mon-dernier-commit/)
-- Travailler en équipe : *Les secrets ne vont jamais dans le dépôt* (à venir)
+- [Travailler en équipe : les secrets ne vont jamais dans le dépôt](/equipe/secrets-jamais-dans-le-depot/)
 
 :::tip[Sorties vérifiées]
 Les sorties des commandes `git` de cette page viennent du script [`scripts/situations/deux-comptes-github-sur-un-poste.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/deux-comptes-github-sur-un-poste.sh), exécuté avec Git 2.50 le 5 octobre 2026, dans un dossier personnel factice. La connexion SSH à GitHub ne se rejoue pas dans un bac à sable : la réponse de `ssh -T` est citée, pas exécutée par le script.
