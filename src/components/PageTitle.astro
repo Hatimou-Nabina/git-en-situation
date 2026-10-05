@@ -1,0 +1,58 @@
+---
+/**
+ * Titre de page Starlight, suivi des badges propres à ce site : niveau,
+ * risque, version de Git et date de vérification (champs de l'en-tête
+ * définis dans src/content.config.ts). Les pages sans ces champs gardent
+ * le titre seul.
+ */
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+import { Badge } from '@astrojs/starlight/components';
+
+const { entry, lang } = Astro.locals.starlightRoute;
+const { level, risk, gitVersion, verified } = entry.data;
+
+const english = lang.startsWith('en');
+
+const levelLabels = english
+  ? { debutant: 'Beginner', intermediaire: 'Intermediate', avance: 'Advanced' }
+  : { debutant: 'Débutant', intermediaire: 'Intermédiaire', avance: 'Avancé' };
+
+const riskLabels = english
+  ? { aucun: 'No risk', reversible: 'Reversible', destructif: 'Destructive' }
+  : { aucun: 'Sans risque', reversible: 'Réversible', destructif: 'Destructif' };
+
+const riskVariants = { aucun: 'success', reversible: 'caution', destructif: 'danger' } as const;
+
+const verifiedDate = verified?.toLocaleDateString(lang, { dateStyle: 'long', timeZone: 'UTC' });
+const verifiedText = [
+  gitVersion && `Git ${gitVersion}`,
+  verifiedDate && `${english ? 'verified on' : 'vérifié le'} ${verifiedDate}`,
+]
+  .filter(Boolean)
+  .join(' · ');
+
+const hasMeta = Boolean(level || risk || verifiedText);
+---
+
+<Default />
+{
+  hasMeta && (
+    <p class="page-meta">
+      {level && <Badge text={levelLabels[level]} variant="note" size="small" />}
+      {risk && <Badge text={riskLabels[risk]} variant={riskVariants[risk]} size="small" />}
+      {verifiedText && <span class="page-meta__verified">{verifiedText}</span>}
+    </p>
+  )
+}
+
+<style>
+  .page-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+  }
+</style>

@@ -1,0 +1,20 @@
+# Sortie du build
+dist/
+
+# Types générés par Astro
+.astro/
+
+# Dépendances
+node_modules/
+
+# Journaux
+npm-debug.log*
+
+# Variables d'environnement locales (aucune n'est nécessaire aujourd'hui)
+.env
+.env.*
+!.env.example
+
+# Fichiers système
+.DS_Store
+Thumbs.db

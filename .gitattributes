@@ -1,0 +1,10 @@
+# Fins de ligne LF dans le dépôt, quel que soit le système du poste de travail.
+* text=auto eol=lf
+
+# Fichiers binaires
+*.png binary
+*.jpg binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary

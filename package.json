@@ -1,0 +1,34 @@
+{
+  "name": "git-en-situation",
+  "version": "0.1.0",
+  "description": "Git et GitHub, à partir des situations que tu vis vraiment.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hatimou-Nabina/git-en-situation.git"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/markdown-satteri": "^0.4.2",
+    "@astrojs/starlight": "^0.42.5",
+    "astro": "^7.3.5",
+    "satteri": "^0.10.5",
+    "sharp": "^0.35.5",
+    "starlight-links-validator": "^0.26.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,17 @@
+/* Couleur d'accent du site, déclinée pour les deux thèmes de Starlight. */
+:root {
+  --sl-color-accent-low: #3b1a0b;
+  --sl-color-accent: #e85d2a;
+  --sl-color-accent-high: #ffc9b4;
+}
+
+:root[data-theme='light'] {
+  --sl-color-accent-low: #ffd9c9;
+  --sl-color-accent: #c2461a;
+  --sl-color-accent-high: #5a1d08;
+}
+
+/* Les sessions de terminal : un peu plus d'air, et pas de retour à la ligne forcé. */
+.sl-markdown-content pre {
+  line-height: 1.55;
+}
