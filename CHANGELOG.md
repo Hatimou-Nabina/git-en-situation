@@ -7,9 +7,15 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 1, lot 6 : travailler en équipe
+## [Non publié] — La page « pull request » sans appel à GitHub
 
-Branche `equipe/lot-6`, partie de `main` (`9778ef0`).
+- **Retrait de la liste `gh pr list`** à la fin de « La pull request, de l'ouverture à la fusion », remplacée par un lien vers les PR du dépôt. Cette sortie changeait à chaque fusion et dépendait d'un `gh` connecté, à rebours de la règle du site : des scripts reproductibles à l'identique, partout et à toute date. Règle ajoutée au `CLAUDE.md`.
+
+---
+
+## 5 octobre 2026 · Phase 1, lot 6 : travailler en équipe — en ligne le 5 octobre 2026
+
+Branche `equipe/lot-6`, partie de `main` (`9778ef0`), fusionnée par la PR #9.
 
 ### Contenu
 

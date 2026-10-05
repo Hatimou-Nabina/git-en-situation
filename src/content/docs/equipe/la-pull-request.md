@@ -100,16 +100,7 @@ $ git branch -d feature/recherche
 Deleted branch feature/recherche (was 2b52f41).
 ```
 
-Ce site s'applique la règle : chaque changement depuis son premier jour est passé par une pull request, y compris quand il n'y avait qu'une personne pour la relire.
-
-```console
-$ gh pr list --repo Hatimou-Nabina/git-en-situation --state merged --limit 5
-8	feat(comprendre): lot 5, le modèle mental (4 pages)	comprendre/lot-5	MERGED	2026-10-05T15:17:43Z
-7	feat(situations): lot 4, fichiers et dépôt (4 situations, rejeu sur Linux)	situations/lot-4-fichiers	MERGED	2026-10-05T15:04:17Z
-6	fix(site): le filtre par niveau du catalogue masque bien les entrées	fix/filtre-catalogue	MERGED	2026-10-05T14:06:22Z
-5	feat(situations): lot 3, avec les autres (4 situations, nouveau thème)	situations/lot-3-avec-les-autres	MERGED	2026-10-05T13:52:33Z
-4	feat(site): situations par thème, catalogue filtrable, redirections	site/catalogue-par-themes	MERGED	2026-10-05T12:39:13Z
-```
+Ce site s'applique la règle : chaque changement depuis son premier jour est passé par une pull request, y compris quand il n'y avait qu'une personne pour la relire. [La liste est publique](https://github.com/Hatimou-Nabina/git-en-situation/pulls?q=is%3Apr+is%3Amerged).
 
 ## Sur GitHub
 
@@ -138,5 +129,5 @@ $ gh pr list --repo Hatimou-Nabina/git-en-situation --state merged --limit 5
 - [Fast-forward, fusion, rebase](/comprendre/fast-forward-fusion-rebase/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/equipe/la-pull-request.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/la-pull-request.sh), exécuté avec Git 2.50 le 5 octobre 2026. La fusion « par GitHub » y est jouée par un second poste ; la liste des pull requests est celle de ce dépôt, interrogé pour de vrai avec `gh` ce jour-là. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/equipe/la-pull-request.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/la-pull-request.sh), exécuté avec Git 2.50 le 5 octobre 2026. La fusion « par GitHub » y est jouée par un second poste. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

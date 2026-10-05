@@ -3,9 +3,7 @@
 # Page : src/content/docs/equipe/la-pull-request.md
 #
 # La partie Git est jouée dans le bac à sable ; la fusion « par GitHub » est
-# jouée par un second poste. La dernière section interroge GitHub pour de
-# vrai, avec gh, sur les pull requests de ce site : elle est sautée si gh est
-# absent ou non connecté.
+# jouée par un second poste.
 source "$(dirname "$0")/../situations/_lib.sh"
 setup_team
 
@@ -36,14 +34,6 @@ run awa git switch main
 run awa git pull --ff-only
 run awa git fetch --prune
 run awa git branch -d feature/recherche
-
-GH=$(command -v gh 2>/dev/null || ls "/c/Program Files/GitHub CLI/gh.exe" 2>/dev/null || true)
-if [ -n "$GH" ] && "$GH" auth status >/dev/null 2>&1; then
-  note "Vu depuis GitHub : les dernières pull requests fusionnées de ce site"
-  echo '$ gh pr list --repo Hatimou-Nabina/git-en-situation --state merged --limit 5'
-  "$GH" pr list --repo Hatimou-Nabina/git-en-situation --state merged --limit 5 2>&1
-  echo
-fi
 
 note "Version de Git utilisée"
 run awa git --version
