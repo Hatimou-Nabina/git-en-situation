@@ -1,0 +1,32 @@
+name: Rejouer une situation
+
+# Exécute le script d'une situation sur une machine Linux et affiche ses
+# sorties. Utile quand le poste de travail est sous Windows et que le
+# comportement montré n'existe que sur Linux (fins de ligne, permissions).
+#
+#   gh workflow run situation.yml -f script=fins-de-ligne-crlf-lf
+#   gh run view --log
+
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "Nom du script dans scripts/situations/, sans .sh"
+        required: true
+        type: string
+
+jobs:
+  rejouer:
+    name: ${{ inputs.script }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Version de Git sur cette machine
+        run: git --version
+
+      - name: Installer git-filter-repo (utilisé par une situation)
+        run: pip install --quiet git-filter-repo
+
+      - name: Rejouer le script
+        run: bash "scripts/situations/${{ inputs.script }}.sh"
