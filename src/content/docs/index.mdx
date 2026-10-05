@@ -3,7 +3,14 @@ title: Git en situation
 description: Git et GitHub, à partir des situations que tu vis vraiment. Des réponses courtes, vérifiées, qui expliquent le pourquoi.
 template: splash
 hero:
-  tagline: Personne ne cherche « fetch prune ». On cherche « je vois encore une branche qui a été supprimée ». Ce site part de là.
+  title: Git, à partir des situations que tu vis vraiment.
+  tagline: Personne ne cherche « fetch prune ». On cherche « je vois encore une branche qui a été supprimée ». Chaque page part de là, se lit en cinq minutes, et chaque commande affichée a été réellement exécutée.
+  image:
+    html: |
+      <pre class="home-terminal" aria-label="Exemple : une branche locale dont la branche distante a disparu"><span class="cmd">$ git branch -vv</span>
+        feature/export-pdf 7abda0a [origin/feature/export-pdf: <span class="hl">gone</span>] Ajoute la fonction export PDF
+      * main               61d6827 [origin/main] Fusionne feature/export-pdf
+      <span class="comment"># « gone » ? La réponse tient en deux minutes.</span></pre>
   actions:
     - text: Voir les situations
       # Seul endroit du contenu où la base apparaît : Starlight ne la préfixe pas aux liens du héros.
@@ -15,19 +22,57 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import SituationsList from '../../components/SituationsList.astro';
 
-<CardGrid stagger>
-  <Card title="Situations" icon="magnifier">
-    Le cœur du site. Un symptôme, un diagnostic, une solution, et surtout pourquoi ça marche. Chaque commande a été réellement exécutée : la sortie affichée est la vraie. [Parcourir les situations](/situations/).
-  </Card>
-  <Card title="Comprendre" icon="open-book">
-    Le modèle mental de Git en dix pages courtes : commits, références, branches, remotes, index, HEAD, reflog. La plupart des galères viennent de là, pas d'une option oubliée. [Section en construction](/comprendre/).
-  </Card>
-  <Card title="Travailler en équipe" icon="seti:github">
-    Branches, pull requests, revue de code, commits conventionnels, changelog, protections, secrets. Ce qui manque le plus aux autodidactes et aux petites équipes. [Section en construction](/equipe/).
-  </Card>
-  <Card title="Commandes" icon="laptop">
-    Une fiche par commande, limitée à celles qui comptent et aux options utiles, chacune renvoyant aux situations où elle sert. [Section en construction](/commandes/).
-  </Card>
-</CardGrid>
+<section class="home-section">
+
+## Chaque page suit le même chemin
+
+<ol class="home-steps">
+  <li><strong>Symptôme</strong>Ce que tu vois à l'écran, message exact compris.</li>
+  <li><strong>Diagnostic</strong>Ce qui s'est passé, en deux ou trois phrases.</li>
+  <li><strong>Solution</strong>Les commandes dans l'ordre, chacune avec sa vraie sortie.</li>
+  <li><strong>Pourquoi ça marche</strong>Le morceau de modèle mental qui fait qu'on retient, au lieu de recopier.</li>
+</ol>
+
+</section>
+
+<section class="home-section">
+
+## Les situations publiées
+
+<SituationsList />
+
+Le site vient d'ouvrir. Une vingtaine de situations sont en cours d'écriture, et [la tienne](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=proposer-une-situation.yml) a sa place, même sans connaître la réponse.
+
+</section>
+
+<section class="home-section">
+
+## Les sorties affichées sont vraies
+
+Aucune sortie n'est écrite à la main. Chaque situation a un script versionné qui rejoue le scénario dans des dépôts jetables et imprime chaque commande suivie de sa sortie. La page recopie ce résultat, avec la version de Git et la date de l'exécution. Si ta sortie diffère, c'est une erreur du site, et [on veut le savoir](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=signaler-une-erreur.yml). Le détail est dans [Comment lire une situation](/situations/).
+
+</section>
+
+<section class="home-section">
+
+## Quatre entrées
+
+<div class="home-entries">
+
+**[Situations](/situations/)**  
+Le cœur du site. Un symptôme, un diagnostic, une solution, et pourquoi ça marche.
+
+**[Comprendre](/comprendre/)**  
+Le modèle mental de Git en dix pages courtes. La plupart des galères viennent de là, pas d'une option oubliée.
+
+**[Travailler en équipe](/equipe/)**  
+Branches, pull requests, revue, commits conventionnels, protections, secrets. Ce qui manque le plus aux autodidactes et aux petites équipes.
+
+**[Commandes](/commandes/)**  
+Une fiche par commande, limitée à celles qui comptent et aux options utiles, chacune renvoyant aux situations où elle sert.
+
+</div>
+
+</section>

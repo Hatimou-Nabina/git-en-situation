@@ -3,7 +3,14 @@ title: Git en situation
 description: Git and GitHub, starting from the situations you actually run into. Short, verified answers that explain the why.
 template: splash
 hero:
-  tagline: Nobody searches for "fetch prune". They search for "I still see a branch that was deleted". This site starts there.
+  title: Git, starting from the situations you actually run into.
+  tagline: Nobody searches for "fetch prune". They search for "I still see a branch that was deleted". Every page starts there, reads in five minutes, and every command shown was actually run.
+  image:
+    html: |
+      <pre class="home-terminal" aria-label="Example: a local branch whose remote branch is gone"><span class="cmd">$ git branch -vv</span>
+        feature/export-pdf 7abda0a [origin/feature/export-pdf: <span class="hl">gone</span>] Ajoute la fonction export PDF
+      * main               61d6827 [origin/main] Fusionne feature/export-pdf
+      <span class="comment"># "gone"? The answer takes two minutes.</span></pre>
   actions:
     - text: Browse the French site
       # Hero links are not prefixed with the site base by Starlight: the base is written here on purpose.
@@ -15,8 +22,10 @@ hero:
       variant: minimal
 ---
 
-import { Card } from '@astrojs/starlight/components';
+<section class="home-section">
 
-<Card title="English version in progress" icon="translate">
-  The content is written in French first. Pages not translated yet are shown in French, with a notice at the top. Translations are welcome: see the repository's `CONTRIBUTING.md`.
-</Card>
+## English version in progress
+
+The content is written in French first. Pages not translated yet are shown in French, with a notice at the top. Translations are welcome: see the repository's `CONTRIBUTING.md`.
+
+</section>

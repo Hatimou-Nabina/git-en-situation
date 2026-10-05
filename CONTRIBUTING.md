@@ -99,7 +99,7 @@ Les champs de l'en-tête :
 
 - **Tutoiement**, phrases courtes, un seul sujet par page. Si la page dépasse cinq minutes de lecture, c'est deux pages.
 - **Le titre est une recherche**, pas un intitulé de cours : « Mon push est refusé », pas « Gestion des divergences ».
-- **Les sessions de terminal** sont des blocs ` ```text ` avec le prompt `$ `. Pas de capture d'écran de terminal.
+- **Les sessions de terminal** sont des blocs ` ```console ` avec le prompt `$ ` : les commandes sont mises en valeur, les sorties restent telles quelles. Pas de capture d'écran de terminal.
 - **Ce qui est propre à GitHub** est dit comme tel (« Sur GitHub, … »). Le reste vaut pour tout serveur Git.
 - **Les liens internes** s'écrivent depuis la racine, avec le slash final : `/situations/mon-slug/`. Le site ajoute lui-même son préfixe d'hébergement.
 - **Les termes** : on dit « référence distante » pour `origin/x`, « branche locale », « serveur » plutôt que « remote » quand on parle de GitHub, « fusion » pour merge, « rebase » reste « rebase ».

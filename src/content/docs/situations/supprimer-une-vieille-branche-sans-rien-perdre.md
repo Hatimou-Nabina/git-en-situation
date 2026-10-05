@@ -11,7 +11,7 @@ verified: 2026-10-05
 
 Pas de message d'erreur ici, juste un dépôt encombré :
 
-```text
+```console
 $ git fetch --prune
 $ git branch -a
   brouillon
@@ -36,7 +36,7 @@ Commence toujours par `git fetch --prune`, pour que ta vue du serveur soit à jo
 
 **1. Vérifie que `main` contient tout.** Trois façons de poser la même question :
 
-```text
+```console
 $ git log --oneline main..refonte-header
 
 $ git rev-list --count main..refonte-header
@@ -50,7 +50,7 @@ tout est dans main
 
 Pour examiner toutes les branches d'un coup, demande celles qui sont entièrement contenues dans `main` :
 
-```text
+```console
 $ git branch --merged main
 * main
   refonte-header
@@ -63,7 +63,7 @@ $ git branch -r --merged origin/main
 
 **2. Supprime, sur le serveur puis en local.**
 
-```text
+```console
 $ git push origin --delete refonte-header
 To github.com:equipe/projet.git
  - [deleted]         refonte-header
@@ -78,7 +78,7 @@ Le serveur d'abord : les collègues verront la branche disparaître à leur proc
 
 `experimentation` est poussée sur le serveur et contient un commit que `main` n'a pas :
 
-```text
+```console
 $ git rev-list --count main..experimentation
 1
 
@@ -88,7 +88,7 @@ ba5b93a Essai non termine
 
 Trois choix : la terminer et l'intégrer par une pull request, la supprimer en sachant ce qu'on abandonne, ou l'archiver (ci-dessous). Un détail qui surprend : ici, `git branch -d` accepte quand même, avec un avertissement.
 
-```text
+```console
 $ git branch -d experimentation
 warning: deleting branch 'experimentation' that has been merged to
          'refs/remotes/origin/experimentation', but not yet merged to HEAD
@@ -99,7 +99,7 @@ Rien n'est perdu : la branche existe toujours sur le serveur. `-d` ne protège q
 
 `brouillon`, elle, n'a jamais été poussée. Là, Git refuse :
 
-```text
+```console
 $ git log --oneline main..brouillon
 baf14ca Brouillon local
 
@@ -113,7 +113,7 @@ C'est le refus qui te protège : ce commit n'existe que sur ton poste.
 
 **Garder une trace, puis supprimer pour de bon.** Un tag coûte zéro octet de plus et garde le commit accessible :
 
-```text
+```console
 $ git tag archive/brouillon brouillon
 
 $ git branch -D brouillon

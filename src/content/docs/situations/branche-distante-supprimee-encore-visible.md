@@ -11,7 +11,7 @@ verified: 2026-10-05
 
 Une collègue a fusionné sa branche `feature/export-pdf` dans `main`, puis l'a supprimée sur GitHub. Chez toi, elle est toujours là :
 
-```text
+```console
 $ git branch -a
   feature/export-pdf
 * main
@@ -35,7 +35,7 @@ Chez toi, deux choses distinctes portent ce nom :
 
 **1. Demande à `fetch` de faire le ménage dans les références distantes.**
 
-```text
+```console
 $ git fetch --prune
 From github.com:equipe/projet
  - [deleted]         (none)     -> origin/feature/export-pdf
@@ -43,7 +43,7 @@ From github.com:equipe/projet
 
 `git branch -a` ne montre plus `remotes/origin/feature/export-pdf`. Reste ta branche locale, que Git signale maintenant comme orpheline :
 
-```text
+```console
 $ git branch -vv
   feature/export-pdf 7abda0a [origin/feature/export-pdf: gone] Ajoute la fonction export PDF
 * main               61d6827 [origin/main] Fusionne feature/export-pdf
@@ -53,7 +53,7 @@ $ git branch -vv
 
 **2. Supprime la branche locale.**
 
-```text
+```console
 $ git branch -d feature/export-pdf
 Deleted branch feature/export-pdf (was 7abda0a).
 ```
@@ -62,7 +62,7 @@ Le `-d` minuscule est prudent : il refuse si la branche contient des commits qui
 
 **3. Pour ne plus y penser.**
 
-```text
+```console
 $ git config --global fetch.prune true
 ```
 

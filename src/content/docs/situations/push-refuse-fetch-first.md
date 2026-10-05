@@ -11,7 +11,7 @@ verified: 2026-10-05
 
 Un commit, un push, comme d'habitude. Et cette fois :
 
-```text
+```console
 $ git push
 To github.com:equipe/projet.git
  ! [rejected]        main -> main (fetch first)
@@ -29,7 +29,7 @@ Entre ton dernier `pull` et maintenant, quelqu'un a poussé sur `main`. Le serve
 
 Pour le voir de tes yeux :
 
-```text
+```console
 $ git fetch
 From github.com:equipe/projet
    d0a0b32..40cf319  main       -> origin/main
@@ -45,7 +45,7 @@ nothing to commit, working tree clean
 
 Ce que le serveur a et que tu n'as pas, puis l'inverse :
 
-```text
+```console
 $ git log --oneline main..origin/main
 40cf319 Ajoute la page contact
 
@@ -61,7 +61,7 @@ Il faut placer ton commit **après** celui du serveur, puis pousser.
 
 **2. Rejoue ton commit par-dessus.**
 
-```text
+```console
 $ git rebase origin/main
 Rebasing (1/1)Successfully rebased and updated refs/heads/main.
 
@@ -75,7 +75,7 @@ Ton commit a changé d'identifiant, `0e03633` est devenu `db0c9ee`. C'est normal
 
 **3. Pousse.**
 
-```text
+```console
 $ git status
 On branch main
 Your branch is ahead of 'origin/main' by 1 commit.
@@ -98,7 +98,7 @@ Le rebase s'arrête et te dit quels fichiers sont en conflit. Tu les corriges, `
 
 Avec un Git récent et sans configuration, `git pull` refuse de choisir pour toi :
 
-```text
+```console
 $ git pull
 hint: You have divergent branches and need to specify how to reconcile them.
 hint: You can do so by running one of the following commands sometime before
