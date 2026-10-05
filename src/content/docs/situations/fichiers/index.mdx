@@ -1,0 +1,16 @@
+---
+title: Fichiers et dépôt
+description: Les situations qui tiennent aux fichiers eux-mêmes, .gitignore qui n'ignore rien, secret poussé par erreur, fins de ligne qui cassent un script, fichiers vus comme modifiés sans raison.
+sidebar:
+  order: 0
+  label: Vue d'ensemble
+tableOfContents: false
+---
+
+import SituationsList from '../../../../components/SituationsList.astro';
+
+Ici, le problème n'est pas dans l'historique mais dans les fichiers : un `.gitignore` qui semble ne rien faire, un secret parti sur le serveur, un script qui marche sur ton poste et casse sur le serveur, ou Git qui annonce cent fichiers modifiés alors que tu n'as rien touché. Chaque page montre comment diagnostiquer avant de corriger.
+
+<SituationsList theme="fichiers" />
+
+Les autres thèmes sont dans le [catalogue](/situations/).
