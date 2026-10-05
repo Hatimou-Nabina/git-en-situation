@@ -1,23 +1,30 @@
-name: Rejouer une situation
+name: Rejouer les situations
 
-# Exécute le script d'une situation sur une machine Linux et affiche ses
-# sorties. Utile quand le poste de travail est sous Windows et que le
-# comportement montré n'existe que sur Linux (fins de ligne, permissions).
-#
-#   gh workflow run situation.yml -f script=fins-de-ligne-crlf-lf
-#   gh run view --log
+# Exécute les scripts des situations sur une machine Linux et affiche leurs
+# sorties. Deux usages :
+#   - à chaque push qui touche un script : tous les scripts sont rejoués, ce qui
+#     vérifie qu'ils tournent toujours, et donne leurs sorties sur Linux ;
+#   - à la demande, un seul script :
+#       gh workflow run situation.yml -f script=fins-de-ligne-crlf-lf
+#       gh run view --log
+# Utile quand le poste de travail est sous Windows et que le comportement
+# montré n'existe que sur Linux (fins de ligne, permissions).
 
 on:
+  push:
+    paths:
+      - "scripts/situations/**"
+      - ".github/workflows/situation.yml"
   workflow_dispatch:
     inputs:
       script:
-        description: "Nom du script dans scripts/situations/, sans .sh"
-        required: true
+        description: "Nom du script dans scripts/situations/, sans .sh (vide : tous)"
+        required: false
         type: string
 
 jobs:
   rejouer:
-    name: ${{ inputs.script }}
+    name: Rejouer sur Ubuntu
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -28,5 +35,16 @@ jobs:
       - name: Installer git-filter-repo (utilisé par une situation)
         run: pip install --quiet git-filter-repo
 
-      - name: Rejouer le script
-        run: bash "scripts/situations/${{ inputs.script }}.sh"
+      - name: Rejouer
+        env:
+          SCRIPT: ${{ inputs.script }}
+        run: |
+          if [ -n "$SCRIPT" ]; then
+            scripts="scripts/situations/$SCRIPT.sh"
+          else
+            scripts=$(ls scripts/situations/*.sh | grep -v '/_lib.sh$')
+          fi
+          for s in $scripts; do
+            echo "=================== $s"
+            bash "$s"
+          done
