@@ -123,7 +123,7 @@ Rien n'est supprimé : après le reset, le commit `5b5dda8` reste atteignable de
 - [Annuler mon dernier commit, pas encore poussé](/situations/reparer/annuler-mon-dernier-commit/)
 - [Annuler un commit déjà poussé](/situations/reparer/annuler-un-commit-deja-pousse/)
 - [Retrouver un commit perdu](/situations/reparer/retrouver-un-commit-perdu/)
-- Comprendre : *Une branche, c'est un marque-page* (à venir)
+- [Comprendre : une branche, c'est un marque-page](/comprendre/une-branche-est-un-marque-page/)
 
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/commit-sur-la-mauvaise-branche.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/commit-sur-la-mauvaise-branche.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.

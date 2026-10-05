@@ -177,7 +177,7 @@ Git fusionne ligne par ligne, en comparant chaque version à l'ancêtre commun. 
 - [git pull me demande de choisir entre merge et rebase](/situations/quotidien/git-pull-merge-ou-rebase/)
 - [Mon push est refusé, « rejected », « fetch first »](/situations/quotidien/push-refuse-fetch-first/)
 - [Annuler un commit déjà poussé](/situations/reparer/annuler-un-commit-deja-pousse/)
-- Comprendre : *Fast-forward, fusion, rebase* (à venir)
+- [Comprendre : fast-forward, fusion, rebase](/comprendre/fast-forward-fusion-rebase/)
 
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/resoudre-un-conflit.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/resoudre-un-conflit.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.

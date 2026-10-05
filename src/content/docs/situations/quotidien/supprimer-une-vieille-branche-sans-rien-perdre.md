@@ -142,7 +142,7 @@ Une branche n'est qu'un marque-page posé sur un commit. Supprimer la branche su
 ## Voir aussi
 
 - [Une branche distante a été supprimée, mais je la vois encore](/situations/quotidien/branche-distante-supprimee-encore-visible/)
-- Comprendre : *Une branche, c'est un marque-page* et *Le reflog, ton filet de sécurité* (à venir)
+- [Comprendre : une branche, c'est un marque-page](/comprendre/une-branche-est-un-marque-page/), et *Le reflog, ton filet de sécurité* (à venir)
 - Travailler en équipe : *La pull request, de l'ouverture à la fusion* (à venir)
 
 :::tip[Sorties vérifiées]

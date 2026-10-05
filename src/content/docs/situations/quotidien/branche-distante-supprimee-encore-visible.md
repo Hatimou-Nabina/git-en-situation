@@ -87,7 +87,7 @@ Ta branche locale, elle, t'appartient. Git ne la supprimera jamais sans qu'on le
 ## Voir aussi
 
 - [Supprimer une vieille branche sans rien perdre](/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/)
-- Comprendre : *Les remotes et les références distantes* (à venir)
+- [Comprendre : les remotes et les références distantes](/comprendre/remotes-et-references-distantes/)
 
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/branche-distante-supprimee-encore-visible.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/branche-distante-supprimee-encore-visible.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.

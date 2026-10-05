@@ -83,7 +83,7 @@ Switched to a new branch 'feature/recherche'
 
 - [Premier push d'une branche, « has no upstream branch »](/situations/quotidien/premier-push-no-upstream/)
 - [Une branche distante a été supprimée, mais je la vois encore](/situations/quotidien/branche-distante-supprimee-encore-visible/)
-- Comprendre : *Les remotes et les références distantes* (à venir)
+- [Comprendre : les remotes et les références distantes](/comprendre/remotes-et-references-distantes/)
 
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/branches-invisibles-apres-clone.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/branches-invisibles-apres-clone.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
