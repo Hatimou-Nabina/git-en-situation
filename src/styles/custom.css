@@ -1,17 +1,275 @@
-/* Couleur d'accent du site, déclinée pour les deux thèmes de Starlight. */
+/*
+ * Identité visuelle de git-en-situation.
+ *
+ * Polices IBM Plex (chargées par astro.config.mjs), palette terre cuite sur
+ * neutres chauds, et les quelques éléments propres au site : héros, blocs de
+ * l'accueil, badges des pages. Tout le reste vient de Starlight.
+ */
+
 :root {
-  --sl-color-accent-low: #3b1a0b;
-  --sl-color-accent: #e85d2a;
-  --sl-color-accent-high: #ffc9b4;
+  --sl-font: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --sl-font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Menlo, Consolas, monospace;
+  --sl-content-width: 46rem;
 }
 
+/* ---- Palette --------------------------------------------------------- */
+
+/* Thème sombre (par défaut) */
+:root {
+  --sl-color-accent-low: #3a1a0f;
+  --sl-color-accent: #d9623c;
+  --sl-color-accent-high: #f6c7b4;
+  --sl-color-white: #f3eee8;
+  --sl-color-gray-1: #e6dfd8;
+  --sl-color-gray-2: #bfb5ab;
+  --sl-color-gray-3: #8d8176;
+  --sl-color-gray-4: #5a5047;
+  --sl-color-gray-5: #39322c;
+  --sl-color-gray-6: #272220;
+  --sl-color-black: #1a1715;
+}
+
+/* Thème clair */
 :root[data-theme='light'] {
-  --sl-color-accent-low: #ffd9c9;
-  --sl-color-accent: #c2461a;
-  --sl-color-accent-high: #5a1d08;
+  --sl-color-accent-low: #f6dbd0;
+  --sl-color-accent: #b3421f;
+  --sl-color-accent-high: #4b1b0c;
+  --sl-color-white: #1f1a17;
+  --sl-color-gray-1: #342d28;
+  --sl-color-gray-2: #514840;
+  --sl-color-gray-3: #7b6f65;
+  --sl-color-gray-4: #b5a99e;
+  --sl-color-gray-5: #e5ddd4;
+  --sl-color-gray-6: #f3eee8;
+  --sl-color-black: #fbf8f4;
 }
 
-/* Les sessions de terminal : un peu plus d'air, et pas de retour à la ligne forcé. */
+/* ---- Typographie ----------------------------------------------------- */
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.01em;
+}
+
 .sl-markdown-content pre {
   line-height: 1.55;
+}
+
+/* Sessions de terminal (blocs ```console) : les lignes de commande, marquées
+   par src/plugins/expressive-code-prompts.mjs, ressortent des sorties. */
+.expressive-code .ec-line.is-prompt .code {
+  color: var(--sl-color-white);
+  font-weight: 500;
+}
+
+.expressive-code .ec-line.is-prompt .code::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--sl-color-accent);
+}
+
+/* ---- Badges sous le titre d'une situation ---------------------------- */
+
+.page-meta .sl-badge.note {
+  --sl-badge-note-border: var(--sl-color-gray-4);
+  --sl-badge-note-bg: transparent;
+  --sl-badge-note-text: var(--sl-color-gray-1);
+}
+
+.page-meta__verified {
+  font-family: var(--sl-font-mono);
+  font-size: var(--sl-text-xs);
+}
+
+/* ---- Héros de l'accueil ---------------------------------------------- */
+
+/* Texte en haut, aligné à gauche ; le terminal prend toute la largeur en dessous.
+   minmax(0, 1fr) et min-width: 0 : le terminal défile dans son cadre au lieu d'élargir la page. */
+.hero {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  padding-block: clamp(2rem, 6vmin, 5rem) 1rem;
+}
+
+.hero > .hero-html {
+  order: 2;
+  width: 100%;
+  min-width: 0;
+  margin-inline: 0;
+}
+
+.hero .stack {
+  text-align: start;
+}
+
+.hero .copy {
+  align-items: flex-start;
+}
+
+.hero .copy > * {
+  max-width: 60ch;
+}
+
+.hero .actions {
+  justify-content: flex-start;
+}
+
+.hero h1 {
+  font-size: clamp(var(--sl-text-3xl), calc(0.5rem + 3.5vw), var(--sl-text-5xl));
+  max-width: 22ch;
+}
+
+.home-terminal {
+  /* Enfant d'un conteneur flex : sans min-width: 0, sa ligne la plus longue élargit la page sur mobile. */
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.5rem;
+  background: var(--sl-color-gray-6);
+  color: var(--sl-color-gray-2);
+  font-family: var(--sl-font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  white-space: pre;
+  overflow-x: auto;
+  text-align: start;
+}
+
+.home-terminal .cmd {
+  color: var(--sl-color-white);
+  font-weight: 500;
+}
+
+.home-terminal .hl {
+  color: var(--sl-color-accent-high);
+  font-weight: 600;
+}
+
+.home-terminal .comment {
+  color: var(--sl-color-gray-3);
+  font-style: italic;
+}
+
+/* ---- Blocs de l'accueil ---------------------------------------------- */
+
+.sl-markdown-content .home-section {
+  margin-top: 4rem;
+}
+
+/* Starlight enveloppe chaque titre dans .sl-heading-wrapper (titre + lien d'ancre). */
+.sl-markdown-content .home-section > .sl-heading-wrapper {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
+.sl-markdown-content .home-section h2 {
+  font-size: var(--sl-text-2xl);
+}
+
+/* Les quatre étapes d'une page */
+.sl-markdown-content ol.home-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1.5rem 2rem;
+  counter-reset: step;
+}
+
+.sl-markdown-content .home-steps > li {
+  margin: 0;
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--sl-color-gray-5);
+  counter-increment: step;
+  color: var(--sl-color-gray-2);
+}
+
+.home-steps > li::before {
+  content: counter(step, decimal-leading-zero);
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--sl-font-mono);
+  font-size: var(--sl-text-xs);
+  color: var(--sl-color-accent);
+}
+
+.home-steps strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: var(--sl-text-lg);
+  font-weight: 600;
+  color: var(--sl-color-white);
+}
+
+/* La liste des situations publiées */
+.sl-markdown-content ul.home-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--sl-color-gray-5);
+}
+
+.sl-markdown-content .home-list > li {
+  margin: 0;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--sl-color-gray-5);
+  display: grid;
+  gap: 0.35rem;
+}
+
+.home-list a {
+  font-size: var(--sl-text-lg);
+  font-weight: 600;
+  color: var(--sl-color-white);
+  text-decoration: none;
+}
+
+.home-list a:hover {
+  color: var(--sl-color-accent-high);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.sl-markdown-content .home-list p {
+  margin: 0;
+  font-size: var(--sl-text-sm);
+  color: var(--sl-color-gray-2);
+}
+
+.home-list small {
+  font-family: var(--sl-font-mono);
+  font-size: var(--sl-text-xs);
+  color: var(--sl-color-gray-3);
+}
+
+/* Les quatre entrées */
+.home-entries {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1.5rem 2.5rem;
+}
+
+.sl-markdown-content .home-entries > p {
+  margin: 0;
+  color: var(--sl-color-gray-2);
+}
+
+.home-entries strong a {
+  font-size: var(--sl-text-lg);
+  color: var(--sl-color-white);
+  text-decoration: none;
+}
+
+.home-entries strong a:hover {
+  color: var(--sl-color-accent-high);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }

@@ -4,6 +4,7 @@ import starlight from '@astrojs/starlight';
 import starlightLinksValidator from 'starlight-links-validator';
 import { satteri } from '@astrojs/markdown-satteri';
 import { baseLinksPlugin } from './src/plugins/base-links.mjs';
+import { pluginConsolePrompts } from './src/plugins/expressive-code-prompts.mjs';
 
 // Adresse du site. Sur GitHub Pages, le site vit sous /git-en-situation/.
 // Avec un domaine à nous, il suffira de changer ces deux valeurs : les liens
@@ -23,6 +24,7 @@ export default defineConfig({
     starlight({
       title: 'Git en situation',
       description: 'Git et GitHub, à partir des situations que tu vis vraiment.',
+      logo: { src: './src/assets/logo.svg', alt: '' },
       defaultLocale: 'root',
       locales: {
         root: { label: 'Français', lang: 'fr' },
@@ -41,7 +43,19 @@ export default defineConfig({
       components: {
         PageTitle: './src/components/PageTitle.astro',
       },
-      customCss: ['./src/styles/custom.css'],
+      expressiveCode: {
+        plugins: [pluginConsolePrompts()],
+      },
+      customCss: [
+        // Polices auto-hébergées (Fontsource) : rien n'est chargé depuis un service tiers.
+        '@fontsource/ibm-plex-sans/400.css',
+        '@fontsource/ibm-plex-sans/400-italic.css',
+        '@fontsource/ibm-plex-sans/500.css',
+        '@fontsource/ibm-plex-sans/600.css',
+        '@fontsource/ibm-plex-mono/400.css',
+        '@fontsource/ibm-plex-mono/500.css',
+        './src/styles/custom.css',
+      ],
       plugins: [starlightLinksValidator()],
     }),
   ],

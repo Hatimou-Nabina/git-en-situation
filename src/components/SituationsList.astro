@@ -1,0 +1,31 @@
+---
+/**
+ * Liste des situations publiées, lue dans la collection de contenu : la
+ * page d'accueil reste exacte sans qu'on y pense.
+ */
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const levels: Record<string, string> = { debutant: 'débutant', intermediaire: 'intermédiaire', avance: 'avancé' };
+
+const situations = (await getCollection('docs', ({ id }) => id.startsWith('situations/'))).sort((a, b) =>
+  a.data.title.localeCompare(b.data.title, 'fr'),
+);
+---
+
+<ul class="home-list">
+  {
+    situations.map(({ id, data }) => (
+      <li>
+        <a href={`${base}/${id}/`}>{data.title}</a>
+        <p>{data.description}</p>
+        {data.level && (
+          <small>
+            {levels[data.level]}
+            {data.gitVersion && ` · Git ${data.gitVersion}`}
+          </small>
+        )}
+      </li>
+    ))
+  }
+</ul>
