@@ -7,9 +7,24 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Catalogue par thèmes
+## [Non publié] — Phase 1, lot 3 : avec les autres
 
-Branche `site/catalogue-par-themes`, partie de `main` (`0487e6f`).
+Branche `situations/lot-3-avec-les-autres`, partie de `main` (`c447868`).
+
+### Contenu
+
+- **Nouveau thème « Avec les autres »** (`situations/avec-les-autres/`), avec sa vue d'ensemble.
+- **Quatre situations**, avec leurs scripts et leurs sorties réelles (Git 2.50, 5 octobre 2026) :
+  - « Mettre ma branche à jour avec main » (rebase ou merge, comparés sur le même état ; `push --force-with-lease`, et ce qu'il empêche quand un collègue a poussé entre-temps) ;
+  - « Ma branche locale est en retard après une fusion sur GitHub » (`pull --ff-only`, ménage de la branche fusionnée, et le cas où `--ff-only` refuse) ;
+  - « Deux comptes GitHub sur le même poste » (`includeIf gitdir`, alias d'hôte SSH avec `IdentitiesOnly`, `remote set-url` ; la connexion SSH est citée, pas rejouée) ;
+  - « Travailler sur le même projet depuis deux machines » (ce qui voyage et ce qui ne voyage pas, `git log --branches --not --remotes`, routines en partant et en arrivant).
+
+---
+
+## 5 octobre 2026 · Catalogue par thèmes — en ligne le 5 octobre 2026
+
+Branche `site/catalogue-par-themes`, partie de `main` (`0487e6f`), fusionnée par la PR #4 (`c447868`).
 
 ### Site
 

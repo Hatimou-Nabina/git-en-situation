@@ -15,4 +15,9 @@ export const themes = {
     labelEn: 'Repair',
     description: "Quand on croit avoir cassé quelque chose : mauvais commit, mauvaise branche, conflit, commit perdu.",
   },
+  'avec-les-autres': {
+    label: 'Avec les autres',
+    labelEn: 'With others',
+    description: "Quand le travail des autres rencontre le tien : branche à mettre à jour, fusion faite sur GitHub, deux comptes, deux machines.",
+  },
 };
