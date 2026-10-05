@@ -23,6 +23,8 @@ Les issues étiquetées [« bonne première contribution »](https://github.com/
 2. **Signaler une erreur** : une commande fausse, une sortie qui ne correspond pas à la tienne, une explication trompeuse, une faute : [ouvre une issue](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=signaler-une-erreur.yml).
 3. **Écrire ou corriger une page**, par une pull request. La suite de ce document explique comment.
 
+**Une question, plutôt qu'une contribution ?** « Par où je commence ? », « est-ce que cette situation vaut une page ? » : les [Discussions](https://github.com/Hatimou-Nabina/git-en-situation/discussions) sont faites pour ça. Les issues restent pour ce qui est actionnable : une situation précise, une erreur repérée.
+
 Les traductions viendront après la version française : voir « Traduire » en fin de document.
 
 ## Installer le projet
