@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Situation : supprimer une vieille branche sans rien perdre.
-# Page : src/content/docs/situations/supprimer-une-vieille-branche-sans-rien-perdre.md
+# Page : src/content/docs/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre.md
 source "$(dirname "$0")/_lib.sh"
 setup_team
 

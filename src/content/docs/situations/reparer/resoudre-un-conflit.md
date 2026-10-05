@@ -5,6 +5,7 @@ level: intermediaire
 risk: reversible
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme
@@ -173,9 +174,9 @@ Git fusionne ligne par ligne, en comparant chaque version à l'ancêtre commun. 
 
 ## Voir aussi
 
-- [git pull me demande de choisir entre merge et rebase](/situations/git-pull-merge-ou-rebase/)
-- [Mon push est refusé, « rejected », « fetch first »](/situations/push-refuse-fetch-first/)
-- [Annuler un commit déjà poussé](/situations/annuler-un-commit-deja-pousse/)
+- [git pull me demande de choisir entre merge et rebase](/situations/quotidien/git-pull-merge-ou-rebase/)
+- [Mon push est refusé, « rejected », « fetch first »](/situations/quotidien/push-refuse-fetch-first/)
+- [Annuler un commit déjà poussé](/situations/reparer/annuler-un-commit-deja-pousse/)
 - Comprendre : *Fast-forward, fusion, rebase* (à venir)
 
 :::tip[Sorties vérifiées]

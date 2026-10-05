@@ -5,6 +5,7 @@ level: intermediaire
 risk: aucun
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme
@@ -90,9 +91,9 @@ Chaque branche a aussi son propre reflog : `git reflog show feature/recherche` m
 
 ## Voir aussi
 
-- [Annuler mon dernier commit, pas encore poussé](/situations/annuler-mon-dernier-commit/)
-- [Je suis en « detached HEAD »](/situations/detached-head/)
-- [Supprimer une vieille branche sans rien perdre](/situations/supprimer-une-vieille-branche-sans-rien-perdre/)
+- [Annuler mon dernier commit, pas encore poussé](/situations/reparer/annuler-mon-dernier-commit/)
+- [Je suis en « detached HEAD »](/situations/reparer/detached-head/)
+- [Supprimer une vieille branche sans rien perdre](/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/)
 - Comprendre : *Le reflog, ton filet de sécurité* et *Ce que Git supprime, et quand* (à venir)
 
 :::tip[Sorties vérifiées]

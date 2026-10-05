@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Situation : après un clone, je ne vois pas les branches des autres.
-# Page : src/content/docs/situations/branches-invisibles-apres-clone.md
+# Page : src/content/docs/situations/quotidien/branches-invisibles-apres-clone.md
 source "$(dirname "$0")/_lib.sh"
 setup_team
 

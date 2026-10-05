@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Situation : je suis en « detached HEAD ».
-# Page : src/content/docs/situations/detached-head.md
+# Page : src/content/docs/situations/reparer/detached-head.md
 source "$(dirname "$0")/_lib.sh"
 setup_team
 

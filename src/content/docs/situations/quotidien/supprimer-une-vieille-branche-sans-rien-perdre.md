@@ -5,6 +5,7 @@ level: intermediaire
 risk: reversible
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme
@@ -30,7 +31,7 @@ $ git branch -a
 
 La bonne question n'est pas « cette branche est-elle vieille ? » mais « **contient-elle des commits qui n'existent nulle part ailleurs ?** ». Si tous ses commits sont déjà dans `main`, la supprimer ne supprime qu'un nom. Git sait répondre à cette question à coup sûr.
 
-Commence toujours par `git fetch --prune`, pour que ta vue du serveur soit à jour (voir [Une branche distante a été supprimée, mais je la vois encore](/situations/branche-distante-supprimee-encore-visible/)).
+Commence toujours par `git fetch --prune`, pour que ta vue du serveur soit à jour (voir [Une branche distante a été supprimée, mais je la vois encore](/situations/quotidien/branche-distante-supprimee-encore-visible/)).
 
 ## Solution
 
@@ -140,7 +141,7 @@ Une branche n'est qu'un marque-page posé sur un commit. Supprimer la branche su
 
 ## Voir aussi
 
-- [Une branche distante a été supprimée, mais je la vois encore](/situations/branche-distante-supprimee-encore-visible/)
+- [Une branche distante a été supprimée, mais je la vois encore](/situations/quotidien/branche-distante-supprimee-encore-visible/)
 - Comprendre : *Une branche, c'est un marque-page* et *Le reflog, ton filet de sécurité* (à venir)
 - Travailler en équipe : *La pull request, de l'ouverture à la fusion* (à venir)
 

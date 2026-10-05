@@ -5,6 +5,7 @@ level: intermediaire
 risk: destructif
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme
@@ -111,17 +112,17 @@ Un commit ne se modifie pas : `--amend` en crée un nouveau, avec le même paren
 
 ## Pièges
 
-- **Jamais sur un commit poussé.** Amender ou reculer un commit que le serveur a déjà fait refuser le push suivant, et la tentation de forcer détruit le travail des autres. Pour un commit poussé : [Annuler un commit déjà poussé](/situations/annuler-un-commit-deja-pousse/).
-- **`--hard` efface aussi ce qui n'était pas commité.** Avant un `--hard`, `git status` ; s'il y a des modifications en cours que tu veux garder, [mets-les de côté](/situations/mettre-son-travail-de-cote/) d'abord.
+- **Jamais sur un commit poussé.** Amender ou reculer un commit que le serveur a déjà fait refuser le push suivant, et la tentation de forcer détruit le travail des autres. Pour un commit poussé : [Annuler un commit déjà poussé](/situations/reparer/annuler-un-commit-deja-pousse/).
+- **`--hard` efface aussi ce qui n'était pas commité.** Avant un `--hard`, `git status` ; s'il y a des modifications en cours que tu veux garder, [mets-les de côté](/situations/quotidien/mettre-son-travail-de-cote/) d'abord.
 - **`HEAD@{1}` n'est pas `HEAD~1`.** Le premier est une position dans le reflog, « juste avant » ; le second est le parent du commit courant. Les confondre dans un `reset --hard` mène au mauvais endroit.
 - **Pour un seul fichier**, pas besoin de défaire le commit : `git restore --source HEAD~1 chemin` remet sa version précédente, à commiter ensuite.
 - **`--amend` sans `-m` ni `--no-edit`** ouvre l'éditeur configuré pour retoucher le message. Si c'est Vim et que tu ne le connais pas : `:q!` sort sans rien changer.
 
 ## Voir aussi
 
-- [J'ai commité sur la mauvaise branche](/situations/commit-sur-la-mauvaise-branche/)
-- [Annuler un commit déjà poussé](/situations/annuler-un-commit-deja-pousse/)
-- [Retrouver un commit perdu](/situations/retrouver-un-commit-perdu/)
+- [J'ai commité sur la mauvaise branche](/situations/reparer/commit-sur-la-mauvaise-branche/)
+- [Annuler un commit déjà poussé](/situations/reparer/annuler-un-commit-deja-pousse/)
+- [Retrouver un commit perdu](/situations/reparer/retrouver-un-commit-perdu/)
 - Comprendre : *Le reflog, ton filet de sécurité* (à venir)
 
 :::tip[Sorties vérifiées]

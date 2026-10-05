@@ -5,6 +5,7 @@ level: intermediaire
 risk: reversible
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme
@@ -102,7 +103,7 @@ d0a0b32 Premier commit
 
 Le commit copié a un nouvel identifiant, `4c2654e` est devenu `f4c3525` : même contenu, autre parent, donc autre commit.
 
-**Cas 3 : le commit est déjà poussé.** Ne réécris pas une branche que d'autres ont récupérée. Sur `main`, laisse-le et annule-le proprement si besoin : [Annuler un commit déjà poussé](/situations/annuler-un-commit-deja-pousse/). Sur ta propre branche de travail, pas encore relue par personne, les cas 1 et 2 s'appliquent, suivis d'un `git push --force-with-lease`.
+**Cas 3 : le commit est déjà poussé.** Ne réécris pas une branche que d'autres ont récupérée. Sur `main`, laisse-le et annule-le proprement si besoin : [Annuler un commit déjà poussé](/situations/reparer/annuler-un-commit-deja-pousse/). Sur ta propre branche de travail, pas encore relue par personne, les cas 1 et 2 s'appliquent, suivis d'un `git push --force-with-lease`.
 
 ## Pourquoi ça marche
 
@@ -113,15 +114,15 @@ Rien n'est supprimé : après le reset, le commit `5b5dda8` reste atteignable de
 ## Pièges
 
 - **Vérifie que le commit n'est pas poussé** avant de reculer une branche : `git status` doit dire « ahead ». S'il dit « up to date with 'origin/main' » alors que le commit y est, il est poussé : cas 3.
-- **Oublier l'étape `git branch`** avant le reset rend le commit invisible. Il n'est pas perdu : [Retrouver un commit perdu](/situations/retrouver-un-commit-perdu/).
+- **Oublier l'étape `git branch`** avant le reset rend le commit invisible. Il n'est pas perdu : [Retrouver un commit perdu](/situations/reparer/retrouver-un-commit-perdu/).
 - **Plusieurs commits** : `git reset --keep origin/main` recule d'un coup tous les commits non poussés, et la branche posée avant les garde tous. Pour le cas 2, `cherry-pick` accepte une plage : `git cherry-pick 3481de9..feature/export`.
 - **`git reset --hard`** fait la même chose que `--keep` ici, mais efface aussi tout travail non commité. Réserve-le aux cas où c'est voulu.
 
 ## Voir aussi
 
-- [Annuler mon dernier commit, pas encore poussé](/situations/annuler-mon-dernier-commit/)
-- [Annuler un commit déjà poussé](/situations/annuler-un-commit-deja-pousse/)
-- [Retrouver un commit perdu](/situations/retrouver-un-commit-perdu/)
+- [Annuler mon dernier commit, pas encore poussé](/situations/reparer/annuler-mon-dernier-commit/)
+- [Annuler un commit déjà poussé](/situations/reparer/annuler-un-commit-deja-pousse/)
+- [Retrouver un commit perdu](/situations/reparer/retrouver-un-commit-perdu/)
 - Comprendre : *Une branche, c'est un marque-page* (à venir)
 
 :::tip[Sorties vérifiées]

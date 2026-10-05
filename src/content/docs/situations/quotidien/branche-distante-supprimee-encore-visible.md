@@ -5,6 +5,7 @@ level: debutant
 risk: aucun
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme
@@ -58,7 +59,7 @@ $ git branch -d feature/export-pdf
 Deleted branch feature/export-pdf (was 7abda0a).
 ```
 
-Le `-d` minuscule est prudent : il refuse si la branche contient des commits qui n'existent nulle part ailleurs. S'il refuse, lis [Supprimer une vieille branche sans rien perdre](/situations/supprimer-une-vieille-branche-sans-rien-perdre/) avant d'insister.
+Le `-d` minuscule est prudent : il refuse si la branche contient des commits qui n'existent nulle part ailleurs. S'il refuse, lis [Supprimer une vieille branche sans rien perdre](/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/) avant d'insister.
 
 **3. Pour ne plus y penser.**
 
@@ -85,7 +86,7 @@ Ta branche locale, elle, t'appartient. Git ne la supprimera jamais sans qu'on le
 
 ## Voir aussi
 
-- [Supprimer une vieille branche sans rien perdre](/situations/supprimer-une-vieille-branche-sans-rien-perdre/)
+- [Supprimer une vieille branche sans rien perdre](/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/)
 - Comprendre : *Les remotes et les références distantes* (à venir)
 
 :::tip[Sorties vérifiées]

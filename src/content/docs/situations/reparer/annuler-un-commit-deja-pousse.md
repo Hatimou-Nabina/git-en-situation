@@ -5,6 +5,7 @@ level: intermediaire
 risk: aucun
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme
@@ -96,16 +97,16 @@ Ce qui est poussé est, par convention, définitif. Cette règle rend tout le re
 ## Pièges
 
 - **Un commit de fusion** a deux parents : `git revert` demande lequel garder, `-m 1` pour la branche sur laquelle on a fusionné. Sur GitHub, le bouton « Revert » d'une pull request fusionnée fait exactement ça, en ouvrant une PR.
-- **Un conflit** peut survenir si des commits postérieurs ont touché les mêmes lignes. Il se résout comme n'importe quel autre, puis `git revert --continue`. Voir [Un conflit pendant un merge ou un rebase](/situations/resoudre-un-conflit/).
+- **Un conflit** peut survenir si des commits postérieurs ont touché les mêmes lignes. Il se résout comme n'importe quel autre, puis `git revert --continue`. Voir [Un conflit pendant un merge ou un rebase](/situations/reparer/resoudre-un-conflit/).
 - **Plusieurs commits d'un coup** : `git revert --no-edit HEAD~2..HEAD` les annule du plus récent au plus ancien, un commit d'annulation chacun.
 - **Annuler un revert** : `git revert` du commit de revert remet le changement. Pratique quand on annule en urgence et qu'on réapplique une version corrigée plus tard.
-- **Sur ta propre branche, pas encore relue**, réécrire reste acceptable : voir [Annuler mon dernier commit, pas encore poussé](/situations/annuler-mon-dernier-commit/) et `--force-with-lease`. Sur `main`, jamais.
+- **Sur ta propre branche, pas encore relue**, réécrire reste acceptable : voir [Annuler mon dernier commit, pas encore poussé](/situations/reparer/annuler-mon-dernier-commit/) et `--force-with-lease`. Sur `main`, jamais.
 
 ## Voir aussi
 
-- [Annuler mon dernier commit, pas encore poussé](/situations/annuler-mon-dernier-commit/)
-- [J'ai commité sur la mauvaise branche](/situations/commit-sur-la-mauvaise-branche/)
-- [Mon push est refusé, « rejected », « fetch first »](/situations/push-refuse-fetch-first/)
+- [Annuler mon dernier commit, pas encore poussé](/situations/reparer/annuler-mon-dernier-commit/)
+- [J'ai commité sur la mauvaise branche](/situations/reparer/commit-sur-la-mauvaise-branche/)
+- [Mon push est refusé, « rejected », « fetch first »](/situations/quotidien/push-refuse-fetch-first/)
 - Travailler en équipe : *Protéger la branche principale* (à venir)
 
 :::tip[Sorties vérifiées]

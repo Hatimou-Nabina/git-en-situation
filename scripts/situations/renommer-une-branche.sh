@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Situation : renommer une branche, en local et sur le serveur.
-# Page : src/content/docs/situations/renommer-une-branche.md
+# Page : src/content/docs/situations/quotidien/renommer-une-branche.md
 source "$(dirname "$0")/_lib.sh"
 setup_team
 

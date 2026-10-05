@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Situation : mettre mon travail en cours de côté pour changer de branche.
-# Page : src/content/docs/situations/mettre-son-travail-de-cote.md
+# Page : src/content/docs/situations/quotidien/mettre-son-travail-de-cote.md
 source "$(dirname "$0")/_lib.sh"
 setup_team
 

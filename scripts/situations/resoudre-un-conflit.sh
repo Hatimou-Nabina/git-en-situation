@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Situation : un conflit pendant un merge ou un rebase.
-# Page : src/content/docs/situations/resoudre-un-conflit.md
+# Page : src/content/docs/situations/reparer/resoudre-un-conflit.md
 source "$(dirname "$0")/_lib.sh"
 setup_team
 

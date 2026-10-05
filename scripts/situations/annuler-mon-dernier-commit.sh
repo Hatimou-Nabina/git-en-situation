@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Situation : annuler mon dernier commit, pas encore poussé.
-# Page : src/content/docs/situations/annuler-mon-dernier-commit.md
+# Page : src/content/docs/situations/reparer/annuler-mon-dernier-commit.md
 source "$(dirname "$0")/_lib.sh"
 setup_team
 

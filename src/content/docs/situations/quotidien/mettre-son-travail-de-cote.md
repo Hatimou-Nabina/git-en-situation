@@ -5,6 +5,7 @@ level: debutant
 risk: aucun
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme
@@ -96,7 +97,7 @@ Comme c'est un commit, un stash se garde indéfiniment, se liste, se montre avec
 
 ## Voir aussi
 
-- [Voir ce qui a changé entre ma branche et main](/situations/voir-ce-qui-a-change/)
+- [Voir ce qui a changé entre ma branche et main](/situations/quotidien/voir-ce-qui-a-change/)
 - Comprendre : *L'index, l'étape entre ton dossier et le commit* (à venir)
 
 :::tip[Sorties vérifiées]

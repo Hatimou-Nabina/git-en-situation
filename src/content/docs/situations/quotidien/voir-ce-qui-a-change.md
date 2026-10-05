@@ -5,6 +5,7 @@ level: debutant
 risk: aucun
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme
@@ -98,8 +99,8 @@ Les deux notations sont nées séparément, pour des commandes différentes, et 
 
 ## Voir aussi
 
-- [Supprimer une vieille branche sans rien perdre](/situations/supprimer-une-vieille-branche-sans-rien-perdre/), qui utilise `main..branche` pour vérifier qu'il ne reste rien
-- [Mettre mon travail en cours de côté pour changer de branche](/situations/mettre-son-travail-de-cote/)
+- [Supprimer une vieille branche sans rien perdre](/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/), qui utilise `main..branche` pour vérifier qu'il ne reste rien
+- [Mettre mon travail en cours de côté pour changer de branche](/situations/quotidien/mettre-son-travail-de-cote/)
 - Commandes : *log*, *diff* (à venir)
 
 :::tip[Sorties vérifiées]

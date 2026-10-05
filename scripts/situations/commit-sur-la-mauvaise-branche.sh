@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Situation : j'ai commité sur la mauvaise branche.
-# Page : src/content/docs/situations/commit-sur-la-mauvaise-branche.md
+# Page : src/content/docs/situations/reparer/commit-sur-la-mauvaise-branche.md
 source "$(dirname "$0")/_lib.sh"
 setup_team
 
