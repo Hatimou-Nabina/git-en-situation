@@ -114,6 +114,37 @@ npm run build     # doit passer : liens valides, en-têtes conformes au schéma
 
 Ouvre la pull request depuis une branche nommée `situation/<slug>` (ou `fix/<sujet>`, `site/<sujet>`). Le gabarit de PR liste ce qu'on vérifie. Une PR = une page, ou une correction cohérente.
 
+## Écrire une page « Comprendre »
+
+Ces pages expliquent le modèle de Git, pas une panne. Elles ont aussi un script, dans `scripts/comprendre/`, qui utilise la même bibliothèque (`source "$(dirname "$0")/../situations/_lib.sh"`) : montrer l'intérieur d'un commit ou d'une branche avec de vraies sorties vaut mieux qu'un schéma. Plan fixe :
+
+```markdown
+---
+title: L'idée en une phrase, à l'affirmative (« Une branche, c'est un marque-page »)
+description: Deux phrases qui disent l'idée et ce qu'elle rend évident.
+level: debutant | intermediaire | avance
+gitVersion: "2.50"
+verified: 2026-10-05
+published: 2026-10-05
+sidebar:
+  order: 5      # ordre de lecture dans la section
+---
+
+## L'idée
+Le concept nu, en quelques phrases, sans commande.
+
+## Voir par soi-même
+Les commandes qui montrent le concept, avec leurs vraies sorties.
+
+## Ce que ça change dans la pratique
+Les conséquences, en liste : ce qui devient évident, ce qu'on ne fait plus.
+
+## Où ça sert
+Les situations qui reposent sur cette idée.
+```
+
+Pas de champ `risk` : on ne répare rien ici. Même règle que pour les situations : toute sortie vient du script, et le bloc « Sorties vérifiées » le cite.
+
 ## Les commits
 
 Format conventionnel, en français, à l'impératif, sans point final. Le scope dit la section touchée.

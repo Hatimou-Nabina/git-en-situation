@@ -7,9 +7,30 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 1, lot 4 : fichiers et dépôt
+## [Non publié] — Phase 1, lot 5 : comprendre
 
-Branche `situations/lot-4-fichiers`, partie de `main`.
+Branche `comprendre/lot-5`, partie de `main` (`d725d91`).
+
+### Contenu
+
+- **Quatre pages « Comprendre »**, chacune avec son script dans `scripts/comprendre/` et ses sorties réelles (Git 2.50, 5 octobre 2026) :
+  - « Un commit, c'est un instantané » (`cat-file -p`, l'arbre, un même fichier stocké une fois, l'amend qui change l'identifiant) ;
+  - « Une branche, c'est un marque-page » (`.git/HEAD`, `.git/refs/heads/`, `branch --contains`, la suppression qui ne supprime pas le commit) ;
+  - « Les remotes et les références distantes » (les trois `main`, `show-ref`, le lien de suivi, `fetch` qui ne bouge que la copie, `switch origin/main` refusé) ;
+  - « Fast-forward, fusion, rebase » (les trois cas sur le même état, `merge-base`, les deux parents d'un commit de merge, `--no-ff`, les boutons de GitHub).
+- La page d'entrée « Comprendre » devient un sommaire : les quatre pages dans l'ordre de lecture, puis les six prévues.
+- Dans les situations, les mentions « (à venir) » de ces pages deviennent des liens.
+
+### Pour les contributeurs
+
+- Gabarit des pages « Comprendre » dans `CONTRIBUTING.md` : l'idée, voir par soi-même, ce que ça change dans la pratique, où ça sert.
+- Le workflow « Rejouer les situations » exécute aussi `scripts/comprendre/`.
+
+---
+
+## 5 octobre 2026 · Phase 1, lot 4 : fichiers et dépôt — en ligne le 5 octobre 2026
+
+Branche `situations/lot-4-fichiers`, partie de `main` (`7c511ae`), fusionnée par la PR #7 (`d725d91`).
 
 ### Contenu
 
