@@ -145,6 +145,26 @@ Les situations qui reposent sur cette idée.
 
 Pas de champ `risk` : on ne répare rien ici. Même règle que pour les situations : toute sortie vient du script, et le bloc « Sorties vérifiées » le cite.
 
+## Écrire une page « Travailler en équipe »
+
+Ces pages décrivent une façon de travailler, et commencent toujours par ce qu'elle évite : c'est l'argument, le reste est la méthode. Script dans `scripts/equipe/`, même bibliothèque. Ce qui est propre à GitHub est dans sa propre section, pour que le reste vaille sur tout serveur Git. Plan fixe :
+
+```markdown
+## Ce que ça évite
+Le problème concret, vécu, que cette pratique fait disparaître.
+
+## Comment on fait
+Les étapes, avec les commandes et leurs vraies sorties.
+
+## Sur GitHub
+Ce qui est propre à GitHub : boutons, réglages, gh.
+
+## Pièges
+Les dérives habituelles de la pratique.
+
+## Voir aussi
+```
+
 ## Les commits
 
 Format conventionnel, en français, à l'impératif, sans point final. Le scope dit la section touchée.

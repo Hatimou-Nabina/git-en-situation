@@ -7,9 +7,34 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 1, lot 5 : comprendre
+## [Non publié] — Phase 1, lot 6 : travailler en équipe
 
-Branche `comprendre/lot-5`, partie de `main` (`d725d91`).
+Branche `equipe/lot-6`, partie de `main` (`9778ef0`).
+
+### Contenu
+
+- **Deux pages « Travailler en équipe »**, chacune avec son script dans `scripts/equipe/` et ses sorties réelles (Git 2.50, 5 octobre 2026) :
+  - « La pull request, de l'ouverture à la fusion » (branche, commits, push, ce que la PR contiendra, une remarque en relecture, la fusion, le nettoyage ; les dernières PR fusionnées de ce site vues par `gh`) ;
+  - « Les commits conventionnels » (format, types, corps et pied de page, filtrage par type, bilan par type, hook `commit-msg` qui refuse un message hors format).
+- La page d'entrée « Travailler en équipe » devient un sommaire : les deux pages, puis les dix prévues.
+- **Fin de la phase 1** : 23 situations dans quatre thèmes, 4 pages « Comprendre », 2 pages « Travailler en équipe », toutes adossées à un script rejoué sur Windows et sur Ubuntu.
+
+### Pour les contributeurs
+
+- Gabarit des pages « Travailler en équipe » dans `CONTRIBUTING.md` : ce que ça évite, comment on fait, sur GitHub, pièges.
+- Le workflow « Rejouer les situations » exécute aussi `scripts/equipe/`.
+
+### Suite prévue
+
+- **Phase 2** : la section « Travailler en équipe » complète (dix pages prévues), puis les fiches « Commandes ».
+- **Phase 3** : vérification automatique en CI que les sorties des pages correspondent toujours aux scripts ; exercices dans un dépôt bac à sable.
+- **Phase 4** : traduction anglaise, animation de la communauté.
+
+---
+
+## 5 octobre 2026 · Phase 1, lot 5 : comprendre — en ligne le 5 octobre 2026
+
+Branche `comprendre/lot-5`, partie de `main` (`d725d91`), fusionnée par la PR #8 (`9778ef0`).
 
 ### Contenu
 
