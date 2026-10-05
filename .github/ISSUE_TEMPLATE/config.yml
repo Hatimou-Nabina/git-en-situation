@@ -1,1 +1,5 @@
 blank_issues_enabled: true
+contact_links:
+  - name: Poser une question
+    url: https://github.com/Hatimou-Nabina/git-en-situation/discussions
+    about: Une question, une idée pas encore mûre, un doute du genre « est-ce que ça vaut une page ? » — les Discussions sont faites pour ça.
