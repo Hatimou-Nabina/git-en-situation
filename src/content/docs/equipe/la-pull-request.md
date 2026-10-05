@@ -17,7 +17,7 @@ La pull request est l'unité de changement : une branche, une description, une r
 
 ## Comment on fait
 
-**1. Partir d'un `main` à jour, sur une branche au nom parlant.**
+**1. Partir d'un `main` à jour, sur une branche au nom parlant.** [Une branche par changement](/equipe/une-branche-par-changement/), pas une de plus.
 
 ```console
 $ git switch main
@@ -108,7 +108,7 @@ Ce site s'applique la règle : chaque changement depuis son premier jour est pas
 - **Une PR « Draft »** s'ouvre tôt, pour montrer une direction avant qu'elle soit finie ; elle ne peut pas être fusionnée par erreur.
 - **« Files changed »**, c'est `git diff main...feature/recherche` : ce que la branche a changé depuis qu'elle a quitté `main`, sans ce que `main` a reçu entre-temps.
 - **La relecture** a trois issues : commenter, approuver, demander des changements. Chaque conversation se résout quand la remarque est traitée.
-- **Les règles de la branche** (Settings → Rules) imposent la PR, les vérifications requises et l'interdiction du push forcé. Avec une seule personne dans le projet, zéro approbation requise : GitHub interdit de s'approuver soi-même.
+- **Les règles de la branche** (Settings → Rules) imposent la PR, les vérifications requises et l'interdiction du push forcé. Avec une seule personne dans le projet, zéro approbation requise : GitHub interdit de s'approuver soi-même. Le détail : [Protéger la branche principale](/equipe/proteger-la-branche-principale/).
 - **Les trois boutons de fusion** : « Create a merge commit » garde les commits et ajoute un commit de merge, « Squash and merge » les fond en un seul dont le message est le titre de la PR, « Rebase and merge » les recopie un par un sur `main`. Le détail est dans [Fast-forward, fusion, rebase](/comprendre/fast-forward-fusion-rebase/).
 - **« Automatically delete head branches »**, dans Settings → General, supprime la branche à la fusion ; il ne reste que le `fetch --prune` sur chaque poste.
 - **`gh`** fait tout depuis le terminal : `gh pr create`, `gh pr checks`, `gh pr view --web`, `gh pr merge`.

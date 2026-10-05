@@ -128,12 +128,12 @@ Le rebase rend ton commit descendant de celui du serveur. Le *fast-forward* rede
 
 - **Ne force jamais sur une branche partagée.** `git push --force` ferait précisément ce que Git vient d'empêcher : effacer le commit de l'autre. Sur une branche à toi, après un rebase volontaire, utilise `git push --force-with-lease`, qui refuse si quelqu'un a poussé entre-temps.
 - **« fetch first » et « non-fast-forward »** sont deux formulations de la même situation. La première quand tu n'as pas encore récupéré les commits du serveur, la seconde quand tu les as récupérés sans les intégrer.
-- **Un message différent sur GitHub**, du genre `protected branch hook declined` ou `GH006`, n'est pas cette situation : la branche est protégée et attend une pull request.
+- **Un message différent sur GitHub**, du genre `protected branch hook declined` ou `GH006`, n'est pas cette situation : la branche est protégée et attend une pull request. Voir [Protéger la branche principale](/equipe/proteger-la-branche-principale/).
 
 ## Voir aussi
 
 - [Comprendre : fast-forward, fusion, rebase](/comprendre/fast-forward-fusion-rebase/)
-- Travailler en équipe : *Protéger la branche principale* (à venir)
+- [Travailler en équipe : protéger la branche principale](/equipe/proteger-la-branche-principale/)
 
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/push-refuse-fetch-first.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/push-refuse-fetch-first.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.

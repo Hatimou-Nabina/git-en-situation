@@ -7,9 +7,28 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Les Discussions pour les questions
+## [Non publié] — Phase 2, lot 7 : travailler en équipe, trois pages
 
-Branche `docs/discussions`, partie de `main` (`0fd47ac`).
+Branche `equipe/lot-7`, partie de `main` (`c559e5b`).
+
+### Contenu
+
+- **Trois pages « Travailler en équipe »**, chacune avec son script dans `scripts/equipe/` et ses sorties réelles (Git 2.50, 5 octobre 2026) :
+  - « Une branche par changement » (nommer, une intention par branche, voir ce que `main` a reçu entre-temps, hook `pre-commit` qui refuse le commit sur `main`, `branch -d` qui refuse une branche non fusionnée) ;
+  - « Protéger la branche principale » (le push forcé qui efface le commit d'un collègue, `receive.denyNonFastForwards` et `receive.denyDeletes` sur le serveur, hook `update` qui impose la pull request, le commit déplacé sur une branche) ;
+  - « Les secrets ne vont jamais dans le dépôt » (`.env` ignoré et `.env.example` versionné, `check-ignore -v`, l'application qui lit l'environnement, hook `pre-commit` qui refuse un `.env` ou une clé, recherche dans l'historique avec `log -S`).
+- Le sommaire « Travailler en équipe » passe à cinq pages disponibles, six prévues. Dans les pages qui les citaient « (à venir) », les mentions deviennent des liens : « Mon push est refusé », « Annuler un commit déjà poussé », « J'ai poussé un secret par erreur », « .gitignore ne marche pas », « Deux comptes GitHub », et la page « pull request ».
+
+### Pour les contributeurs
+
+- Les étiquettes `situation`, `à trier` et `erreur`, que les gabarits d'issue déclaraient sans qu'elles existent sur le dépôt, sont créées : les issues ouvertes depuis un gabarit les portent désormais.
+- `CLAUDE.md` : dans le shell de l'outil, `$'\r'` n'est pas interprété ; les fins de ligne se vérifient avec `file` ou `git ls-files --eol`.
+
+---
+
+## 5 octobre 2026 · Les Discussions pour les questions — en ligne le 5 octobre 2026
+
+Branche `docs/discussions`, partie de `main` (`0fd47ac`), fusionnée par la PR #15 (`c559e5b`).
 
 ### Pour les contributeurs
 

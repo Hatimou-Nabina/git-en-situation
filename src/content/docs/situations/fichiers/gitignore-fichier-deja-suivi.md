@@ -119,7 +119,7 @@ Git tient la liste des fichiers suivis dans l'**index**. Les règles du `.gitign
 
 - [J'ai poussé un secret par erreur](/situations/fichiers/secret-pousse-par-erreur/)
 - [Travailler sur le même projet depuis deux machines](/situations/avec-les-autres/travailler-depuis-deux-machines/)
-- Travailler en équipe : *Les secrets ne vont jamais dans le dépôt* (à venir)
+- [Travailler en équipe : les secrets ne vont jamais dans le dépôt](/equipe/secrets-jamais-dans-le-depot/)
 
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/gitignore-fichier-deja-suivi.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/gitignore-fichier-deja-suivi.sh), exécuté avec Git 2.50 le 5 octobre 2026. Le `.gitignore` en UTF-16 y est fabriqué avec `iconv`, tel que PowerShell 5 l'écrirait. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
