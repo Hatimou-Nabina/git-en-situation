@@ -1,0 +1,33 @@
+---
+title: Git en situation
+description: Git et GitHub, à partir des situations que tu vis vraiment. Des réponses courtes, vérifiées, qui expliquent le pourquoi.
+template: splash
+hero:
+  tagline: Personne ne cherche « fetch prune ». On cherche « je vois encore une branche qui a été supprimée ». Ce site part de là.
+  actions:
+    - text: Voir les situations
+      # Seul endroit du contenu où la base apparaît : Starlight ne la préfixe pas aux liens du héros.
+      link: /git-en-situation/situations/
+      icon: right-arrow
+    - text: Proposer une situation
+      link: https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=proposer-une-situation.yml
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+  <Card title="Situations" icon="magnifier">
+    Le cœur du site. Un symptôme, un diagnostic, une solution, et surtout pourquoi ça marche. Chaque commande a été réellement exécutée : la sortie affichée est la vraie. [Parcourir les situations](/situations/).
+  </Card>
+  <Card title="Comprendre" icon="open-book">
+    Le modèle mental de Git en dix pages courtes : commits, références, branches, remotes, index, HEAD, reflog. La plupart des galères viennent de là, pas d'une option oubliée. [Section en construction](/comprendre/).
+  </Card>
+  <Card title="Travailler en équipe" icon="seti:github">
+    Branches, pull requests, revue de code, commits conventionnels, changelog, protections, secrets. Ce qui manque le plus aux autodidactes et aux petites équipes. [Section en construction](/equipe/).
+  </Card>
+  <Card title="Commandes" icon="laptop">
+    Une fiche par commande, limitée à celles qui comptent et aux options utiles, chacune renvoyant aux situations où elle sert. [Section en construction](/commandes/).
+  </Card>
+</CardGrid>
