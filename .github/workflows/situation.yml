@@ -16,6 +16,7 @@ on:
       - "scripts/situations/**"
       - "scripts/comprendre/**"
       - "scripts/equipe/**"
+      - "scripts/commandes/**"
       - ".github/workflows/situation.yml"
   workflow_dispatch:
     inputs:
@@ -42,9 +43,9 @@ jobs:
           SCRIPT: ${{ inputs.script }}
         run: |
           if [ -n "$SCRIPT" ]; then
-            scripts=$(ls scripts/situations/"$SCRIPT".sh scripts/comprendre/"$SCRIPT".sh scripts/equipe/"$SCRIPT".sh 2>/dev/null)
+            scripts=$(ls scripts/situations/"$SCRIPT".sh scripts/comprendre/"$SCRIPT".sh scripts/equipe/"$SCRIPT".sh scripts/commandes/"$SCRIPT".sh 2>/dev/null)
           else
-            scripts=$(ls scripts/situations/*.sh scripts/comprendre/*.sh scripts/equipe/*.sh | grep -v '/_lib.sh$')
+            scripts=$(ls scripts/situations/*.sh scripts/comprendre/*.sh scripts/equipe/*.sh scripts/commandes/*.sh | grep -v '/_lib.sh$')
           fi
           for s in $scripts; do
             echo "=================== $s"
