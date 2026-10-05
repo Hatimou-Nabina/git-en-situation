@@ -45,9 +45,11 @@ clean() {
 }
 
 # run <poste> <commande...> : affiche « $ commande » puis sa sortie, telle quelle.
+# La ligne de commande est nettoyée comme la sortie : un chemin du bac à sable
+# passé en argument s'affiche en adresse de serveur.
 run() {
   local dir="$1"; shift
-  echo "\$ $*"
+  echo "\$ $*" | clean
   ( cd "$SANDBOX/$dir" && "$@" 2>&1 ) | clean
   echo
 }
@@ -55,7 +57,7 @@ run() {
 # run_sh <poste> '<ligne shell>' : comme run, pour une ligne avec && ou | .
 run_sh() {
   local dir="$1" line="$2"
-  echo "\$ $line"
+  echo "\$ $line" | clean
   ( cd "$SANDBOX/$dir" && bash -c "$line" 2>&1 ) | clean
   echo
 }

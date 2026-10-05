@@ -19,12 +19,9 @@ Disponibles :
 6. [Relire une pull request](/equipe/relire-une-pull-request/) : dans quel ordre regarder, la branche sur ton poste, vérifier plutôt que croire, formuler la remarque, ne relire que ce qui a changé, quand approuver.
 7. [Branche de travail et branche de production](/equipe/branche-de-travail-et-de-production/) : `main` et `prod`, la mise en production en avance rapide, le correctif urgent reporté tout de suite, et savoir ce qui est où.
 8. [Tenir un changelog](/equipe/tenir-un-changelog/) : la section « Non publié » que chaque PR alimente, le conflit qui revient et `merge=union` qui l'évite, le brouillon depuis les commits, la version.
+9. [Versions et tags](/equipe/versions-et-tags/) : le versionnage sémantique, le tag annoté, le push qui ne l'emporte pas tout seul, `describe`, la version qui contient un correctif, la release GitHub.
+10. [CODEOWNERS, gabarits d'issue et de PR](/equipe/codeowners-gabarits-issue-pr/) : qui relit quoi, ce qu'une PR doit dire, ce qu'une issue doit contenir, et les pièges silencieux de chaque fichier.
+11. [Une CI qui vérifie ce que les postes ne voient pas](/equipe/ci-ce-que-les-postes-ne-voient-pas/) : le bit d'exécution, la casse des noms, le fichier qui n'existe que sur ton poste, et le script de vérification que la CI lance.
+12. [Forker et contribuer à un projet open source](/equipe/forker-et-contribuer/) : fork, `upstream`, une branche par contribution, la PR entre deux dépôts, se mettre à jour, garder son fork au niveau.
 
-À venir :
-
-- **Versions et tags** : versionnage sémantique, `git tag`, releases GitHub.
-- **CODEOWNERS, gabarits d'issue et de PR** : les automatismes GitHub qui font gagner du temps à tout le monde.
-- **Une CI qui vérifie ce que les postes ne voient pas** : fins de ligne, permissions, tests sur Linux.
-- **Forker et contribuer à un projet open source** : fork, branche, PR, suivre l'upstream.
-
-Tu veux écrire l'une de ces pages ? Le gabarit est dans le `CONTRIBUTING.md` du dépôt.
+La section est complète. Une pratique manque, ou une page te paraît fausse ? [Ouvre une issue](https://github.com/Hatimou-Nabina/git-en-situation/issues/new/choose), ou corrige-la : le gabarit est dans le `CONTRIBUTING.md` du dépôt.

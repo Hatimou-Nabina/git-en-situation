@@ -153,7 +153,7 @@ Les filtres attendent ; le correctif est partout. `main..prod` doit être vide h
 - **Oublier de reporter le correctif** sur `main`. À la mise en production suivante, `--ff-only` refuse, ou pire, le correctif disparaît si quelqu'un force. Le report fait partie du correctif, pas d'une tâche à part.
 - **Laisser `prod` traîner trois mois derrière `main`.** Chaque mise en production devient un événement ; des petites, souvent, valent mieux.
 - **Tout le git-flow**, `develop`, `release/*`, `hotfix/*`, `support/*`, quand deux branches suffisent. Chaque branche longue de plus est une question « où est ce commit ? » de plus.
-- **Sans tags**, impossible de dire quelle version tourne quand `prod` a avancé trois fois dans la semaine : *Versions et tags* (à venir).
+- **Sans tags**, impossible de dire quelle version tourne quand `prod` a avancé trois fois dans la semaine : [Versions et tags](/equipe/versions-et-tags/).
 - **Deux rôles, un seul nom.** `main` pour le travail ici, `main` pour la production dans le dépôt d'à côté : dans une même équipe, un nom, un rôle, partout.
 
 ## Voir aussi

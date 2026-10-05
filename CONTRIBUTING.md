@@ -11,7 +11,7 @@ Une faute, une phrase obscure, un lien cassé : tu peux corriger une page depuis
 3. **Corrige**, puis clique sur « Commit changes… ». Décris le changement en une ligne, par exemple `fix(situations): corrige une faute dans « Mon push est refusé »`, et valide avec « Propose changes ».
 4. **Ouvre la pull request** : GitHub te montre la différence et te propose « Create pull request ». Le gabarit pose trois questions, quoi, pourquoi, qu'est-ce qui a été vérifié ; pour une faute, une ligne à chaque fois suffit.
 
-Le mainteneur relit, et fusionne ou te répond sur la pull request. Si tu veux ensuite aller plus loin, la suite de ce document explique comment faire la même chose depuis ton poste.
+Le mainteneur relit, et fusionne ou te répond sur la pull request. Si tu veux ensuite aller plus loin, la suite de ce document explique comment faire la même chose depuis ton poste, et la page [Forker et contribuer à un projet open source](https://hatimou-nabina.github.io/git-en-situation/equipe/forker-et-contribuer/) du site détaille le fork, la branche et la pull request entre deux dépôts.
 
 **Ce qu'est un fork.** Un fork est une copie du dépôt sur ton compte GitHub, où tu as tous les droits. Tu écris dans ta copie et tu *proposes* au projet de reprendre ta modification : personne n'a besoin de te donner accès au dépôt d'origine, et le projet reste protégé.
 
