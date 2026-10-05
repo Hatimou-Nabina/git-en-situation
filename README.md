@@ -31,6 +31,7 @@ Une situation vécue, une correction, une page : tout est bienvenu. Le [guide de
 
 - [Proposer une situation](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=proposer-une-situation.yml)
 - [Signaler une erreur](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=signaler-une-erreur.yml)
+- [Poser une question](https://github.com/Hatimou-Nabina/git-en-situation/discussions), dans les Discussions
 
 ## Lancer le site en local
 

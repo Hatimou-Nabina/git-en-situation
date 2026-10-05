@@ -7,14 +7,24 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Ouvrir le projet aux contributions
+## [Non publié] — Les Discussions pour les questions
 
-Branche `docs/premiere-contribution`, partie de `main` (`4c361e6`).
+Branche `docs/discussions`, partie de `main` (`0fd47ac`).
+
+### Pour les contributeurs
+
+- **Les Discussions sont ouvertes**, pour les questions et les idées pas encore mûres ; les issues restent pour ce qui est actionnable. Lien dans le `CONTRIBUTING.md`, le `README.md`, et dans « New issue » (`contact_links` de `.github/ISSUE_TEMPLATE/config.yml`).
+
+---
+
+## 5 octobre 2026 · Ouvrir le projet aux contributions — en ligne le 5 octobre 2026
+
+Branche `docs/premiere-contribution`, partie de `main` (`4c361e6`), fusionnée par la PR #14 (`0fd47ac`).
 
 ### Pour les contributeurs
 
 - **« Première contribution, sans installer Git »**, en tête du `CONTRIBUTING.md` : corriger une page depuis le lien « Modifier cette page » du site, le crayon sur GitHub, le fork que GitHub crée tout seul, jusqu'à « Propose changes » et la pull request. Avec, en deux phrases, ce qu'est un fork et pourquoi on n'a pas besoin d'être membre du projet.
-- **Étiquette « bonne première contribution »** sur le dépôt, et trois premières issues qui la portent : une page « Comprendre » courte à écrire (« Upstream, la branche que la tienne suit »), une relecture de « Deux comptes GitHub sur le même poste » avec deux vrais comptes, et le rejeu des scripts sur macOS, où ils n'ont encore jamais tourné.
+- **Étiquette « bonne première contribution »** sur le dépôt, et trois premières issues qui la portent : une page « Comprendre » courte à écrire (« Upstream, la branche que la tienne suit », #11), une relecture de « Deux comptes GitHub sur le même poste » avec deux vrais comptes (#12), et le rejeu des scripts sur macOS, où ils n'ont encore jamais tourné (#13).
 
 ---
 
