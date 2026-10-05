@@ -54,7 +54,7 @@ bash scripts/situations/<slug>.sh
 
 ### 3. La page
 
-Crée `src/content/docs/situations/<slug>.md`. Le `<slug>` est celui du script : des mots en minuscules séparés par des tirets, sans accents, qui disent la situation (`push-refuse-fetch-first`, pas `probleme-push`).
+Crée `src/content/docs/situations/<theme>/<slug>.md`. Le `<slug>` est celui du script : des mots en minuscules séparés par des tirets, sans accents, qui disent la situation (`push-refuse-fetch-first`, pas `probleme-push`). Le `<theme>` est l'un des dossiers existants (`quotidien`, `reparer`…) : la barre latérale, le catalogue et la page du thème se mettent à jour tout seuls. Un thème nouveau se crée en ajoutant un dossier avec son `index.mdx`, et une entrée dans `src/themes.mjs`.
 
 ```markdown
 ---
@@ -64,6 +64,7 @@ level: debutant | intermediaire | avance
 risk: aucun | reversible | destructif
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme
@@ -94,6 +95,7 @@ Les champs de l'en-tête :
 - **`level`** : *debutant* se suit sans préparation ; *intermediaire* suppose d'être à l'aise avec les branches ; *avance* touche à l'historique ou à la configuration.
 - **`risk`** : *aucun* si rien ne peut être perdu ; *reversible* si un retour en arrière existe et est expliqué dans la page ; *destructif* si une commande peut faire perdre du travail. Dans ce cas, la page dit précisément quoi, et comment s'en prémunir.
 - **`gitVersion`** et **`verified`** : la version de Git et la date de l'exécution du script dont viennent les sorties. Si tu relances le script plus tard et que rien ne change, mets la date à jour.
+- **`published`** : la date de publication, qui ne change plus ensuite. L'accueil montre les situations les plus récentes.
 
 ### 4. Le style
 
@@ -101,7 +103,7 @@ Les champs de l'en-tête :
 - **Le titre est une recherche**, pas un intitulé de cours : « Mon push est refusé », pas « Gestion des divergences ».
 - **Les sessions de terminal** sont des blocs ` ```console ` avec le prompt `$ ` : les commandes sont mises en valeur, les sorties restent telles quelles. Pas de capture d'écran de terminal.
 - **Ce qui est propre à GitHub** est dit comme tel (« Sur GitHub, … »). Le reste vaut pour tout serveur Git.
-- **Les liens internes** s'écrivent depuis la racine, avec le slash final : `/situations/mon-slug/`. Le site ajoute lui-même son préfixe d'hébergement.
+- **Les liens internes** s'écrivent depuis la racine, avec le slash final : `/situations/<theme>/mon-slug/`. Le site ajoute lui-même son préfixe d'hébergement. Si une page change de thème, son ancienne adresse est ajoutée à `src/redirects.mjs` : une adresse publiée ne répond jamais « introuvable ».
 - **Les termes** : on dit « référence distante » pour `origin/x`, « branche locale », « serveur » plutôt que « remote » quand on parle de GitHub, « fusion » pour merge, « rebase » reste « rebase ».
 
 ### 5. Vérifier, puis proposer

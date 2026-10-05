@@ -7,9 +7,27 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 1, lot 2 : réparer
+## [Non publié] — Catalogue par thèmes
 
-Branche `situations/lot-2-reparer`, partie de `main` (`7253656`).
+Branche `site/catalogue-par-themes`, partie de `main` (`0487e6f`).
+
+### Site
+
+- **Situations classées par thème** : `situations/quotidien/` (9 pages) et `situations/reparer/` (6 pages), chacun avec une vue d'ensemble. Les adresses changent (`/situations/<theme>/<slug>/`) ; les 15 anciennes adresses redirigent (`src/redirects.mjs`).
+- **Catalogue** (`/situations/`) : toutes les situations par thème, avec un filtre par niveau sans rechargement, et le nombre de pages par thème et par niveau. Le mode d'emploi est déplacé sur `/situations/comment-lire/`.
+- **Barre latérale** : un groupe repliable par thème, au lieu d'une liste plate.
+- **Accueil** : les trois situations les plus récentes (nouveau champ `published`) et un lien vers le catalogue, au lieu de la liste complète.
+- Pas de pagination, par choix : un référentiel se parcourt par thème, par niveau et par recherche, pas par numéro de page.
+
+### Pour les contributeurs
+
+- Une page va dans le dossier de son thème ; un thème nouveau = un dossier avec `index.mdx` + une entrée dans `src/themes.mjs`. Champ `published` obligatoire dans le gabarit.
+
+---
+
+## 5 octobre 2026 · Phase 1, lot 2 : réparer — en ligne le 5 octobre 2026
+
+Branche `situations/lot-2-reparer`, partie de `main` (`7253656`), fusionnée par la PR #3 (`0487e6f`).
 
 ### Contenu
 
