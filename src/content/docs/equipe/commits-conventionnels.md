@@ -104,7 +104,7 @@ Un hook n'est pas versionné : chacun l'installe, ou l'équipe passe par un outi
 
 - **Le titre de la pull request** suit le même format. Avec « Squash and merge », il devient le message du commit unique sur `main` : c'est lui qu'on lira ensuite.
 - **`Closes #12`** dans un commit ou une description de PR ferme l'issue à la fusion.
-- **Les notes de version automatiques** de GitHub regroupent par étiquette de PR, pas par type de commit. Des outils comme `release-please` ou `semantic-release` lisent les types pour calculer le numéro de version et écrire le changelog.
+- **Les notes de version automatiques** de GitHub regroupent par étiquette de PR, pas par type de commit. Des outils comme `release-please` ou `semantic-release` lisent les types pour calculer le numéro de version et écrire le changelog : [Tenir un changelog](/equipe/tenir-un-changelog/).
 
 ## Pièges
 

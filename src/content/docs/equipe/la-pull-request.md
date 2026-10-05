@@ -107,7 +107,7 @@ Ce site s'applique la règle : chaque changement depuis son premier jour est pas
 - **Le gabarit** `.github/PULL_REQUEST_TEMPLATE.md` préremplit la description : les questions sont posées avant qu'on les oublie.
 - **Une PR « Draft »** s'ouvre tôt, pour montrer une direction avant qu'elle soit finie ; elle ne peut pas être fusionnée par erreur.
 - **« Files changed »**, c'est `git diff main...feature/recherche` : ce que la branche a changé depuis qu'elle a quitté `main`, sans ce que `main` a reçu entre-temps.
-- **La relecture** a trois issues : commenter, approuver, demander des changements. Chaque conversation se résout quand la remarque est traitée.
+- **La relecture** a trois issues : commenter, approuver, demander des changements. Chaque conversation se résout quand la remarque est traitée. Côté relecteur : [Relire une pull request](/equipe/relire-une-pull-request/).
 - **Les règles de la branche** (Settings → Rules) imposent la PR, les vérifications requises et l'interdiction du push forcé. Avec une seule personne dans le projet, zéro approbation requise : GitHub interdit de s'approuver soi-même. Le détail : [Protéger la branche principale](/equipe/proteger-la-branche-principale/).
 - **Les trois boutons de fusion** : « Create a merge commit » garde les commits et ajoute un commit de merge, « Squash and merge » les fond en un seul dont le message est le titre de la PR, « Rebase and merge » les recopie un par un sur `main`. Le détail est dans [Fast-forward, fusion, rebase](/comprendre/fast-forward-fusion-rebase/).
 - **« Automatically delete head branches »**, dans Settings → General, supprime la branche à la fusion ; il ne reste que le `fetch --prune` sur chaque poste.

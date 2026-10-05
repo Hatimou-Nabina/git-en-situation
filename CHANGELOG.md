@@ -7,9 +7,23 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 2, lot 7 : travailler en équipe, trois pages
+## [Non publié] — Phase 2, lot 8 : travailler en équipe, trois pages
 
-Branche `equipe/lot-7`, partie de `main` (`c559e5b`).
+Branche `equipe/lot-8`, partie de `main` (`25d9589`).
+
+### Contenu
+
+- **Trois pages « Travailler en équipe »**, chacune avec son script dans `scripts/equipe/` et ses sorties réelles (Git 2.50, 5 octobre 2026) :
+  - « Relire une pull request » (la branche de la PR sur son poste, l'ensemble puis commit par commit, `git grep` qui trouve l'appel oublié que les tests ne voient pas, ne relire que ce qui a changé après le correctif, quand approuver) ;
+  - « Branche de travail et branche de production » (`main` et `prod`, la mise en production en avance rapide, le correctif urgent parti de `prod` et reporté sur `main`, `prod..main` et `main..prod` pour savoir ce qui est où) ;
+  - « Tenir un changelog » (le format Keep a Changelog, la ligne qui voyage avec le commit, le conflit sur la section « Non publié » et `merge=union` qui l'évite, le brouillon depuis les commits conventionnels, la version qui prend un numéro et une date).
+- Le sommaire « Travailler en équipe » passe à huit pages disponibles, quatre prévues. Deux mentions « (à venir) » vers la page « pull request », oubliées au lot 6, deviennent des liens (« Ma branche locale est en retard après une fusion », « Supprimer une vieille branche »).
+
+---
+
+## 5 octobre 2026 · Phase 2, lot 7 : travailler en équipe, trois pages — en ligne le 5 octobre 2026
+
+Branche `equipe/lot-7`, partie de `main` (`c559e5b`), fusionnée par la PR #16 (`25d9589`).
 
 ### Contenu
 
