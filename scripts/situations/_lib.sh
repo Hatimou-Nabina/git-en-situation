@@ -30,6 +30,8 @@ export GIT_AUTHOR_DATE="2026-10-05T10:00:00+00:00"
 export GIT_COMMITTER_DATE="2026-10-05T10:00:00+00:00"
 # Messages de Git en anglais : c'est ce que voient la plupart des gens.
 export LANG=C LC_ALL=C
+# Jamais d'éditeur : un merge ou un rebase garde son message par défaut.
+export GIT_EDITOR=true
 
 # Le « serveur » : un dépôt nu dont le chemin ressemble à une adresse GitHub.
 SERVER="$SANDBOX/github.com/equipe/projet.git"
