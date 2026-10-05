@@ -7,9 +7,25 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 1, lot 1 : au quotidien
+## [Non publié] — Phase 1, lot 2 : réparer
 
-Branche `situations/lot-1-quotidien`, partie de `main` (`7e6a90e`).
+Branche `situations/lot-2-reparer`, partie de `main` (`7253656`).
+
+### Contenu
+
+- **Six situations**, avec leurs scripts et leurs sorties réelles (Git 2.50, 5 octobre 2026) :
+  - « J'ai commité sur la mauvaise branche » (`branch` + `reset --keep`, `cherry-pick`, et le cas du commit déjà poussé) ;
+  - « Annuler mon dernier commit, pas encore poussé » (`commit --amend`, `reset --soft` / `--hard`, retour par le reflog ; marquée *destructif*) ;
+  - « Annuler un commit déjà poussé » (pourquoi le reset + push est refusé, `revert`, commit plus ancien, merge avec `-m 1`) ;
+  - « Je suis en « detached HEAD » » (`switch --detach`, commit dans cet état, `switch -c`, l'avertissement au départ et `HEAD@{1}`) ;
+  - « Retrouver un commit perdu » (branche supprimée, `reset --hard` trop loin, reflog, délais de conservation) ;
+  - « Un conflit pendant un merge ou un rebase » (marqueurs, `rebase --continue` / `--abort`, variante merge, ours et theirs inversés en rebase).
+
+---
+
+## 5 octobre 2026 · Phase 1, lot 1 : au quotidien — en ligne le 5 octobre 2026
+
+Branche `situations/lot-1-quotidien`, partie de `main` (`7e6a90e`), fusionnée par la PR #2 (`7253656`).
 
 ### Contenu
 
