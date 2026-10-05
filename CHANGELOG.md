@@ -7,9 +7,18 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 1, lot 3 : avec les autres
+## [Non publié] — Correction du filtre du catalogue
 
-Branche `situations/lot-3-avec-les-autres`, partie de `main` (`c447868`).
+### 🐛 Correction
+
+- **Le filtre par niveau du catalogue ne masquait rien** : les boutons changeaient d'état, la liste restait entière. Cause : la règle `display: grid` des entrées de liste l'emportait sur l'attribut `hidden` posé par le script. Une règle `li[hidden] { display: none }` règle le problème. Repéré par le mainteneur sur le site en ligne, le 5 octobre 2026.
+- Leçon pour le guide : un comportement qui demande un clic se vérifie par un clic, pas par une capture de la page au chargement.
+
+---
+
+## 5 octobre 2026 · Phase 1, lot 3 : avec les autres — en ligne le 5 octobre 2026
+
+Branche `situations/lot-3-avec-les-autres`, partie de `main` (`c447868`), fusionnée par la PR #5 (`df7d14b`).
 
 ### Contenu
 
