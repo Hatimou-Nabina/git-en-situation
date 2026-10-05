@@ -2,6 +2,21 @@
 
 Merci de t'y intéresser. Ce projet vit des situations que les gens rencontrent vraiment : la tienne a sa place ici.
 
+## Première contribution, sans installer Git
+
+Une faute, une phrase obscure, un lien cassé : tu peux corriger une page depuis ton navigateur, sans rien installer et sans être membre du projet.
+
+1. **Sur le site**, en bas de la page concernée, clique sur « Modifier cette page ». Le fichier de la page s'ouvre sur GitHub.
+2. **Sur GitHub**, clique sur le crayon en haut à droite du fichier. Comme tu n'as pas le droit d'écrire dans ce dépôt, GitHub te propose d'en créer une copie sur ton compte : accepte (« Fork this repository »). Ça prend quelques secondes, et tu arrives dans l'éditeur.
+3. **Corrige**, puis clique sur « Commit changes… ». Décris le changement en une ligne, par exemple `fix(situations): corrige une faute dans « Mon push est refusé »`, et valide avec « Propose changes ».
+4. **Ouvre la pull request** : GitHub te montre la différence et te propose « Create pull request ». Le gabarit pose trois questions, quoi, pourquoi, qu'est-ce qui a été vérifié ; pour une faute, une ligne à chaque fois suffit.
+
+Le mainteneur relit, et fusionne ou te répond sur la pull request. Si tu veux ensuite aller plus loin, la suite de ce document explique comment faire la même chose depuis ton poste.
+
+**Ce qu'est un fork.** Un fork est une copie du dépôt sur ton compte GitHub, où tu as tous les droits. Tu écris dans ta copie et tu *proposes* au projet de reprendre ta modification : personne n'a besoin de te donner accès au dépôt d'origine, et le projet reste protégé.
+
+Les issues étiquetées [« bonne première contribution »](https://github.com/Hatimou-Nabina/git-en-situation/issues?q=is%3Aissue+is%3Aopen+label%3A%22bonne+premi%C3%A8re+contribution%22) sont des tâches cadrées, pensées pour un premier pas.
+
 ## Trois façons de contribuer
 
 1. **Proposer une situation** que tu as vécue, même sans en connaître la solution : [ouvre une issue](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=proposer-une-situation.yml). Ce que tu as vu et ce que tu essayais de faire suffisent.
