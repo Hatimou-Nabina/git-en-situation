@@ -132,7 +132,7 @@ Le rebase rend ton commit descendant de celui du serveur. Le *fast-forward* rede
 
 ## Voir aussi
 
-- Comprendre : *Fast-forward, fusion, rebase* (à venir)
+- [Comprendre : fast-forward, fusion, rebase](/comprendre/fast-forward-fusion-rebase/)
 - Travailler en équipe : *Protéger la branche principale* (à venir)
 
 :::tip[Sorties vérifiées]

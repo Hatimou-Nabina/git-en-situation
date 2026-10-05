@@ -94,7 +94,7 @@ Une branche est un marque-page posé sur un commit, rangé dans `.git/refs/heads
 
 - [Premier push d'une branche, « has no upstream branch »](/situations/quotidien/premier-push-no-upstream/)
 - [Une branche distante a été supprimée, mais je la vois encore](/situations/quotidien/branche-distante-supprimee-encore-visible/)
-- Comprendre : *Une branche, c'est un marque-page* (à venir)
+- [Comprendre : une branche, c'est un marque-page](/comprendre/une-branche-est-un-marque-page/)
 
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/renommer-une-branche.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/renommer-une-branche.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
