@@ -20,6 +20,8 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ### Site
 
+- **Identité visuelle** : polices IBM Plex Sans et Mono auto-hébergées (Fontsource, rien n'est chargé depuis un service tiers), palette terre cuite sur neutres chauds dans les deux thèmes, logo. Accueil refait : titre et promesse, un vrai extrait de terminal en guise d'illustration, les quatre étapes d'une page, la liste des situations publiées générée depuis le contenu (`SituationsList.astro`), les quatre entrées du site.
+- **Sessions de terminal** : blocs ` ```console ` rendus dans un cadre de terminal ; les lignes de commande (`$ …`) sont marquées par un petit plugin Expressive Code (`src/plugins/expressive-code-prompts.mjs`) et ressortent des sorties.
 - Astro 7 + Starlight 0.42, français en locale racine, anglais préparé avec repli sur le français.
 - En-tête de page étendu : `level`, `risk`, `gitVersion`, `verified`, affichés en badges sous le titre.
 - Liens internes écrits depuis la racine et préfixés au build (`src/plugins/base-links.mjs`, plugin pour le processeur Markdown Sätteri d'Astro 7), pour que le contenu ne dépende pas de l'adresse d'hébergement.
