@@ -1,22 +1,45 @@
 ---
 /**
- * Liste des situations publiées, lue dans la collection de contenu : la
- * page d'accueil reste exacte sans qu'on y pense.
+ * Liste de situations, lue dans la collection de contenu.
+ *   theme : ne garder qu'un thème (nom du dossier dans situations/)
+ *   limit : nombre maximal d'entrées
+ *   sort  : 'title' (défaut) ou 'recent' (date de publication décroissante)
+ * Les pages d'index (catalogue, thèmes, « comment lire ») ne sont jamais listées :
+ * une situation a toujours un identifiant en trois parties, situations/<theme>/<slug>.
  */
 import { getCollection } from 'astro:content';
+
+interface Props {
+  theme?: string;
+  limit?: number;
+  sort?: 'title' | 'recent';
+}
+
+const { theme, limit, sort = 'title' } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const levels: Record<string, string> = { debutant: 'débutant', intermediaire: 'intermédiaire', avance: 'avancé' };
 
-const situations = (await getCollection('docs', ({ id }) => id.startsWith('situations/'))).sort((a, b) =>
-  a.data.title.localeCompare(b.data.title, 'fr'),
+const byTitle = (a: { data: { title: string } }, b: { data: { title: string } }) =>
+  a.data.title.localeCompare(b.data.title, 'fr');
+
+let situations = await getCollection('docs', ({ id }) => {
+  const parts = id.split('/');
+  return parts[0] === 'situations' && parts.length === 3 && (!theme || parts[1] === theme);
+});
+
+situations.sort(
+  sort === 'recent'
+    ? (a, b) => (b.data.published?.getTime() ?? 0) - (a.data.published?.getTime() ?? 0) || byTitle(a, b)
+    : byTitle,
 );
+if (limit) situations = situations.slice(0, limit);
 ---
 
 <ul class="home-list">
   {
     situations.map(({ id, data }) => (
-      <li>
+      <li data-level={data.level ?? ''}>
         <a href={`${base}/${id}/`}>{data.title}</a>
         <p>{data.description}</p>
         {data.level && (

@@ -16,6 +16,8 @@ export const collections = {
         gitVersion: z.string().optional(),
         /** Date de la dernière exécution réelle des commandes de la page (script dans scripts/situations/). */
         verified: z.coerce.date().optional(),
+        /** Date de publication de la page : l'accueil montre les plus récentes. */
+        published: z.coerce.date().optional(),
       }),
     }),
   }),
