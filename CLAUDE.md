@@ -55,6 +55,7 @@ bash scripts/situations/<slug>.sh        # rejoue une situation (Git Bash sous W
 - `src/styles/custom.css` : styles des badges et ajustements.
 - `scripts/situations/_lib.sh` : serveur factice, deux postes (`awa`, `bakary`), configuration Git neutre, dates figées, sorties nettoyées (`github.com:equipe/projet.git`). Un script par situation, du même nom que la page.
 - `.github/` : CI (`check` + `build` sur PR et `main`), déploiement Pages (`deploy.yml`), gabarits d'issue et de PR, `CODEOWNERS`.
+- `.github/workflows/situation.yml`, « Rejouer les situations » : rejoue tous les scripts sur Ubuntu à chaque push qui les touche, ou un seul à la demande (`gh workflow run situation.yml --ref <branche> -f script=<slug>`, puis `gh run view --log`). **Un `workflow_dispatch` ne fonctionne que si le workflow existe sur `main`** ; sur une branche, c'est le déclencheur `push` qui sert. À utiliser pour toute sortie qui dépend de Linux : le bash de Git Bash tolère les CRLF, les permissions de fichiers n'existent pas sous Windows. La page indique alors la version de Git du runner.
 
 ## Pièges connus
 
