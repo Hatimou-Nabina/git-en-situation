@@ -20,4 +20,9 @@ export const themes = {
     labelEn: 'With others',
     description: "Quand le travail des autres rencontre le tien : branche à mettre à jour, fusion faite sur GitHub, deux comptes, deux machines.",
   },
+  fichiers: {
+    label: 'Fichiers et dépôt',
+    labelEn: 'Files and repository',
+    description: "Ce qui touche aux fichiers eux-mêmes : .gitignore, secrets, fins de ligne, fichiers vus comme modifiés sans raison.",
+  },
 };

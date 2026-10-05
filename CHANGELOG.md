@@ -7,7 +7,27 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Correction du filtre du catalogue
+## [Non publié] — Phase 1, lot 4 : fichiers et dépôt
+
+Branche `situations/lot-4-fichiers`, partie de `main`.
+
+### Contenu
+
+- **Nouveau thème « Fichiers et dépôt »** (`situations/fichiers/`), avec sa vue d'ensemble.
+- **Quatre situations**, avec leurs scripts et leurs sorties réelles (Git 2.50, 5 octobre 2026) :
+  - « .gitignore ne marche pas : le fichier est déjà suivi » (`check-ignore`, `rm --cached`, et le cas du `.gitignore` en UTF-16 que Git ne lit pas) ;
+  - « J'ai poussé un secret par erreur » (révoquer d'abord, retirer du suivi, et pourquoi l'historique reste à nettoyer) ;
+  - « Mes scripts cassent sur le serveur : fins de ligne » (`$'\r': command not found`, `ls-files --eol`, `.gitattributes`, `add --renormalize`) ;
+  - « Git voit tous mes fichiers comme modifiés » (`autocrlf`, `ls-files --eol`, renormalisation et réécriture du dossier de travail).
+
+### Vérification sur Linux
+
+- **Workflow « Rejouer les situations »** (`.github/workflows/situation.yml`) : à chaque push qui touche un script, tous les scripts sont rejoués sur Ubuntu et leurs sorties sont dans le journal du workflow ; à la demande (`gh workflow run situation.yml -f script=<slug>`), un seul. Première brique de la vérification automatique prévue en phase 3.
+- Pourquoi maintenant : sous Windows, le bash de Git Bash tolère les fins de ligne CRLF dans un script, et l'erreur montrée par « Mes scripts cassent sur le serveur » n'y apparaît pas. Ses sorties viennent du rejeu sur Ubuntu.
+
+---
+
+## 5 octobre 2026 · Correction du filtre du catalogue — en ligne le 5 octobre 2026 (PR #6)
 
 ### 🐛 Correction
 
