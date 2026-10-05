@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Situation : retrouver un commit perdu.
-# Page : src/content/docs/situations/retrouver-un-commit-perdu.md
+# Page : src/content/docs/situations/reparer/retrouver-un-commit-perdu.md
 source "$(dirname "$0")/_lib.sh"
 setup_team
 

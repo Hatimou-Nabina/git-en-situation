@@ -250,6 +250,81 @@ h3 {
   color: var(--sl-color-gray-3);
 }
 
+/* Le catalogue des situations */
+.catalogue__summary {
+  color: var(--sl-color-gray-2);
+}
+
+.catalogue__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.catalogue__filters button {
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sl-color-gray-2);
+  font: inherit;
+  font-size: var(--sl-text-sm);
+  cursor: pointer;
+}
+
+.catalogue__filters button:hover {
+  border-color: var(--sl-color-gray-4);
+  color: var(--sl-color-white);
+}
+
+.catalogue__filters button[aria-pressed='true'] {
+  border-color: var(--sl-color-accent);
+  background: var(--sl-color-accent-low);
+  color: var(--sl-color-white);
+}
+
+.catalogue__count {
+  margin-left: 0.4rem;
+  font-family: var(--sl-font-mono);
+  font-size: var(--sl-text-xs);
+  font-weight: 400;
+  color: var(--sl-color-gray-3);
+}
+
+.sl-markdown-content .catalogue__theme {
+  margin-top: 2.5rem;
+}
+
+.sl-markdown-content .catalogue__theme > h2 {
+  margin-top: 0;
+  font-size: var(--sl-text-xl);
+}
+
+.catalogue__theme > h2 > a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.catalogue__theme > h2 > a:hover {
+  color: var(--sl-color-accent-high);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.sl-markdown-content .catalogue__description {
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--sl-color-gray-2);
+}
+
+.sl-markdown-content .catalogue__empty {
+  margin-top: 0.75rem;
+  font-size: var(--sl-text-sm);
+  font-style: italic;
+  color: var(--sl-color-gray-3);
+}
+
 /* Les quatre entrées */
 .home-entries {
   display: grid;

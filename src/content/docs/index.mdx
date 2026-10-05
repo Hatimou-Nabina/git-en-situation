@@ -39,11 +39,11 @@ import SituationsList from '../../components/SituationsList.astro';
 
 <section class="home-section">
 
-## Les situations publiées
+## Les dernières situations
 
-<SituationsList />
+<SituationsList limit={3} sort="recent" />
 
-Le site vient d'ouvrir. Une vingtaine de situations sont en cours d'écriture, et [la tienne](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=proposer-une-situation.yml) a sa place, même sans connaître la réponse.
+Toutes les autres sont dans le [catalogue](/situations/), classées par thème et filtrables par niveau. Et [la tienne](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=proposer-une-situation.yml) a sa place, même sans connaître la réponse.
 
 </section>
 
@@ -51,7 +51,7 @@ Le site vient d'ouvrir. Une vingtaine de situations sont en cours d'écriture, e
 
 ## Les sorties affichées sont vraies
 
-Aucune sortie n'est écrite à la main. Chaque situation a un script versionné qui rejoue le scénario dans des dépôts jetables et imprime chaque commande suivie de sa sortie. La page recopie ce résultat, avec la version de Git et la date de l'exécution. Si ta sortie diffère, c'est une erreur du site, et [on veut le savoir](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=signaler-une-erreur.yml). Le détail est dans [Comment lire une situation](/situations/).
+Aucune sortie n'est écrite à la main. Chaque situation a un script versionné qui rejoue le scénario dans des dépôts jetables et imprime chaque commande suivie de sa sortie. La page recopie ce résultat, avec la version de Git et la date de l'exécution. Si ta sortie diffère, c'est une erreur du site, et [on veut le savoir](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=signaler-une-erreur.yml). Le détail est dans [Comment lire une situation](/situations/comment-lire/).
 
 </section>
 

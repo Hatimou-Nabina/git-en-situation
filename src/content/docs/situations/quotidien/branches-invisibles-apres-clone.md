@@ -5,6 +5,7 @@ level: debutant
 risk: aucun
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme
@@ -80,8 +81,8 @@ Switched to a new branch 'feature/recherche'
 
 ## Voir aussi
 
-- [Premier push d'une branche, « has no upstream branch »](/situations/premier-push-no-upstream/)
-- [Une branche distante a été supprimée, mais je la vois encore](/situations/branche-distante-supprimee-encore-visible/)
+- [Premier push d'une branche, « has no upstream branch »](/situations/quotidien/premier-push-no-upstream/)
+- [Une branche distante a été supprimée, mais je la vois encore](/situations/quotidien/branche-distante-supprimee-encore-visible/)
 - Comprendre : *Les remotes et les références distantes* (à venir)
 
 :::tip[Sorties vérifiées]

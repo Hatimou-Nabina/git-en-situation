@@ -5,6 +5,7 @@ level: debutant
 risk: aucun
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Situation : voir ce qui a changé entre ma branche et main.
-# Page : src/content/docs/situations/voir-ce-qui-a-change.md
+# Page : src/content/docs/situations/quotidien/voir-ce-qui-a-change.md
 source "$(dirname "$0")/_lib.sh"
 setup_team
 

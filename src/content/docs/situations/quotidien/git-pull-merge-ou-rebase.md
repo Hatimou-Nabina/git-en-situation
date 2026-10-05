@@ -5,6 +5,7 @@ level: debutant
 risk: aucun
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme
@@ -90,11 +91,11 @@ La troisième option du message, `pull.ff only`, est la plus stricte : `git pull
 - **Le rebase réécrit tes commits locaux** : `0e03633` est devenu `db0c9ee`. C'est sans conséquence tant que ces commits n'avaient pas été poussés. Et c'est précisément le cas ici : `git pull --rebase` ne rejoue que les commits que le serveur n'a pas.
 - **Un conflit** arrête le rebase ou la fusion de la même façon : corriger les fichiers, `git add`, puis `git rebase --continue` ou `git commit`. `git rebase --abort` ou `git merge --abort` ramène à l'état d'avant.
 - **`pull.rebase` est un réglage de ton poste**, à refaire sur chaque machine. Il peut aussi être posé par dépôt, sans `--global`.
-- **Si c'est le push qui est refusé** plutôt que le pull, c'est la même divergence vue de l'autre côté : [Mon push est refusé, « rejected », « fetch first »](/situations/push-refuse-fetch-first/).
+- **Si c'est le push qui est refusé** plutôt que le pull, c'est la même divergence vue de l'autre côté : [Mon push est refusé, « rejected », « fetch first »](/situations/quotidien/push-refuse-fetch-first/).
 
 ## Voir aussi
 
-- [Mon push est refusé, « rejected », « fetch first »](/situations/push-refuse-fetch-first/)
+- [Mon push est refusé, « rejected », « fetch first »](/situations/quotidien/push-refuse-fetch-first/)
 - Comprendre : *Fast-forward, fusion, rebase* (à venir)
 
 :::tip[Sorties vérifiées]

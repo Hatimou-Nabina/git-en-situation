@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Situation : git pull me demande de choisir entre merge et rebase.
-# Page : src/content/docs/situations/git-pull-merge-ou-rebase.md
+# Page : src/content/docs/situations/quotidien/git-pull-merge-ou-rebase.md
 source "$(dirname "$0")/_lib.sh"
 setup_team
 

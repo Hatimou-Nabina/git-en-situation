@@ -5,6 +5,7 @@ level: intermediaire
 risk: aucun
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme
@@ -87,12 +88,12 @@ Une branche est un marque-page posé sur un commit, rangé dans `.git/refs/heads
 - **Une pull request ouverte depuis cette branche** : sur GitHub, supprimer la branche d'origine d'une PR **ferme la PR**. Dans ce cas, renomme depuis l'interface GitHub, qui déplace la PR avec la branche, plutôt qu'avec `push --delete`.
 - **Une branche protégée** ne se supprime pas et ne se renomme pas sans toucher aux règles. `main` n'est pas faite pour être renommée à la légère.
 - **`git branch -M`** force le renommage même si une branche porte déjà le nouveau nom : elle est écrasée. Préfère `-m`, qui refuse dans ce cas.
-- **Des collègues qui n'ont pas fait l'étape 3** continuent de voir `[gone]` sur leur ancienne branche : voir [Une branche distante a été supprimée, mais je la vois encore](/situations/branche-distante-supprimee-encore-visible/).
+- **Des collègues qui n'ont pas fait l'étape 3** continuent de voir `[gone]` sur leur ancienne branche : voir [Une branche distante a été supprimée, mais je la vois encore](/situations/quotidien/branche-distante-supprimee-encore-visible/).
 
 ## Voir aussi
 
-- [Premier push d'une branche, « has no upstream branch »](/situations/premier-push-no-upstream/)
-- [Une branche distante a été supprimée, mais je la vois encore](/situations/branche-distante-supprimee-encore-visible/)
+- [Premier push d'une branche, « has no upstream branch »](/situations/quotidien/premier-push-no-upstream/)
+- [Une branche distante a été supprimée, mais je la vois encore](/situations/quotidien/branche-distante-supprimee-encore-visible/)
 - Comprendre : *Une branche, c'est un marque-page* (à venir)
 
 :::tip[Sorties vérifiées]

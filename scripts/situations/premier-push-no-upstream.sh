@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Situation : premier push d'une branche, « has no upstream branch ».
-# Page : src/content/docs/situations/premier-push-no-upstream.md
+# Page : src/content/docs/situations/quotidien/premier-push-no-upstream.md
 source "$(dirname "$0")/_lib.sh"
 setup_team
 

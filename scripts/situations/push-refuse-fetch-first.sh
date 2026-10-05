@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Situation : mon push est refusé, « rejected », « fetch first ».
-# Page : src/content/docs/situations/push-refuse-fetch-first.md
+# Page : src/content/docs/situations/quotidien/push-refuse-fetch-first.md
 source "$(dirname "$0")/_lib.sh"
 setup_team
 

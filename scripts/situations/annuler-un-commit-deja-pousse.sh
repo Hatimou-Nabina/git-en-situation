@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Situation : annuler un commit déjà poussé.
-# Page : src/content/docs/situations/annuler-un-commit-deja-pousse.md
+# Page : src/content/docs/situations/reparer/annuler-un-commit-deja-pousse.md
 source "$(dirname "$0")/_lib.sh"
 setup_team
 

@@ -1,0 +1,98 @@
+---
+/**
+ * Le catalogue complet : toutes les situations, groupées par thème, avec un
+ * filtre par niveau qui agit sans rechargement. Conçu pour rester lisible à
+ * une centaine de pages : les thèmes découpent, le filtre resserre, et la
+ * recherche (Ctrl+K) reste le chemin le plus court quand on sait ce qu'on cherche.
+ */
+import { getCollection } from 'astro:content';
+import { themes } from '../themes.mjs';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const levels: Record<string, string> = { debutant: 'Débutant', intermediaire: 'Intermédiaire', avance: 'Avancé' };
+
+const all = await getCollection('docs', ({ id }) => {
+  const parts = id.split('/');
+  return parts[0] === 'situations' && parts.length === 3;
+});
+
+const byTitle = (a: { data: { title: string } }, b: { data: { title: string } }) =>
+  a.data.title.localeCompare(b.data.title, 'fr');
+
+const sections = Object.entries(themes).map(([key, theme]) => ({
+  key,
+  ...theme,
+  items: all.filter(({ id }) => id.startsWith(`situations/${key}/`)).sort(byTitle),
+}));
+
+const countByLevel = Object.fromEntries(
+  Object.keys(levels).map((level) => [level, all.filter(({ data }) => data.level === level).length]),
+);
+---
+
+<div class="catalogue" data-catalogue>
+  <p class="catalogue__summary">
+    {all.length} situations, {sections.length} thèmes. Un symptôme précis en tête ? La recherche (Ctrl + K) va plus vite.
+  </p>
+
+  <div class="catalogue__filters" role="group" aria-label="Filtrer par niveau">
+    <button type="button" data-level="" aria-pressed="true">Tous les niveaux</button>
+    {
+      Object.entries(levels).map(([key, label]) => (
+        <button type="button" data-level={key} aria-pressed="false">
+          {label} <span class="catalogue__count">{countByLevel[key]}</span>
+        </button>
+      ))
+    }
+  </div>
+
+  {
+    sections.map((section) => (
+      <section class="catalogue__theme" data-theme={section.key}>
+        <h2 id={section.key}>
+          <a href={`${base}/situations/${section.key}/`}>{section.label}</a>
+          <span class="catalogue__count">{section.items.length}</span>
+        </h2>
+        <p class="catalogue__description">{section.description}</p>
+        <ul class="home-list">
+          {section.items.map(({ id, data }) => (
+            <li data-level={data.level ?? ''}>
+              <a href={`${base}/${id}/`}>{data.title}</a>
+              <p>{data.description}</p>
+              {data.level && (
+                <small>
+                  {levels[data.level].toLowerCase()}
+                  {data.gitVersion && ` · Git ${data.gitVersion}`}
+                </small>
+              )}
+            </li>
+          ))}
+        </ul>
+        <p class="catalogue__empty" hidden>Aucune situation de ce niveau dans ce thème.</p>
+      </section>
+    ))
+  }
+</div>
+
+<script>
+  // Filtre par niveau : on masque les entrées qui ne correspondent pas, et le
+  // message « aucune » apparaît dans les thèmes vidés. Sans JavaScript, tout
+  // est affiché, ce qui reste un catalogue complet.
+  for (const root of document.querySelectorAll<HTMLElement>('[data-catalogue]')) {
+    const buttons = root.querySelectorAll<HTMLButtonElement>('.catalogue__filters button');
+    const apply = (level: string) => {
+      for (const button of buttons) button.setAttribute('aria-pressed', String(button.dataset.level === level));
+      for (const theme of root.querySelectorAll<HTMLElement>('.catalogue__theme')) {
+        let visible = 0;
+        for (const item of theme.querySelectorAll<HTMLElement>('li[data-level]')) {
+          const shown = !level || item.dataset.level === level;
+          item.hidden = !shown;
+          if (shown) visible++;
+        }
+        const empty = theme.querySelector<HTMLElement>('.catalogue__empty');
+        if (empty) empty.hidden = visible > 0;
+      }
+    };
+    for (const button of buttons) button.addEventListener('click', () => apply(button.dataset.level ?? ''));
+  }
+</script>

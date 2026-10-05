@@ -5,6 +5,7 @@ level: debutant
 risk: reversible
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme
@@ -97,15 +98,15 @@ Dans `.git/HEAD`, il y a soit un nom de branche, soit un identifiant de commit. 
 
 ## Pièges
 
-- **On y entre sans le vouloir** avec `git checkout <identifiant>`, `git checkout origin/main`, ou `git switch origin/feature/x` avec le préfixe `origin/`. Pour travailler sur la branche d'un collègue, utilise son nom court : [Après un clone, je ne vois pas les branches des autres](/situations/branches-invisibles-apres-clone/).
+- **On y entre sans le vouloir** avec `git checkout <identifiant>`, `git checkout origin/main`, ou `git switch origin/feature/x` avec le préfixe `origin/`. Pour travailler sur la branche d'un collègue, utilise son nom court : [Après un clone, je ne vois pas les branches des autres](/situations/quotidien/branches-invisibles-apres-clone/).
 - **La CI est toujours en detached HEAD.** GitHub Actions et les autres récupèrent un commit précis, pas une branche. C'est normal, et sans importance tant qu'on ne commite pas depuis la CI.
 - **Le long message « You are in 'detached HEAD' state »** de `git checkout` dit la même chose que cette page, en anglais et en dix lignes. `git switch --detach` est plus sobre.
-- **Un commit laissé derrière et oublié** reste récupérable un temps : [Retrouver un commit perdu](/situations/retrouver-un-commit-perdu/).
+- **Un commit laissé derrière et oublié** reste récupérable un temps : [Retrouver un commit perdu](/situations/reparer/retrouver-un-commit-perdu/).
 
 ## Voir aussi
 
-- [Retrouver un commit perdu](/situations/retrouver-un-commit-perdu/)
-- [Après un clone, je ne vois pas les branches des autres](/situations/branches-invisibles-apres-clone/)
+- [Retrouver un commit perdu](/situations/reparer/retrouver-un-commit-perdu/)
+- [Après un clone, je ne vois pas les branches des autres](/situations/quotidien/branches-invisibles-apres-clone/)
 - Comprendre : *HEAD, ou « où je suis »* (à venir)
 
 :::tip[Sorties vérifiées]

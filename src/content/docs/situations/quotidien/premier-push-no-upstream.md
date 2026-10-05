@@ -5,6 +5,7 @@ level: debutant
 risk: aucun
 gitVersion: "2.50"
 verified: 2026-10-05
+published: 2026-10-05
 ---
 
 ## Symptôme
@@ -79,12 +80,12 @@ Une branche créée depuis une branche du serveur, par exemple avec `git switch 
 - **`git push origin feature/recherche` sans `-u`** pousse bien, mais ne crée pas le lien : le message reviendra au prochain `git push`, et `git pull` ne saura pas quoi récupérer.
 - **Garde le même nom des deux côtés.** `git push -u origin feature/recherche:autre-nom` est possible, mais une branche qui ne s'appelle pas pareil chez toi et sur le serveur finit toujours par tromper quelqu'un.
 - **`push.autoSetupRemote`** est un réglage de ton poste, pas du dépôt : à refaire sur chaque machine.
-- **Un message proche, qui n'est pas celui-ci** : `! [rejected] ... (fetch first)` veut dire que la branche existe déjà sur le serveur avec des commits que tu n'as pas. Voir [Mon push est refusé, « rejected », « fetch first »](/situations/push-refuse-fetch-first/).
+- **Un message proche, qui n'est pas celui-ci** : `! [rejected] ... (fetch first)` veut dire que la branche existe déjà sur le serveur avec des commits que tu n'as pas. Voir [Mon push est refusé, « rejected », « fetch first »](/situations/quotidien/push-refuse-fetch-first/).
 
 ## Voir aussi
 
-- [Après un clone, je ne vois pas les branches des autres](/situations/branches-invisibles-apres-clone/)
-- [Renommer une branche, en local et sur le serveur](/situations/renommer-une-branche/)
+- [Après un clone, je ne vois pas les branches des autres](/situations/quotidien/branches-invisibles-apres-clone/)
+- [Renommer une branche, en local et sur le serveur](/situations/quotidien/renommer-une-branche/)
 - Comprendre : *Upstream, la branche que la tienne suit* (à venir)
 
 :::tip[Sorties vérifiées]

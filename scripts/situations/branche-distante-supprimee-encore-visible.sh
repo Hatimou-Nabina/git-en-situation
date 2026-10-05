@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Situation : une branche distante a été supprimée, mais je la vois encore.
-# Page : src/content/docs/situations/branche-distante-supprimee-encore-visible.md
+# Page : src/content/docs/situations/quotidien/branche-distante-supprimee-encore-visible.md
 source "$(dirname "$0")/_lib.sh"
 setup_team
 

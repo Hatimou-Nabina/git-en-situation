@@ -5,6 +5,8 @@ import starlightLinksValidator from 'starlight-links-validator';
 import { satteri } from '@astrojs/markdown-satteri';
 import { baseLinksPlugin } from './src/plugins/base-links.mjs';
 import { pluginConsolePrompts } from './src/plugins/expressive-code-prompts.mjs';
+import { themes } from './src/themes.mjs';
+import { redirects } from './src/redirects.mjs';
 
 // Adresse du site. Sur GitHub Pages, le site vit sous /git-en-situation/.
 // Avec un domaine à nous, il suffira de changer ces deux valeurs : les liens
@@ -17,6 +19,9 @@ const repository = 'https://github.com/Hatimou-Nabina/git-en-situation';
 export default defineConfig({
   site,
   base,
+  // Anciennes adresses des situations (avant le classement par thème). Astro ne
+  // préfixe pas la cible avec la base : on le fait ici.
+  redirects: Object.fromEntries(Object.entries(redirects).map(([from, to]) => [from, `${base}${to}`])),
   markdown: {
     processor: satteri({ hastPlugins: [baseLinksPlugin({ base })] }),
   },
@@ -34,7 +39,21 @@ export default defineConfig({
       editLink: { baseUrl: `${repository}/edit/main/` },
       lastUpdated: true,
       sidebar: [
-        { label: 'Situations', translations: { en: 'Situations' }, items: [{ autogenerate: { directory: 'situations' } }] },
+        {
+          label: 'Situations',
+          translations: { en: 'Situations' },
+          items: [
+            { slug: 'situations' },
+            { slug: 'situations/comment-lire' },
+            // Un groupe repliable par thème : la barre latérale reste courte, même à cent situations.
+            ...Object.entries(themes).map(([directory, theme]) => ({
+              label: theme.label,
+              translations: { en: theme.labelEn },
+              collapsed: true,
+              items: [{ autogenerate: { directory: `situations/${directory}` } }],
+            })),
+          ],
+        },
         { label: 'Comprendre', translations: { en: 'Understand' }, items: [{ autogenerate: { directory: 'comprendre' } }] },
         { label: 'Travailler en équipe', translations: { en: 'Working as a team' }, items: [{ autogenerate: { directory: 'equipe' } }] },
         { label: 'Commandes', translations: { en: 'Commands' }, items: [{ autogenerate: { directory: 'commandes' } }] },
