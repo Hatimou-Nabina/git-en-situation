@@ -16,12 +16,12 @@ Disponibles :
 3. [Une branche par changement](/equipe/une-branche-par-changement/) : nommer, créer, garder courte, supprimer après fusion, et un garde-fou contre le commit sur `main` par habitude.
 4. [Protéger la branche principale](/equipe/proteger-la-branche-principale/) : ce qu'un push forcé fait à `main` sans protection, les deux réglages que tout serveur Git connaît, la pull request rendue obligatoire.
 5. [Les secrets ne vont jamais dans le dépôt](/equipe/secrets-jamais-dans-le-depot/) : `.env` ignoré dès le premier commit, `.env.example` versionné, l'application qui lit l'environnement, un garde-fou en dix lignes, et ce que GitHub bloque.
+6. [Relire une pull request](/equipe/relire-une-pull-request/) : dans quel ordre regarder, la branche sur ton poste, vérifier plutôt que croire, formuler la remarque, ne relire que ce qui a changé, quand approuver.
+7. [Branche de travail et branche de production](/equipe/branche-de-travail-et-de-production/) : `main` et `prod`, la mise en production en avance rapide, le correctif urgent reporté tout de suite, et savoir ce qui est où.
+8. [Tenir un changelog](/equipe/tenir-un-changelog/) : la section « Non publié » que chaque PR alimente, le conflit qui revient et `merge=union` qui l'évite, le brouillon depuis les commits, la version.
 
 À venir :
 
-- **Relire une pull request** : ce qu'on regarde, comment formuler une remarque, quand approuver.
-- **Branche de travail et branche de production** : quand deux branches longues suffisent, et comment les faire avancer.
-- **Tenir un changelog** : pour qui, à quel moment, et ce qu'il contient.
 - **Versions et tags** : versionnage sémantique, `git tag`, releases GitHub.
 - **CODEOWNERS, gabarits d'issue et de PR** : les automatismes GitHub qui font gagner du temps à tout le monde.
 - **Une CI qui vérifie ce que les postes ne voient pas** : fins de ligne, permissions, tests sur Linux.

@@ -123,7 +123,7 @@ Un *fast-forward* ne crée aucun commit : Git déplace le marque-page `main` jus
 
 - [Une branche distante a été supprimée, mais je la vois encore](/situations/quotidien/branche-distante-supprimee-encore-visible/)
 - [git pull me demande de choisir entre merge et rebase](/situations/quotidien/git-pull-merge-ou-rebase/)
-- Travailler en équipe : *La pull request, de l'ouverture à la fusion* (à venir)
+- [Travailler en équipe : la pull request, de l'ouverture à la fusion](/equipe/la-pull-request/)
 
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/branche-locale-en-retard-apres-fusion.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/branche-locale-en-retard-apres-fusion.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple ; la fusion « par GitHub » y est jouée par un second poste.

@@ -144,7 +144,7 @@ Le détail de ces trois commandes est dans [J'ai commité sur la mauvaise branch
 ## Pièges
 
 - **Le check requis qui n'existe plus.** La règle vise un job par son nom. Si le job est renommé, la PR attend un check qui n'arrivera jamais, et personne ne peut fusionner. Mettre à jour la règle en même temps que le workflow.
-- **Protéger `main` et oublier `prod`**, ou toute autre branche déployée. La règle vaut pour chaque branche dont dépend quelqu'un.
+- **Protéger `main` et oublier `prod`**, ou toute autre branche déployée. La règle vaut pour chaque branche dont dépend quelqu'un : [Branche de travail et branche de production](/equipe/branche-de-travail-et-de-production/).
 - **Protection n'est pas sauvegarde.** Une PR relue et verte peut quand même casser quelque chose. Le retour en arrière est un `revert`, en PR lui aussi : [Annuler un commit déjà poussé](/situations/reparer/annuler-un-commit-deja-pousse/).
 - **Le push forcé légitime** existe : effacer un secret de l'historique demande de suspendre la règle le temps de l'opération, puis de la remettre. [J'ai poussé un secret par erreur](/situations/fichiers/secret-pousse-par-erreur/).
 - **Le hook local ne protège que ton poste**, et un hook de serveur n'existe que sur un serveur que tu administres. Sur GitHub, seules les règles du dépôt comptent.
