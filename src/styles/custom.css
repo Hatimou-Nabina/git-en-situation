@@ -225,6 +225,12 @@ h3 {
   gap: 0.35rem;
 }
 
+/* Le filtre du catalogue pose l'attribut hidden : il doit l'emporter sur display: grid. */
+.sl-markdown-content .home-list > li[hidden],
+.sl-markdown-content .catalogue__empty[hidden] {
+  display: none;
+}
+
 .home-list a {
   font-size: var(--sl-text-lg);
   font-weight: 600;
