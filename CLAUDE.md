@@ -1,0 +1,61 @@
+# git-en-situation — guide de travail
+
+Site open source : « Git et GitHub, à partir des situations que tu vis vraiment. » Contenu en Markdown, site statique Astro + Starlight, publié sur GitHub Pages. Dépôt : https://github.com/Hatimou-Nabina/git-en-situation
+
+Le propriétaire travaille sur **plusieurs machines**. Tout ce qui est nécessaire pour reprendre le travail doit être dans le repo : ce fichier, `CHANGELOG.md`, `CONTRIBUTING.md`, `README.md`. La mémoire de l'assistant n'est pas partagée entre les postes.
+
+## Décisions (5 octobre 2026)
+
+- **Nom** : `git-en-situation`. Public et open source : contenu sous CC BY-SA 4.0 (`LICENSE-CONTENT.md`), code du site sous MIT (`LICENSE`).
+- **Langue** : français d'abord (locale racine), anglais ensuite (`src/content/docs/en/`, repli automatique sur le français).
+- **Public** : développeurs francophones de tous niveaux. Tutoiement.
+- **Hébergement** : GitHub Pages, `https://hatimou-nabina.github.io/git-en-situation/`, d'où `base: '/git-en-situation'` dans `astro.config.mjs`. Un domaine propre viendra peut-être : il suffira de changer `site` et `base`, le contenu n'a pas à bouger.
+- **Le projet s'applique à lui-même** : commits conventionnels, pull requests, `CODEOWNERS`, CI, changelog, gabarits d'issue.
+
+## Règles de collaboration
+
+- **Ne jamais pousser** sans autorisation explicite du propriétaire.
+- Commits conventionnels en français, **sans ligne `Co-Authored-By`**. Types et scopes dans `CONTRIBUTING.md`.
+- `main` est la branche publiée. Une fois protégée, tout passe par une pull request ; seul le squelette initial a été poussé directement.
+- `CHANGELOG.md` à jour à chaque ajout, renommage ou retrait de page, et à chaque changement visible du site.
+- Machine locale : **un seul processus lourd à la fois** (`npm ci`, `npm run build`).
+
+## Principes éditoriaux
+
+1. **Toute sortie affichée est vraie** : elle vient du script de la page dans `scripts/situations/`, exécuté avec la version de Git indiquée dans l'en-tête (`gitVersion`, `verified`). Jamais de sortie écrite de mémoire. Quand un script change, ses sorties dans la page et la date `verified` changent avec lui.
+2. **Toujours le pourquoi** : chaque situation a sa section « Pourquoi ça marche ».
+3. **Git d'abord, GitHub étiqueté** : ce qui est propre à GitHub est annoncé comme tel.
+4. **Une page, une situation**, cinq minutes de lecture, gabarit fixe (`CONTRIBUTING.md`).
+5. **Les commandes à risque** sont signalées (`risk`) et le moyen de revenir en arrière est expliqué.
+
+## Commandes
+
+```bash
+npm ci
+npm run dev                              # http://localhost:4321/git-en-situation/
+npm run build                            # valide aussi les liens internes
+npm run check                            # types des composants Astro
+bash scripts/situations/<slug>.sh        # rejoue une situation (Git Bash sous Windows)
+```
+
+## Architecture
+
+- `astro.config.mjs` : `site`, `base`, Starlight (i18n, barre latérale générée par dossier, composant `PageTitle` remplacé, plugin de validation des liens), processeur Markdown Sätteri avec le plugin qui préfixe les liens internes avec `base`.
+- `src/content.config.ts` : schéma Starlight étendu avec `level`, `risk`, `gitVersion`, `verified`.
+- `src/content/docs/` : contenu français. `situations/` (cœur), `comprendre/`, `equipe/`, `commandes/`, `a-propos.md`, `index.mdx` (accueil). `en/` : anglais.
+- `src/components/PageTitle.astro` : titre de page suivi des badges niveau, risque, version de Git et date de vérification.
+- `src/plugins/base-links.mjs` : les liens du contenu sont écrits depuis la racine (`/situations/...`) ; ce plugin ajoute `base` au build. C'est un plugin HAST pour Sätteri (`defineHastPlugin`), pas un plugin rehype : Astro 7 n'exécute plus `markdown.rehypePlugins` sans installer l'ancien processeur `@astrojs/markdown-remark`.
+- `src/styles/custom.css` : styles des badges et ajustements.
+- `scripts/situations/_lib.sh` : serveur factice, deux postes (`awa`, `bakary`), configuration Git neutre, dates figées, sorties nettoyées (`github.com:equipe/projet.git`). Un script par situation, du même nom que la page.
+- `.github/` : CI (`check` + `build` sur PR et `main`), déploiement Pages (`deploy.yml`), gabarits d'issue et de PR, `CODEOWNERS`.
+
+## Pièges connus
+
+- **`base`** : ne jamais écrire `/git-en-situation` dans le contenu. Les liens sont `/section/slug/`, le plugin fait le reste. Les liens de la barre latérale sont gérés par Starlight. **Une exception** : les boutons du héros (`hero.actions` dans `index.mdx` et `en/index.mdx`) ne sont pas préfixés par Starlight ni par le plugin (ils sont dans l'en-tête, pas dans le Markdown) ; ils contiennent la base en clair. À changer avec `site` et `base` le jour du domaine propre.
+- **`lastUpdated`** lit l'historique Git : les workflows font un `checkout` avec `fetch-depth: 0`, sinon toutes les pages affichent la date du build.
+- **i18n** : la locale racine est le français. Une page absente en anglais affiche le français avec un bandeau ; ce n'est pas une erreur.
+- **Validation des liens** : un lien vers une page qui n'existe pas encore casse le build. Les pages futures se citent en italique avec « (à venir) », sans lien.
+- **Scripts** : la configuration Git est isolée (`GIT_CONFIG_GLOBAL` temporaire) et les dates figées, d'où des identifiants de commit stables entre exécutions. Sous Windows, exécuter dans Git Bash ; `.gitattributes` impose LF.
+- **Node** : Astro 7 demande Node ≥ 22.12 ; `.nvmrc` dit 22. Un avertissement `EBADENGINE` sur `undici` apparaît avec Node 22.17 à l'installation : il est sans effet sur le build.
+- **Avertissements normaux au build** : « The collection "i18n" does not exist or is empty » (pas de traduction personnalisée de l'interface Starlight) et « Could not render `/404` from route `/[...slug]` » (la page `404.md` est servie par la route 404 de Starlight, c'est voulu). Tout autre avertissement mérite un regard.
+- **Zod** : importer `z` depuis `astro/zod` ; `astro:content` et `astro:schema` sont dépréciés pour ça dans Astro 7.
