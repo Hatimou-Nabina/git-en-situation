@@ -1,0 +1,139 @@
+---
+title: git stash
+description: Mettre son travail en cours de côté, et le reprendre. Ce que stash prend et ce qu'il laisse sans -u, voir ce qui est de côté, pop et apply, plusieurs remises, et pourquoi un stash ne voyage pas.
+risk: reversible
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git stash` range tes modifications en cours dans un coin, remet le dossier dans l'état du dernier commit, et te les rend quand tu le demandes. C'est pour changer de branche sans commiter un travail à moitié fait, ou pour tirer une mise à jour que des modifications locales gênent. Le manuel complet : `git help stash`.
+
+## Les formes qui servent
+
+**`git stash`** prend les fichiers suivis, modifiés ou dans l'index. Pas les fichiers nouveaux : `notes.txt` reste là. **`-u`** les prend aussi, et **`-m`** nomme la remise, ce qui compte dès qu'il y en a deux.
+
+```console
+$ git status --short
+ M app.js
+?? notes.txt
+
+$ git stash
+Saved working directory and index state WIP on main: ca6b8fa feat: app
+
+$ git status --short
+?? notes.txt
+
+$ git stash pop
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   app.js
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	notes.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (144d311bc28eed796321a114cf986d0ccda2bd40)
+
+$ git stash push -u -m "recherche en cours"
+Saved working directory and index state On main: recherche en cours
+
+$ git status --short
+```
+
+**`list`** et **`show`** : ce qui est de côté, et ce que contient une remise. `--include-untracked` pour voir aussi les fichiers nouveaux.
+
+```console
+$ git stash list
+stash@{0}: On main: recherche en cours
+
+$ git stash show --stat --include-untracked
+ app.js    | 2 +-
+ notes.txt | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+```
+
+**`pop`** rend la remise et la supprime. Entre les deux, on a changé de branche, commité un correctif urgent, et on est revenu sur `main` : le travail reprend là où il était.
+
+```console
+$ git stash pop
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   app.js
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	notes.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (3f9c341b5912aacd05466f72bb1e8d46906f8b1b)
+
+$ git status --short
+ M app.js
+?? notes.txt
+```
+
+**Plusieurs remises** : `apply` rend sans supprimer, `drop` supprime sans rendre, et `stash@{1}` désigne la deuxième, la plus récente étant `stash@{0}`. Le message de `drop` donne un identifiant : `git stash apply <identifiant>` ferait revenir la remise supprimée.
+
+```console
+$ git stash list
+stash@{0}: On main: essai b
+stash@{1}: On main: essai a
+
+$ git stash apply stash@{1}
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   app.js
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	notes.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+$ git stash list
+stash@{0}: On main: essai b
+stash@{1}: On main: essai a
+
+$ git stash drop stash@{1}
+Dropped stash@{1} (87680fee66fe14e44c4ad72aca82d276e23516c8)
+
+$ git stash list
+stash@{0}: On main: essai b
+```
+
+## Pièges
+
+- **Les fichiers nouveaux restent sur place** sans `-u`, et suivent dans la branche où l'on va. On croit avoir tout rangé, ce n'est pas le cas.
+- **`pop` sur une autre branche** fonctionne : une remise n'est pas attachée à une branche. C'est pratique, et c'est le piège : on reprend son travail au mauvais endroit. `git stash list` dit sur quelle branche chaque remise a été faite.
+- **Un `pop` qui conflicte** garde la remise : rien n'est perdu, le conflit se résout comme un autre, puis `git stash drop` : [Un conflit pendant un merge ou un rebase](/situations/reparer/resoudre-un-conflit/).
+- **Les remises s'accumulent.** « WIP on main » d'il y a deux mois ne dit plus rien à personne : `-m` à chaque fois, et `git stash list` de temps en temps.
+- **Un stash ne voyage pas** : il reste sur le poste, le `push` ne le prend pas. Pour emporter un travail en cours, une branche et un commit, même brouillon : [Travailler sur le même projet depuis deux machines](/situations/avec-les-autres/travailler-depuis-deux-machines/).
+- **Pour un travail long**, le stash n'est pas le bon outil : une branche, ou un second dossier de travail avec `git worktree add`.
+
+## Où ça sert
+
+À lire d'abord : [Mettre mon travail en cours de côté pour changer de branche](/situations/quotidien/mettre-son-travail-de-cote/), [`git switch`](/commandes/switch/), [Travailler sur le même projet depuis deux machines](/situations/avec-les-autres/travailler-depuis-deux-machines/).
+
+<CommandUsages command="stash" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/stash.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/stash.sh), exécuté avec Git 2.50 le 6 octobre 2026. Le passage par une autre branche entre la remise et le `pop` y est joué sans affichage. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::
