@@ -1,0 +1,113 @@
+---
+title: git checkout
+description: La commande qu'on tape encore, et ce qui la remplace. Changer de branche, en créer une, remettre un fichier, reprendre un ancien contenu, se placer sur un commit, chaque forme ancienne avec son équivalent, et la différence qui compte.
+risk: destructif
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git checkout` fait deux métiers : changer de branche, et remettre des fichiers dans l'état d'un commit. Depuis Git 2.23, en 2019, [`git switch`](/commandes/switch/) et [`git restore`](/commandes/restore/) les séparent, et ce site n'emploie qu'eux. Mais `checkout` marche toujours, la plupart des tutoriels l'utilisent encore, et il faut savoir le lire. Cette fiche met chaque forme ancienne à côté de celle qui la remplace. Le manuel complet : `git help checkout`.
+
+## Les formes qui servent
+
+**Changer de branche** : `git checkout branche`, et `git switch branche`.
+
+```console
+$ git checkout feature/x
+Switched to branch 'feature/x'
+
+$ git switch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+Switched to branch 'main'
+```
+
+**Créer une branche et y aller** : `checkout -b`, et `switch -c`, qui accepte aussi un point de départ.
+
+```console
+$ git checkout -b fix/titre
+Switched to a new branch 'fix/titre'
+
+$ git switch -c fix/titre-2 main
+Switched to a new branch 'fix/titre-2'
+```
+
+**Remettre un fichier comme au dernier commit** : `checkout -- fichier`, et `restore fichier`. Dans les deux cas, la modification est jetée sans confirmation ni retour.
+
+```console
+$ git status --short
+ M README.md
+
+$ git checkout -- README.md
+
+$ git status --short
+
+$ git restore README.md
+
+$ git status --short
+```
+
+**Reprendre un ancien contenu** : `checkout commit -- fichier`, et `restore --source=commit fichier`. La différence qui compte : `checkout` met la version ancienne dans l'index et dans le dossier, elle est prête à être commitée ; `restore --source` ne touche que le dossier.
+
+```console
+$ git checkout HEAD~1 -- README.md
+
+$ git status --short
+M  README.md
+
+$ git restore --source=HEAD~1 README.md
+
+$ git status --short
+ M README.md
+```
+
+**Se placer sur un commit sans branche** : `checkout commit`, et `switch --detach commit`. `checkout` le fait sans prévenir autrement que par ce long message ; `switch` exige `--detach`, pour qu'on sache ce qu'on fait.
+
+```console
+$ git checkout HEAD~1
+Note: switching to 'HEAD~1'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at d0a0b32 Premier commit
+
+$ git switch -
+Previous HEAD position was d0a0b32 Premier commit
+Switched to branch 'fix/titre-2'
+```
+
+## Pièges
+
+- **Deux métiers, une commande, un seul nom.** `git checkout truc` change de branche si `truc` est une branche, remet un fichier si c'est un fichier, et si c'est les deux, Git choisit la branche. Les deux tirets, `checkout -- fichier`, lèvent le doute. `switch` et `restore` n'ont pas ce problème.
+- **`checkout -- fichier` ne revient pas en arrière** : la modification jetée n'est dans aucun commit, aucun reflog. Même chose pour `restore`.
+- **`checkout -b` part de la branche courante**, pas de `main` : une branche créée depuis une autre branche en cours embarque son travail. [Une branche par changement](/equipe/une-branche-par-changement/).
+- **« detached HEAD » après un `checkout commit`** : ce n'est pas une panne, mais un commit fait là doit recevoir une branche avant de repartir. [Je suis en « detached HEAD »](/situations/reparer/detached-head/).
+- **Les tutoriels en `checkout`** restent justes : remplace `checkout branche` par `switch`, `checkout -b` par `switch -c`, `checkout -- fichier` par `restore`, et le reste suit.
+
+## Où ça sert
+
+À lire d'abord : [`git switch`](/commandes/switch/), [`git restore`](/commandes/restore/), [Je suis en « detached HEAD »](/situations/reparer/detached-head/).
+
+<CommandUsages command="checkout" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/checkout.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/checkout.sh), exécuté avec Git 2.50 le 6 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site ; aucune page de ce site n'exécute `checkout`, par choix. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::
