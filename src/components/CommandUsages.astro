@@ -5,6 +5,12 @@
  * commence par « $ git <commande> ». La liste est calculée au build depuis le
  * contenu : elle ne se périme pas.
  *   command : le nom de la sous-commande (« log », « branch »…)
+ *   prefix  : ce qui précède la sous-commande, « git » par défaut, « » pour
+ *             un outil à part entière comme gh
+ *   mode    : « executed » (défaut), les pages qui exécutent la commande ;
+ *             « cited », les pages qui la citent dans le texte, entre
+ *             accents graves. Pour les commandes qu'aucun script ne peut
+ *             exécuter (gh demande un compte connecté).
  * Les fiches elles-mêmes, les pages d'index et la version anglaise sont exclues.
  */
 import { getCollection } from 'astro:content';
@@ -12,11 +18,18 @@ import { themes } from '../themes.mjs';
 
 interface Props {
   command: string;
+  prefix?: string;
+  mode?: 'executed' | 'cited';
 }
 
-const { command } = Astro.props;
+const { command, prefix = 'git', mode = 'executed' } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const pattern = new RegExp(`^\\$ git ${command.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\s|$)`, 'm');
+const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const full = prefix ? `${prefix} ${command}` : command;
+const pattern =
+  mode === 'cited'
+    ? new RegExp('`' + escape(full) + '( [^`]*)?`')
+    : new RegExp(`^\\$ ${escape(full)}(\\s|$)`, 'm');
 
 const byTitle = (a: { data: { title: string } }, b: { data: { title: string } }) =>
   a.data.title.localeCompare(b.data.title, 'fr');
@@ -36,19 +49,20 @@ const sections = [
 ].filter((s) => s.entries.length > 0);
 
 const themeLabel = (id: string) => themes[id.split('/')[1] as keyof typeof themes]?.label;
+const verb = mode === 'cited' ? ['cite', 'citent'] : ['exécute', 'exécutent'];
 ---
 
 <div class="command-usages">
   {
     all.length === 0 ? (
       <p>
-        Aucune page de ce site n'exécute encore <code>git {command}</code>.
+        Aucune page de ce site n'{verb[0]} encore <code>{full}</code>.
       </p>
     ) : (
       <>
         <p>
-          {all.length === 1 ? 'Une page de ce site exécute' : `${all.length} pages de ce site exécutent`}{' '}
-          <code>git {command}</code> :
+          {all.length === 1 ? `Une page de ce site ${verb[0]}` : `${all.length} pages de ce site ${verb[1]}`}{' '}
+          <code>{full}</code> :
         </p>
         {sections.map(({ label, entries }) => (
           <>
