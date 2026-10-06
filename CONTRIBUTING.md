@@ -59,7 +59,7 @@ Chaque page de situation est adossée à un script `scripts/situations/<slug>.sh
 Pars d'un script existant. La bibliothèque `_lib.sh` fournit :
 
 - `setup_team` : un « serveur » (`github.com:equipe/projet.git`) et deux postes clonés, `awa` et `bakary` ;
-- `run <poste> <commande>` : affiche `$ commande` puis sa sortie ;
+- `run <poste> <commande>` : affiche `$ commande` puis sa sortie, les messages (`stderr`) avant les résultats (`stdout`), dans un ordre fixe quel que soit le système ;
 - `run_sh <poste> '<ligne>'` : pareil, pour une ligne avec `&&` ou `|` ;
 - `quiet` et `quiet_sh` : la mise en place, sans affichage ;
 - `note '<titre>'` : un repère dans la sortie.
