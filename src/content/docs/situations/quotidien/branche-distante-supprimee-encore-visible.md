@@ -89,6 +89,16 @@ Ta branche locale, elle, t'appartient. Git ne la supprimera jamais sans qu'on le
 - [Supprimer une vieille branche sans rien perdre](/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/)
 - [Comprendre : les remotes et les références distantes](/comprendre/remotes-et-references-distantes/)
 
+:::note[Essaie-le toi-même]
+Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :
+
+```bash
+EXERCICE=1 bash scripts/situations/branche-distante-supprimee-encore-visible.sh
+```
+
+Il s'arrête juste après le symptôme, te dit dans quel dossier aller et quoi faire. Répare, puis relance sans `EXERCICE=1` pour comparer avec la solution.
+:::
+
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/branche-distante-supprimee-encore-visible.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/branche-distante-supprimee-encore-visible.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

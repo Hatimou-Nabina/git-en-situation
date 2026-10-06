@@ -96,6 +96,16 @@ Chaque branche a aussi son propre reflog : `git reflog show feature/recherche` m
 - [Supprimer une vieille branche sans rien perdre](/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/)
 - Comprendre : *Le reflog, ton filet de sécurité* et *Ce que Git supprime, et quand* (à venir)
 
+:::note[Essaie-le toi-même]
+Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :
+
+```bash
+EXERCICE=1 bash scripts/situations/retrouver-un-commit-perdu.sh
+```
+
+Il s'arrête juste après le symptôme, te dit dans quel dossier aller et quoi faire. Répare, puis relance sans `EXERCICE=1` pour comparer avec la solution.
+:::
+
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/retrouver-un-commit-perdu.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/retrouver-un-commit-perdu.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

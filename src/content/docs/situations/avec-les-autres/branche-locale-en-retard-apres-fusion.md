@@ -125,6 +125,16 @@ Un *fast-forward* ne crée aucun commit : Git déplace le marque-page `main` jus
 - [git pull me demande de choisir entre merge et rebase](/situations/quotidien/git-pull-merge-ou-rebase/)
 - [Travailler en équipe : la pull request, de l'ouverture à la fusion](/equipe/la-pull-request/)
 
+:::note[Essaie-le toi-même]
+Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :
+
+```bash
+EXERCICE=1 bash scripts/situations/branche-locale-en-retard-apres-fusion.sh
+```
+
+Il s'arrête juste après le symptôme, te dit dans quel dossier aller et quoi faire. Répare, puis relance sans `EXERCICE=1` pour comparer avec la solution.
+:::
+
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/branche-locale-en-retard-apres-fusion.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/branche-locale-en-retard-apres-fusion.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple ; la fusion « par GitHub » y est jouée par un second poste.
 :::

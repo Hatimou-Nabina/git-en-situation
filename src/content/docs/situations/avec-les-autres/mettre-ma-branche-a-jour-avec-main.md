@@ -163,6 +163,16 @@ La fusion, elle, ne réécrit rien : un commit de plus, avec deux parents, et le
 - [Un conflit pendant un merge ou un rebase](/situations/reparer/resoudre-un-conflit/)
 - [Ma branche locale est en retard après une fusion sur GitHub](/situations/avec-les-autres/branche-locale-en-retard-apres-fusion/)
 
+:::note[Essaie-le toi-même]
+Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :
+
+```bash
+EXERCICE=1 bash scripts/situations/mettre-ma-branche-a-jour-avec-main.sh
+```
+
+Il s'arrête juste après le symptôme, te dit dans quel dossier aller et quoi faire. Répare, puis relance sans `EXERCICE=1` pour comparer avec la solution.
+:::
+
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/mettre-ma-branche-a-jour-avec-main.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/mettre-ma-branche-a-jour-avec-main.sh), exécuté avec Git 2.50 le 5 octobre 2026. Les deux options sont jouées sur deux copies du même état, le serveur étant remis à l'identique entre les deux. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

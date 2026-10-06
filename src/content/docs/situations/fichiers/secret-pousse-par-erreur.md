@@ -141,6 +141,16 @@ Rien de tout cela ne retire le secret de la mémoire de ceux qui l'ont vu. D'où
 - [Annuler un commit déjà poussé](/situations/reparer/annuler-un-commit-deja-pousse/), pour tout ce qui n'est pas un secret
 - [Travailler en équipe : les secrets ne vont jamais dans le dépôt](/equipe/secrets-jamais-dans-le-depot/), pour que ça n'arrive plus
 
+:::note[Essaie-le toi-même]
+Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :
+
+```bash
+EXERCICE=1 bash scripts/situations/secret-pousse-par-erreur.sh
+```
+
+Il s'arrête juste après le symptôme, te dit dans quel dossier aller et quoi faire. Répare, puis relance sans `EXERCICE=1` pour comparer avec la solution.
+:::
+
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/secret-pousse-par-erreur.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/secret-pousse-par-erreur.sh), exécuté avec Git 2.50 et git-filter-repo le 6 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple ; les durées affichées par `filter-repo`, qui changent à chaque exécution, sont remplacées par `N.NN`. La révocation de la clé, hors Git, n'est pas jouée.
 :::
