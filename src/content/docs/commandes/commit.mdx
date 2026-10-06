@@ -1,0 +1,121 @@
+---
+title: git commit
+description: Enregistrer ce qui est dans l'index. Le message en une ligne, le corps qui dit pourquoi, -a pour les fichiers déjà suivis, --amend pour compléter ou corriger le dernier commit, et le commit vide qui relance une CI.
+risk: reversible
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git commit` prend ce qui est dans l'index et en fait un instantané daté, signé de ton nom, avec un message, relié au commit précédent. Rien d'autre : ce qui n'est pas dans l'index n'y est pas, et rien ne part sur le serveur. Le manuel complet : `git help commit`.
+
+## Les formes qui servent
+
+**`git commit -m "sujet"`** : la réponse donne la branche, l'identifiant court, le sujet, et le bilan.
+
+```console
+$ git commit -m "feat(app): premiere version"
+[main 2ff0d5a] feat(app): premiere version
+ 1 file changed, 1 insertion(+)
+ create mode 100644 app.js
+```
+
+**Sans rien dans l'index**, `commit` ne devine pas : il montre ce qui est modifié, et suggère.
+
+```console
+$ git commit -m "fix(app): corrige le demarrage"
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   app.js
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+**`-a`** ajoute les fichiers déjà suivis et commite d'un coup. Pas les nouveaux : eux passent par [`git add`](/commandes/add/).
+
+```console
+$ git commit -am "fix(app): corrige le demarrage"
+[main 6260ea3] fix(app): corrige le demarrage
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+**Un corps, pour dire pourquoi.** Un second `-m` ouvre un paragraphe ; sans `-m` du tout, l'éditeur s'ouvre, et c'est plus confortable dès qu'on écrit plus d'une ligne.
+
+```console
+$ git commit -m "feat(api): ajoute le point d entree" -m "Le client mobile en a besoin pour la version 2. Le format est celui de l API publique."
+[main df623e2] feat(api): ajoute le point d entree
+ 1 file changed, 1 insertion(+)
+ create mode 100644 api.js
+
+$ git log -1 --format='%B'
+feat(api): ajoute le point d entree
+
+Le client mobile en a besoin pour la version 2. Le format est celui de l API publique.
+
+```
+
+**`--amend`** remplace le dernier commit par un nouveau : pour y ajouter un fichier oublié, `--no-edit` gardant le message, ou pour corriger le message. L'identifiant change : c'est un autre commit.
+
+```console
+$ git log --oneline -1
+df623e2 feat(api): ajoute le point d entree
+
+$ git commit --amend --no-edit
+[main d35c698] feat(api): ajoute le point d entree
+ Date: Mon Oct 5 10:00:00 2026 +0000
+ 2 files changed, 2 insertions(+)
+ create mode 100644 api.js
+ create mode 100644 api.test.js
+
+$ git log --oneline -1
+d35c698 feat(api): ajoute le point d entree
+
+$ git commit --amend -m "feat(api): ajoute le point d entree et son test"
+[main d53fe13] feat(api): ajoute le point d entree et son test
+ Date: Mon Oct 5 10:00:00 2026 +0000
+ 2 files changed, 2 insertions(+)
+ create mode 100644 api.js
+ create mode 100644 api.test.js
+
+$ git show --stat --format='%h %s' HEAD
+d53fe13 feat(api): ajoute le point d entree et son test
+
+ api.js      | 1 +
+ api.test.js | 1 +
+ 2 files changed, 2 insertions(+)
+```
+
+**`--allow-empty`** : un commit sans changement, pour relancer une CI ou marquer un point.
+
+```console
+$ git commit --allow-empty -m "chore: relance la CI"
+[main fb5136a] chore: relance la CI
+```
+
+## Pièges
+
+- **`--amend` après le push** : le serveur a l'ancien commit, le tien est nouveau, le prochain `push` est refusé. Sur ta branche, `--force-with-lease` ; sur `main`, jamais : [Annuler mon dernier commit, pas encore poussé](/situations/reparer/annuler-mon-dernier-commit/) et [`git push`](/commandes/push/).
+- **L'ancien commit n'est pas perdu** après un `--amend` : il reste dans le reflog, le temps de changer d'avis : [Retrouver un commit perdu](/situations/reparer/retrouver-un-commit-perdu/).
+- **`-a` n'ajoute pas les nouveaux fichiers.** Le commit part sans eux, et le build casse ailleurs. `git status` avant, toujours.
+- **Le message « update »** ne dit rien à personne, pas même à toi dans un mois : [Les commits conventionnels](/equipe/commits-conventionnels/).
+- **La mauvaise identité**, un commit avec l'adresse pro sur un dépôt perso : `git commit --amend --reset-author --no-edit` après avoir corrigé la configuration : [Deux comptes GitHub sur le même poste](/situations/avec-les-autres/deux-comptes-github-sur-un-poste/).
+- **L'éditeur qui s'ouvre** et qu'on ne sait pas fermer : `-m` l'évite, ou `git config --global core.editor "code --wait"` le remplace par le tien.
+
+## Où ça sert
+
+À lire d'abord : [Un commit, c'est un instantané](/comprendre/un-commit-est-un-instantane/), [Les commits conventionnels](/equipe/commits-conventionnels/), [Annuler mon dernier commit, pas encore poussé](/situations/reparer/annuler-mon-dernier-commit/).
+
+<CommandUsages command="commit" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/commit.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/commit.sh), exécuté avec Git 2.50 le 6 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::

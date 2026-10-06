@@ -1,6 +1,6 @@
 ---
 title: Les commandes qui comptent
-description: Une fiche par commande, limitée aux formes utiles, avec leurs vraies sorties, qui renvoie aux pages où elle sert. Huit fiches disponibles, une quinzaine prévues.
+description: Une fiche par commande, limitée aux formes utiles, avec leurs vraies sorties, qui renvoie aux pages où elle sert. Douze fiches disponibles, une dizaine prévues.
 sidebar:
   order: 0
 ---
@@ -13,10 +13,10 @@ Disponibles :
 
 - **Voir et se déplacer** : [`git log`](/commandes/log/), [`git diff`](/commandes/diff/), [`git branch`](/commandes/branch/), [`git switch`](/commandes/switch/).
 - **Le serveur** : [`git fetch`](/commandes/fetch/), [`git pull`](/commandes/pull/), [`git push`](/commandes/push/), [`git remote`](/commandes/remote/).
+- **Le quotidien** : [`git status`](/commandes/status/), [`git add`](/commandes/add/), [`git commit`](/commandes/commit/), [`git stash`](/commandes/stash/).
 
 À venir, dans cet ordre :
 
-- **Le quotidien** : `status`, `add`, `commit`, `stash`.
 - **Réparer** : `reset`, `restore`, `revert`, `reflog`.
 - **Réunir** : `merge`, `rebase`, `cherry-pick`, `tag`.
 - **Régler et inspecter** : `config`, `show`, `ls-files`, `check-ignore`, et une fiche `gh` pour GitHub en ligne de commande, signalée comme telle.

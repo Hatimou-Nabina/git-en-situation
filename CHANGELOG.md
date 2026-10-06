@@ -7,9 +7,25 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 2, lot 11 : les fiches du serveur
+## [Non publié] — Phase 2, lot 12 : les fiches du quotidien
 
-Branche `commandes/lot-11`, partie de `main` (`74bd1d7`).
+Branche `commandes/lot-12`, partie de `main` (`73574ad`).
+
+### Contenu
+
+- **Quatre fiches « Commandes »**, `git status`, `git add`, `git commit`, `git stash`, chacune avec son script dans `scripts/commandes/` et ses sorties réelles (Git 2.50, 6 octobre 2026) :
+  - `status` : les trois états d'un fichier, la forme courte et ses codes, `-sb`, ce que `status` dit pendant un conflit, `--ignored` ;
+  - `add` : un fichier, un dossier, `--dry-run`, `-p` joué sans terminal avec ses deux questions, les suppressions, `-A`, le fichier ignoré refusé ;
+  - `commit` : `-m`, le refus sans rien dans l'index, `-a`, le corps avec un second `-m`, `--amend` avec et sans `--no-edit`, `--allow-empty` ;
+  - `stash` : les fichiers suivis seulement sauf `-u`, `-m`, `list` et `show`, `pop` après un passage sur une autre branche, `apply` et `drop`.
+- La page d'entrée « Commandes » passe à douze fiches disponibles.
+- Point d'étape du 6 octobre 2026 : les fiches continuent, décision du mainteneur. Restent `reset`, `restore`, `revert`, `reflog` ; `merge`, `rebase`, `cherry-pick`, `tag` ; `config`, `show`, `ls-files`, `check-ignore`, `gh`.
+
+---
+
+## 6 octobre 2026 · Phase 2, lot 11 : les fiches du serveur — en ligne le 6 octobre 2026
+
+Branche `commandes/lot-11`, partie de `main` (`74bd1d7`), fusionnée par la PR #20 (`73574ad`).
 
 ### Contenu
 

@@ -1,0 +1,127 @@
+---
+title: git status
+description: Où en est le dossier de travail. Les trois états d'un fichier, la forme courte et ses codes à deux lettres, l'avance et le retard sur le serveur, ce que status dit pendant un conflit, et les fichiers ignorés.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git status` dit où tu en es : sur quelle branche, en avance ou en retard sur le serveur, et pour chaque fichier, s'il est nouveau, modifié, prêt à être commité ou en conflit. C'est la commande à taper avant toute autre quand on ne sait plus ; elle ne change rien, et elle suggère la commande suivante. Le manuel complet : `git help status`.
+
+## Les formes qui servent
+
+**`git status`**, rien à signaler : la branche, son rapport au serveur, et un dossier propre.
+
+```console
+$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+```
+
+**Les trois états d'un fichier.** Non suivi : Git ne le connaît pas. Modifié : Git le suit, mais la modification n'est pas dans l'index. Prêt à être commité : la modification est dans l'index. La forme longue suggère la commande pour chaque cas ; la forme courte, `--short`, tient en deux colonnes, la gauche pour l'index, la droite pour le dossier.
+
+```console
+$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   app.js
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   README.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	notes.txt
+
+
+$ git status --short
+ M README.md
+A  app.js
+?? notes.txt
+```
+
+**Un même fichier dans deux états** : `AM`, ajouté à l'index puis modifié encore. Le commit prendra la version de l'index, pas celle du disque.
+
+```console
+$ git status --short
+ M README.md
+AM app.js
+?? notes.txt
+```
+
+**`-sb`** : la forme courte avec la ligne de branche, et l'avance ou le retard sur la copie du serveur. La forme longue dit la même chose en phrases.
+
+```console
+$ git status -sb
+## main...origin/main [ahead 1, behind 1]
+
+$ git status
+On branch main
+Your branch and 'origin/main' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" if you want to integrate the remote branch with yours)
+
+nothing to commit, working tree clean
+```
+
+**Pendant un conflit**, `status` est le tableau de bord : ce qui est déjà réglé, ce qui reste, et les deux issues.
+
+```console
+$ git status
+On branch main
+Your branch and 'origin/main' have diverged,
+and have 1 and 1 different commits each, respectively.
+  (use "git pull" if you want to integrate the remote branch with yours)
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Changes to be committed:
+	new file:   contact.js
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+	both modified:   README.md
+
+```
+
+**`--ignored`** liste aussi les fichiers que `.gitignore` cache, en `!!`.
+
+```console
+$ git status --short
+?? .gitignore
+
+$ git status --short --ignored
+?? .gitignore
+!! debug.log
+```
+
+## Pièges
+
+- **`status` ne contacte pas le serveur.** « up to date with 'origin/main' » veut dire « au niveau de ma copie d'`origin/main` », qui date du dernier `fetch` : [Les remotes et les références distantes](/comprendre/remotes-et-references-distantes/).
+- **Les codes de la forme courte** se lisent par colonne : `M ` à gauche est dans l'index, ` M` à droite n'y est pas, `MM` les deux. L'index est l'étape entre ton dossier et le commit : [Un commit, c'est un instantané](/comprendre/un-commit-est-un-instantane/).
+- **« nothing to commit » ne veut pas dire « rien à pousser »** : c'est la première ligne qui dit si tu es en avance.
+- **Un dossier vide n'apparaît jamais** : Git ne suit que des fichiers.
+- **Tous les fichiers modifiés sans raison** : fins de ligne, presque toujours. [Git voit tous mes fichiers comme modifiés](/situations/fichiers/tous-les-fichiers-modifies/).
+
+## Où ça sert
+
+À lire d'abord : [Un commit, c'est un instantané](/comprendre/un-commit-est-un-instantane/), [.gitignore ne marche pas, le fichier est déjà suivi](/situations/fichiers/gitignore-fichier-deja-suivi/), [Un conflit pendant un merge ou un rebase](/situations/reparer/resoudre-un-conflit/).
+
+<CommandUsages command="status" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/status.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/status.sh), exécuté avec Git 2.50 le 6 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::
