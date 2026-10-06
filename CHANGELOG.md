@@ -7,9 +7,29 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 2, lot 13 : les fiches pour réparer
+## [Non publié] — Phase 2, lot 14 : les fiches pour réunir
 
-Branche `commandes/lot-13`, partie de `main` (`c33f8b8`).
+Branche `commandes/lot-14`, partie de `main` (`9af69e3`).
+
+### Contenu
+
+- **Quatre fiches « Commandes »**, `git merge`, `git rebase`, `git cherry-pick`, `git tag`, chacune avec son script dans `scripts/commandes/` et ses sorties réelles (Git 2.50, 6 octobre 2026) :
+  - `merge` : l'avance rapide, le commit de merge, `--no-ff`, `--ff-only`, `--squash`, le conflit et `--abort` ;
+  - `rebase` : la mise à jour sur `origin/main`, `-i` joué sans terminal grâce à `GIT_SEQUENCE_EDITOR`, le conflit avec `--abort` puis `--continue`, le `--force-with-lease` qui suit ; marquée *réversible* ;
+  - `cherry-pick` : un commit, `-x`, une plage, `--no-commit`, le conflit et `--abort` ;
+  - `tag` : annoté et léger, lister, filtrer et trier, l'envoi au serveur, la suppression en local puis sur le serveur, `show` et `describe`.
+- La page d'entrée « Commandes » passe à vingt fiches disponibles, cinq prévues.
+
+### Suite proposée
+
+- Lot 15, convenu : `config`, `show`, `ls-files`, `check-ignore`, et `gh` en fiche sans script, l'unique exception, parce qu'un script ne peut pas exécuter `gh` sans compte connecté. À confirmer.
+- Lot 16, proposé le 6 octobre 2026 : `checkout` (cité dans neuf pages, exécuté dans aucune, la commande qu'on tape encore), `cat-file`, `merge-base`, `rm`. À confirmer. Hors règle, pas de fiche : `blame`, `bisect`, `worktree`, `mv`, `clean`, et les commandes exécutées dans une seule page.
+
+---
+
+## 6 octobre 2026 · Phase 2, lot 13 : les fiches pour réparer — en ligne le 6 octobre 2026
+
+Branche `commandes/lot-13`, partie de `main` (`c33f8b8`), fusionnée par la PR #22 (`9af69e3`).
 
 ### Contenu
 
