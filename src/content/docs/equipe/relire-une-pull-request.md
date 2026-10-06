@@ -3,7 +3,7 @@ title: Relire une pull request
 description: Ce qu'on regarde, dans quel ordre, comment formuler une remarque, quand approuver. La relecture depuis ton poste, avec les commandes qui vérifient plutôt que croire, et ce que GitHub ajoute.
 level: intermediaire
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 sidebar:
   order: 6
@@ -27,8 +27,8 @@ From github.com:equipe/projet
  * [new branch]      feature/recherche-options -> origin/feature/recherche-options
 
 $ git switch feature/recherche-options
-branch 'feature/recherche-options' set up to track 'origin/feature/recherche-options'.
 Switched to a new branch 'feature/recherche-options'
+branch 'feature/recherche-options' set up to track 'origin/feature/recherche-options'.
 ```
 
 **2. L'ensemble, puis commit par commit.** Les commits dans l'ordre où ils ont été écrits racontent l'intention ; le diff global dit l'étendue.
@@ -106,8 +106,8 @@ Plus aucun appel. **Quand approuver ?** Quand tu serais d'accord pour maintenir 
 
 ```console
 $ git switch main
-Your branch is up to date with 'origin/main'.
 Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
 
 $ git pull --ff-only
 From github.com:equipe/projet
@@ -155,5 +155,5 @@ Deleted branch feature/recherche-options (was 7d900da).
 - [Après un clone, je ne vois pas les branches des autres](/situations/quotidien/branches-invisibles-apres-clone/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/equipe/relire-une-pull-request.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/relire-une-pull-request.sh), exécuté avec Git 2.50 le 5 octobre 2026. Awa y ouvre la PR, Bakary la relit depuis son poste, et la fusion « par GitHub » est jouée par Awa. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/equipe/relire-une-pull-request.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/relire-une-pull-request.sh), exécuté avec Git 2.50 le 6 octobre 2026. Awa y ouvre la PR, Bakary la relit depuis son poste, et la fusion « par GitHub » est jouée par Awa. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

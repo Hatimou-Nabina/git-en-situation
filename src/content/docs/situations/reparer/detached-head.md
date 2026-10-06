@@ -4,7 +4,7 @@ description: git status annonce « HEAD detached at … ». Ce que ça veut dire
 level: debutant
 risk: reversible
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 ---
 
@@ -67,7 +67,6 @@ nothing to commit, working tree clean
 
 ```console
 $ git switch main
-Your branch is up to date with 'origin/main'.
 Warning: you are leaving 1 commit behind, not connected to
 any of your branches:
 
@@ -79,6 +78,7 @@ to do so with:
  git branch <new-branch-name> 45dba92
 
 Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
 ```
 
 Fais ce qu'il dit. `HEAD@{1}`, « là où j'étais juste avant », désigne le même commit que `45dba92` :
@@ -110,5 +110,5 @@ Dans `.git/HEAD`, il y a soit un nom de branche, soit un identifiant de commit. 
 - Comprendre : *HEAD, ou « où je suis »* (à venir)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/situations/detached-head.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/detached-head.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/situations/detached-head.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/detached-head.sh), exécuté avec Git 2.50 le 6 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

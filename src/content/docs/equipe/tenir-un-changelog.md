@@ -3,7 +3,7 @@ title: Tenir un changelog
 description: Pour qui, à quel moment, et ce qu'il contient. Une section « Non publié » que chaque pull request alimente, le conflit classique sur cette section et l'attribut qui l'évite, le brouillon tiré des commits conventionnels, et la version qui prend un numéro et une date.
 level: debutant
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 sidebar:
   order: 8
@@ -59,8 +59,6 @@ La ligne s'adresse au lecteur : « Export CSV des résultats de recherche », pa
 $ git pull --rebase
 From github.com:equipe/projet
    a0cbc71..ac88ea6  main       -> origin/main
-Auto-merging CHANGELOG.md
-CONFLICT (content): Merge conflict in CHANGELOG.md
 Rebasing (1/1)error: could not apply 91c1661... fix(recherche): ignore les accents
 hint: Resolve all conflicts manually, mark them as resolved with
 hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
@@ -68,6 +66,8 @@ hint: You can instead skip this commit: run "git rebase --skip".
 hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
 hint: Disable this message with "git config set advice.mergeConflict false"
 Could not apply 91c1661... # fix(recherche): ignore les accents
+Auto-merging CHANGELOG.md
+CONFLICT (content): Merge conflict in CHANGELOG.md
 
 $ sed -n "5,16p" CHANGELOG.md
 ## [Non publié]
@@ -184,5 +184,5 @@ Le numéro suit le versionnage sémantique : [Versions et tags](/equipe/versions
 - Keep a Changelog : [keepachangelog.com](https://keepachangelog.com/fr/1.1.0/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/equipe/tenir-un-changelog.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/tenir-un-changelog.sh), exécuté avec Git 2.50 le 5 octobre 2026, conflit et `merge=union` compris. Le script réécrit les fichiers en entier plutôt qu'avec `sed -i`, qui diffère entre GNU et BSD. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/equipe/tenir-un-changelog.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/tenir-un-changelog.sh), exécuté avec Git 2.50 le 6 octobre 2026, conflit et `merge=union` compris. Le script réécrit les fichiers en entier plutôt qu'avec `sed -i`, qui diffère entre GNU et BSD. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

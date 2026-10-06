@@ -3,7 +3,7 @@ title: La pull request, de l'ouverture à la fusion
 description: La branche, les commits, le push, la relecture, la fusion, le nettoyage. Ce que chaque étape évite, les commandes qui vont avec, et ce que font vraiment les trois boutons de fusion de GitHub.
 level: debutant
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 sidebar:
   order: 1
@@ -21,8 +21,8 @@ La pull request est l'unité de changement : une branche, une description, une r
 
 ```console
 $ git switch main
-Your branch is up to date with 'origin/main'.
 Already on 'main'
+Your branch is up to date with 'origin/main'.
 
 $ git pull --ff-only
 Already up to date.
@@ -43,9 +43,9 @@ b9b596d feat(recherche): ajoute la barre de recherche
 
 ```console
 $ git push -u origin feature/recherche
-branch 'feature/recherche' set up to track 'origin/feature/recherche'.
 To github.com:equipe/projet.git
  * [new branch]      feature/recherche -> feature/recherche
+branch 'feature/recherche' set up to track 'origin/feature/recherche'.
 ```
 
 Le titre suit le format des commits. La description répond à trois questions, et c'est ce que le gabarit du dépôt demande : quoi, pourquoi, qu'est-ce qui a été vérifié. Ce que la pull request contiendra, tu peux le voir avant de l'ouvrir :
@@ -78,8 +78,8 @@ b9b596d feat(recherche): ajoute la barre de recherche
 
 ```console
 $ git switch main
-Your branch is up to date with 'origin/main'.
 Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
 
 $ git pull --ff-only
 From github.com:equipe/projet
@@ -129,5 +129,5 @@ Ce site s'applique la règle : chaque changement depuis son premier jour est pas
 - [Fast-forward, fusion, rebase](/comprendre/fast-forward-fusion-rebase/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/equipe/la-pull-request.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/la-pull-request.sh), exécuté avec Git 2.50 le 5 octobre 2026. La fusion « par GitHub » y est jouée par un second poste. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/equipe/la-pull-request.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/la-pull-request.sh), exécuté avec Git 2.50 le 6 octobre 2026. La fusion « par GitHub » y est jouée par un second poste. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

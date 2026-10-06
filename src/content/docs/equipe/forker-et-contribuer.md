@@ -3,7 +3,7 @@ title: Forker et contribuer à un projet open source
 description: Fork, clone, upstream, une branche par contribution, la pull request entre deux dépôts, se mettre à jour pendant la relecture, et garder son fork au niveau du projet. Ce qu'il faut lire avant, et ce qui fait qu'une contribution est acceptée.
 level: intermediaire
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 sidebar:
   order: 12
@@ -45,13 +45,13 @@ Deux serveurs : `origin`, où tu écris, `upstream`, où tu lis.
 
 ```console
 $ git switch -c fix/typo-readme upstream/main
-branch 'fix/typo-readme' set up to track 'upstream/main'.
 Switched to a new branch 'fix/typo-readme'
+branch 'fix/typo-readme' set up to track 'upstream/main'.
 
 $ git push -u origin fix/typo-readme
-branch 'fix/typo-readme' set up to track 'origin/fix/typo-readme'.
 To github.com:awa/projet.git
  * [new branch]      fix/typo-readme -> fix/typo-readme
+branch 'fix/typo-readme' set up to track 'origin/fix/typo-readme'.
 ```
 
 **3. La pull request vers le projet d'origine.** Sur GitHub, le push affiche le lien ; la PR se crée depuis ton fork, base `equipe/projet:main`, compare `awa/projet:fix/typo-readme`. Tout ce qui vaut pour [une pull request](/equipe/la-pull-request/) vaut ici : une intention, une description, des commits lisibles. Laisse cochée la case « Allow edits from maintainers » : le mainteneur peut retoucher ta branche sans un aller-retour.
@@ -78,8 +78,8 @@ To github.com:awa/projet.git
 
 ```console
 $ git switch main
-Your branch is up to date with 'origin/main'.
 Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
 
 $ git pull --ff-only upstream main
 From github.com:equipe/projet
@@ -135,5 +135,5 @@ Rien entre `origin/main` et `upstream/main` : le fork est au niveau. Il n'a qu'u
 - Contribuer à ce site : [CONTRIBUTING.md](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/CONTRIBUTING.md)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/equipe/forker-et-contribuer.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/forker-et-contribuer.sh), exécuté avec Git 2.50 le 5 octobre 2026. Le fork y est un second dépôt nu, `github.com:awa/projet.git`, et la fusion « par GitHub » est jouée par Bakary, mainteneur du projet d'origine. Seuls les adresses des serveurs et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/equipe/forker-et-contribuer.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/forker-et-contribuer.sh), exécuté avec Git 2.50 le 6 octobre 2026. Le fork y est un second dépôt nu, `github.com:awa/projet.git`, et la fusion « par GitHub » est jouée par Bakary, mainteneur du projet d'origine. Seuls les adresses des serveurs et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

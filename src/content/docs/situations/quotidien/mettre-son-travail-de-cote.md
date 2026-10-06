@@ -4,7 +4,7 @@ description: Git refuse de changer de branche, « Your local changes would be ov
 level: debutant
 risk: aucun
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 ---
 
@@ -47,8 +47,8 @@ Le dossier est propre, comme au dernier commit.
 
 ```console
 $ git switch main
-Your branch is up to date with 'origin/main'.
 Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
 ```
 
 **3. Reviens et récupère ton travail.**
@@ -101,5 +101,5 @@ Comme c'est un commit, un stash se garde indéfiniment, se liste, se montre avec
 - Comprendre : *L'index, l'étape entre ton dossier et le commit* (à venir)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/situations/mettre-son-travail-de-cote.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/mettre-son-travail-de-cote.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/situations/mettre-son-travail-de-cote.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/mettre-son-travail-de-cote.sh), exécuté avec Git 2.50 le 6 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

@@ -4,7 +4,7 @@ description: git push répond « fatal - The current branch has no upstream bran
 level: debutant
 risk: aucun
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 ---
 
@@ -33,9 +33,9 @@ Ta branche existe sur ton poste, pas encore sur le serveur. `git push` sans argu
 
 ```console
 $ git push -u origin feature/recherche
-branch 'feature/recherche' set up to track 'origin/feature/recherche'.
 To github.com:equipe/projet.git
  * [new branch]      feature/recherche -> feature/recherche
+branch 'feature/recherche' set up to track 'origin/feature/recherche'.
 ```
 
 `-u` est le raccourci de `--set-upstream`. La branche est créée sur le serveur, et la tienne la suit désormais :
@@ -64,9 +64,9 @@ Sur la branche suivante, le premier `git push` passe directement :
 
 ```console
 $ git push
-branch 'feature/export' set up to track 'origin/feature/export'.
 To github.com:equipe/projet.git
  * [new branch]      feature/export -> feature/export
+branch 'feature/export' set up to track 'origin/feature/export'.
 ```
 
 ## Pourquoi ça marche
@@ -89,5 +89,5 @@ Une branche créée depuis une branche du serveur, par exemple avec `git switch 
 - Comprendre : *Upstream, la branche que la tienne suit* (à venir)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/situations/premier-push-no-upstream.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/premier-push-no-upstream.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/situations/premier-push-no-upstream.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/premier-push-no-upstream.sh), exécuté avec Git 2.50 le 6 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

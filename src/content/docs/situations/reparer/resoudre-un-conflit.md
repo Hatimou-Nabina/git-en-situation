@@ -16,8 +16,6 @@ Tu récupères le travail de l'équipe, et ça s'arrête en plein milieu :
 $ git pull --rebase
 From github.com:equipe/projet
    d0a0b32..c6daf1f  main       -> origin/main
-Auto-merging README.md
-CONFLICT (content): Merge conflict in README.md
 Rebasing (1/1)error: could not apply 0e03633... Corrige le titre du README
 hint: Resolve all conflicts manually, mark them as resolved with
 hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
@@ -25,6 +23,8 @@ hint: You can instead skip this commit: run "git rebase --skip".
 hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
 hint: Disable this message with "git config set advice.mergeConflict false"
 Could not apply 0e03633... # Corrige le titre du README
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
 ```
 
 ## Diagnostic
@@ -84,9 +84,9 @@ Contact : contact@example.com
 $ git add README.md
 
 $ git rebase --continue
+Successfully rebased and updated refs/heads/main.
 [detached HEAD d7f74cf] Corrige le titre du README
  1 file changed, 1 insertion(+), 1 deletion(-)
-Successfully rebased and updated refs/heads/main.
 
 $ git log --oneline -3
 d7f74cf Corrige le titre du README

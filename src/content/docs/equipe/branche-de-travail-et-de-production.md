@@ -3,7 +3,7 @@ title: Branche de travail et branche de production
 description: Quand deux branches longues suffisent, main pour le travail et prod pour ce qui tourne. Comment les faire avancer, livrer, corriger en urgence sans embarquer ce qui n'est pas prêt, et savoir à tout moment ce qui est où.
 level: intermediaire
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 sidebar:
   order: 7
@@ -26,13 +26,13 @@ $ git switch -c prod
 Switched to a new branch 'prod'
 
 $ git push -u origin prod
-branch 'prod' set up to track 'origin/prod'.
 To github.com:equipe/projet.git
  * [new branch]      prod -> prod
+branch 'prod' set up to track 'origin/prod'.
 
 $ git switch main
-Your branch is up to date with 'origin/main'.
 Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
 ```
 
 **2. Le travail arrive sur `main`, par pull request ; `prod` ne bouge pas.** Deux PR ont été fusionnées depuis. Ce qui attend la mise en production, c'est ce que `main` a et que `prod` n'a pas :
@@ -49,8 +49,8 @@ b9b596d feat(recherche): ajoute la barre de recherche
 
 ```console
 $ git switch prod
-Your branch is up to date with 'origin/prod'.
 Switched to branch 'prod'
+Your branch is up to date with 'origin/prod'.
 
 $ git merge --ff-only main
 Updating d0a0b32..c6bf1cd
@@ -74,8 +74,8 @@ Plus rien en attente. Si `--ff-only` refuse, c'est que `prod` a reçu quelque ch
 
 ```console
 $ git switch prod
-Your branch is up to date with 'origin/prod'.
 Switched to branch 'prod'
+Your branch is up to date with 'origin/prod'.
 
 $ git switch -c hotfix/export-vide
 Switched to a new branch 'hotfix/export-vide'
@@ -85,8 +85,8 @@ Un commit, une pull request vers `prod`, et la fusion :
 
 ```console
 $ git switch prod
-Your branch is up to date with 'origin/prod'.
 Switched to branch 'prod'
+Your branch is up to date with 'origin/prod'.
 
 $ git merge --ff-only hotfix/export-vide
 Updating c6bf1cd..803c3c3
@@ -103,8 +103,8 @@ To github.com:equipe/projet.git
 
 ```console
 $ git switch main
-Your branch is up to date with 'origin/main'.
 Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
 
 $ git log --oneline main..prod
 803c3c3 fix(export): corrige l export d une liste vide
@@ -164,5 +164,5 @@ Les filtres attendent ; le correctif est partout. `main..prod` doit être vide h
 - [Voir ce qui a changé entre ma branche et main](/situations/quotidien/voir-ce-qui-a-change/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/equipe/branche-de-travail-et-de-production.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/branche-de-travail-et-de-production.sh), exécuté avec Git 2.50 le 5 octobre 2026. Les pull requests fusionnées sur `main` y sont jouées en local, sans affichage. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/equipe/branche-de-travail-et-de-production.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/branche-de-travail-et-de-production.sh), exécuté avec Git 2.50 le 6 octobre 2026. Les pull requests fusionnées sur `main` y sont jouées en local, sans affichage. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

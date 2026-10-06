@@ -3,7 +3,7 @@ title: Fast-forward, fusion, rebase
 description: Trois façons de réunir deux lignes de travail. Le fast-forward déplace un marque-page, la fusion crée un commit à deux parents, le rebase recopie des commits. Ce que chacune laisse dans l'historique, et quand choisir laquelle.
 level: intermediaire
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 sidebar:
   order: 4
@@ -91,9 +91,9 @@ $ git log --oneline --graph --all
 * d0a0b32 Premier commit
 
 $ git switch main
+Switched to branch 'main'
 Your branch is ahead of 'origin/main' by 2 commits.
   (use "git push" to publish your local commits)
-Switched to branch 'main'
 
 $ git merge feature/b
 Updating fe06073..71f6422
@@ -141,5 +141,5 @@ $ git log --oneline --graph -4
 - [Un commit, c'est un instantané](/comprendre/un-commit-est-un-instantane/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/comprendre/fast-forward-fusion-rebase.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/comprendre/fast-forward-fusion-rebase.sh), exécuté avec Git 2.50 le 5 octobre 2026. La fusion et le rebase sont joués sur deux copies du même état. Seuls les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/comprendre/fast-forward-fusion-rebase.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/comprendre/fast-forward-fusion-rebase.sh), exécuté avec Git 2.50 le 6 octobre 2026. La fusion et le rebase sont joués sur deux copies du même état. Seuls les identifiants de commit sont ceux du dépôt d'exemple.
 :::

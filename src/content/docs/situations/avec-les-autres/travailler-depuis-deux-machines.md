@@ -4,7 +4,7 @@ description: Le soir, à la maison, le travail de l'après-midi n'est pas là. C
 level: debutant
 risk: aucun
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 ---
 
@@ -63,9 +63,9 @@ La première dit sur quelle branche tu es et s'il reste des modifications non co
 
 ```console
 $ git push -u origin feature/recherche
-branch 'feature/recherche' set up to track 'origin/feature/recherche'.
 To github.com:equipe/projet.git
  * [new branch]      feature/recherche -> feature/recherche
+branch 'feature/recherche' set up to track 'origin/feature/recherche'.
 
 $ git log --branches --not --remotes --oneline
 ```
@@ -80,8 +80,8 @@ From github.com:equipe/projet
  * [new branch]      feature/recherche -> origin/feature/recherche
 
 $ git switch feature/recherche
-branch 'feature/recherche' set up to track 'origin/feature/recherche'.
 Switched to a new branch 'feature/recherche'
+branch 'feature/recherche' set up to track 'origin/feature/recherche'.
 
 $ git log --oneline -3
 77e300c Ignore le fichier .env
@@ -132,5 +132,5 @@ Un dépôt Git, c'est des commits et des **noms** qui les désignent, les branch
 - [Premier push d'une branche, « has no upstream branch »](/situations/quotidien/premier-push-no-upstream/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/situations/travailler-depuis-deux-machines.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/travailler-depuis-deux-machines.sh), exécuté avec Git 2.50 le 5 octobre 2026, avec deux clones et deux configurations globales distinctes pour jouer les deux postes. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/situations/travailler-depuis-deux-machines.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/travailler-depuis-deux-machines.sh), exécuté avec Git 2.50 le 6 octobre 2026, avec deux clones et deux configurations globales distinctes pour jouer les deux postes. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::
