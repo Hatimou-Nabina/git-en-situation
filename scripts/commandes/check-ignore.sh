@@ -5,9 +5,7 @@
 # Le fichier d'exclusions global vit dans un faux dossier personnel,
 # /home/awa/.gitignore_global, pour que -v affiche un chemin réaliste.
 source "$(dirname "$0")/../situations/_lib.sh"
-clean() {
-  sed -e "s#$SANDBOX_ALT/home#/home#g" -e "s#$SANDBOX/home#/home#g" -e "s#$SANDBOX_ALT/##g" -e "s#$SANDBOX/##g" -e "s#github.com/equipe#github.com:equipe#g"
-}
+CLEAN_PRE=(-e "s#$SANDBOX_ALT/home#/home#g" -e "s#$SANDBOX/home#/home#g")
 mkdir -p "$SANDBOX/home/awa"
 echo ".DS_Store" > "$SANDBOX/home/awa/.gitignore_global"
 setup_team

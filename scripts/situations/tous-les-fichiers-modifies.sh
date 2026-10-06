@@ -18,6 +18,12 @@ run bakary git status --short
 
 note "Un réglage change, et tout est modifié sans qu'on ait rien touché"
 run bakary git config core.autocrlf false
+# Git fait confiance aux dates des fichiers : tant qu'elles n'ont pas bougé
+# depuis le clone, il ne relit pas leur contenu et status ne verrait rien,
+# sauf si le clone et l'index datent de la même seconde. Sur un vrai poste,
+# c'est le premier enregistrement dans l'éditeur qui révèle le problème ; ici,
+# touch joue ce rôle, pour une sortie identique à chaque exécution.
+quiet_sh bakary 'touch README.md a.txt b.txt c.txt'
 run bakary git status --short
 run bakary git diff --stat
 run_sh bakary 'git diff a.txt | cat -A | tail -4'
