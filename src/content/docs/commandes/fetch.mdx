@@ -1,0 +1,93 @@
+---
+title: git fetch
+description: Récupérer ce qui a changé sur le serveur sans rien changer à ton travail. Les branches qui ont bougé, les nouvelles, les tags, les branches supprimées avec --prune, la simulation avec --dry-run. La seule commande qu'on peut lancer à tout moment sans rien risquer.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git fetch` demande au serveur ce qui a changé et met à jour les copies locales de ses branches, `origin/main`, `origin/feature/x`, et ses tags. Il ne touche ni à tes branches ni à tes fichiers : c'est la seule commande de ce site qu'on peut lancer à tout moment sans rien risquer. Ce qu'il rapporte se lit ensuite avec `git log` ou `git status`, et s'intègre quand on le décide, avec `merge`, `rebase` ou `pull`. Le manuel complet : `git help fetch`.
+
+## Les formes qui servent
+
+**`git fetch --dry-run`** : ce que `fetch` ferait, sans le faire.
+
+```console
+$ git fetch --dry-run
+From github.com:equipe/projet
+   d0a0b32..4bb498d  main           -> origin/main
+ * [new branch]      feature/export -> origin/feature/export
+ * [new tag]         v1.0.0         -> v1.0.0
+ * [new tag]         v1.0.0         -> v1.0.0
+```
+
+**`git fetch`** : une ligne par chose qui change. La branche qui a avancé, avec l'ancien et le nouvel identifiant ; la nouvelle branche ; le nouveau tag. La simulation comptait le tag deux fois, le vrai `fetch` une.
+
+```console
+$ git fetch
+From github.com:equipe/projet
+   d0a0b32..4bb498d  main           -> origin/main
+ * [new branch]      feature/export -> origin/feature/export
+ * [new tag]         v1.0.0         -> v1.0.0
+```
+
+**Après le `fetch`, rien n'a bougé chez toi.** `git status` dit où tu en es par rapport à la copie fraîche, `git log main..origin/main` montre les commits arrivés, `git branch -r` liste les copies.
+
+```console
+$ git status
+On branch main
+Your branch is behind 'origin/main' by 1 commit, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+nothing to commit, working tree clean
+
+$ git log --oneline main..origin/main
+4bb498d feat(contact): ajoute la page contact
+
+$ git branch -r
+  origin/HEAD -> origin/main
+  origin/feature/ancienne
+  origin/feature/export
+  origin/main
+```
+
+**`git fetch --prune`** : retire les copies des branches que le serveur n'a plus. Sans ça, `origin/feature/ancienne`, supprimée sur le serveur, reste là indéfiniment.
+
+```console
+$ git fetch --prune
+From github.com:equipe/projet
+ - [deleted]         (none)     -> origin/feature/ancienne
+
+$ git branch -r
+  origin/HEAD -> origin/main
+  origin/feature/export
+  origin/main
+```
+
+**`fetch.prune`** rend `--prune` permanent, pour tous les dépôts du poste.
+
+```console
+$ git config --global fetch.prune true
+```
+
+## Pièges
+
+- **`fetch` ne met pas ta branche à jour.** Après un `fetch`, `main` est toujours là où elle était ; c'est `origin/main` qui a bougé. `git pull` fait les deux : [`git pull`](/commandes/pull/), et [Les remotes et les références distantes](/comprendre/remotes-et-references-distantes/) pour le modèle.
+- **Une branche supprimée sur GitHub reste chez toi** jusqu'au `--prune` : [Une branche distante a été supprimée, mais je la vois encore](/situations/quotidien/branche-distante-supprimee-encore-visible/).
+- **Les tags ne sont récupérés que s'ils désignent un commit récupéré.** `git fetch --tags` les prend tous. Un tag supprimé sur le serveur reste : `--prune --prune-tags`.
+- **`git fetch` seul ne concerne qu'`origin`**, le serveur par défaut. `git fetch upstream` pour un autre, `git fetch --all` pour tous : [Forker et contribuer à un projet open source](/equipe/forker-et-contribuer/).
+- **`fetch` ne voit pas les branches que tu n'as jamais poussées** : elles n'existent que sur ton poste. [Travailler sur le même projet depuis deux machines](/situations/avec-les-autres/travailler-depuis-deux-machines/).
+
+## Où ça sert
+
+À lire d'abord : [Les remotes et les références distantes](/comprendre/remotes-et-references-distantes/), [Une branche distante a été supprimée, mais je la vois encore](/situations/quotidien/branche-distante-supprimee-encore-visible/), [Après un clone, je ne vois pas les branches des autres](/situations/quotidien/branches-invisibles-apres-clone/).
+
+<CommandUsages command="fetch" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/fetch.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/fetch.sh), exécuté avec Git 2.50 le 6 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::
