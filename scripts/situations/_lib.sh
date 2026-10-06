@@ -53,13 +53,22 @@ clean() {
     ${CLEAN_EXTRA[@]+"${CLEAN_EXTRA[@]}"}
 }
 
-# run <poste> <commande...> : affiche « $ commande » puis sa sortie, telle quelle.
+# run <poste> <commande...> : affiche « $ commande » puis sa sortie.
 # La ligne de commande est nettoyée comme la sortie : un chemin du bac à sable
 # passé en argument s'affiche en adresse de serveur.
+#
+# Les deux flux de sortie sont capturés séparément et imprimés dans un ordre
+# fixe, stderr puis stdout. Mélangés (2>&1), leur ordre dépend du système :
+# Git pour Windows met stderr en tampon et le vide à la fin, après stdout,
+# Linux l'écrit immédiatement. « git switch main » donnait ainsi ses deux
+# lignes dans un ordre différent selon le poste. L'ordre choisi est celui d'un
+# terminal dans les cas courants : « Switched to branch » avant « Your branch
+# is up to date », « From … » avant « Updating … ».
 run() {
   local dir="$1"; shift
   echo "\$ $*" | clean
-  ( cd "$SANDBOX/$dir" && "$@" 2>&1 ) | clean
+  ( cd "$SANDBOX/$dir" && "$@" >"$SANDBOX/.stdout" 2>"$SANDBOX/.stderr" )
+  cat "$SANDBOX/.stderr" "$SANDBOX/.stdout" | clean
   echo
 }
 
@@ -67,7 +76,8 @@ run() {
 run_sh() {
   local dir="$1" line="$2"
   echo "\$ $line" | clean
-  ( cd "$SANDBOX/$dir" && bash -c "$line" 2>&1 ) | clean
+  ( cd "$SANDBOX/$dir" && bash -c "$line" >"$SANDBOX/.stdout" 2>"$SANDBOX/.stderr" )
+  cat "$SANDBOX/.stderr" "$SANDBOX/.stdout" | clean
   echo
 }
 
