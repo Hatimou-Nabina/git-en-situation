@@ -1,0 +1,82 @@
+---
+/**
+ * « Où ça sert » d'une fiche de commande : les pages du site où la commande
+ * est réellement exécutée, c'est-à-dire celles dont une ligne de terminal
+ * commence par « $ git <commande> ». La liste est calculée au build depuis le
+ * contenu : elle ne se périme pas.
+ *   command : le nom de la sous-commande (« log », « branch »…)
+ * Les fiches elles-mêmes, les pages d'index et la version anglaise sont exclues.
+ */
+import { getCollection } from 'astro:content';
+import { themes } from '../themes.mjs';
+
+interface Props {
+  command: string;
+}
+
+const { command } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const pattern = new RegExp(`^\\$ git ${command.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\s|$)`, 'm');
+
+const byTitle = (a: { data: { title: string } }, b: { data: { title: string } }) =>
+  a.data.title.localeCompare(b.data.title, 'fr');
+
+const all = await getCollection('docs', ({ id, body }) => {
+  const parts = id.split('/');
+  const isSituation = parts[0] === 'situations' && parts.length === 3;
+  const isPage = (parts[0] === 'comprendre' || parts[0] === 'equipe') && parts.length === 2;
+  return (isSituation || isPage) && pattern.test(body ?? '');
+});
+all.sort(byTitle);
+
+const sections = [
+  { label: 'Situations', entries: all.filter(({ id }) => id.startsWith('situations/')) },
+  { label: 'Comprendre', entries: all.filter(({ id }) => id.startsWith('comprendre/')) },
+  { label: 'Travailler en équipe', entries: all.filter(({ id }) => id.startsWith('equipe/')) },
+].filter((s) => s.entries.length > 0);
+
+const themeLabel = (id: string) => themes[id.split('/')[1] as keyof typeof themes]?.label;
+---
+
+<div class="command-usages">
+  {
+    all.length === 0 ? (
+      <p>
+        Aucune page de ce site n'exécute encore <code>git {command}</code>.
+      </p>
+    ) : (
+      <>
+        <p>
+          {all.length === 1 ? 'Une page de ce site exécute' : `${all.length} pages de ce site exécutent`}{' '}
+          <code>git {command}</code> :
+        </p>
+        {sections.map(({ label, entries }) => (
+          <>
+            <p class="command-usages__section">{label}</p>
+            <ul>
+              {entries.map(({ id, data }) => (
+                <li>
+                  <a href={`${base}/${id}/`}>{data.title}</a>
+                  {id.startsWith('situations/') && <small> · {themeLabel(id)}</small>}
+                </li>
+              ))}
+            </ul>
+          </>
+        ))}
+      </>
+    )
+  }
+</div>
+
+<style>
+  .command-usages__section {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  .command-usages ul {
+    margin-top: 0;
+  }
+  .command-usages small {
+    color: var(--sl-color-gray-3);
+  }
+</style>

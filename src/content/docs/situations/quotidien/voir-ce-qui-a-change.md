@@ -101,7 +101,7 @@ Les deux notations sont nées séparément, pour des commandes différentes, et 
 
 - [Supprimer une vieille branche sans rien perdre](/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/), qui utilise `main..branche` pour vérifier qu'il ne reste rien
 - [Mettre mon travail en cours de côté pour changer de branche](/situations/quotidien/mettre-son-travail-de-cote/)
-- Commandes : *log*, *diff* (à venir)
+- Commandes : [`git log`](/commandes/log/), [`git diff`](/commandes/diff/)
 
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/voir-ce-qui-a-change.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/voir-ce-qui-a-change.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.

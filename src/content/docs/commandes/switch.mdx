@@ -1,0 +1,93 @@
+---
+title: git switch
+description: Changer de branche, en créer une depuis le bon point de départ, revenir à la précédente, récupérer une branche qui n'existe que sur le serveur, se placer sur un commit sans branche. Ce qui se passe quand des modifications sont en cours, et ce que switch refuse.
+gitVersion: "2.50"
+verified: 2026-10-05
+published: 2026-10-05
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git switch` déplace `HEAD` : il change la branche courante et met le dossier de travail dans l'état de cette branche. Il remplace la moitié de `git checkout`, celle qui concerne les branches ; l'autre moitié, restaurer un fichier, est devenue `git restore`. Le manuel complet : `git help switch`.
+
+## Les formes qui servent
+
+**`git switch nom`** va sur une branche existante ; **`-c nom`** en crée une et y va, depuis le commit courant ou depuis le point de départ qu'on donne après.
+
+```console
+$ git switch feature/recherche
+Switched to branch 'feature/recherche'
+
+$ git switch -c fix/titre main
+Switched to a new branch 'fix/titre'
+```
+
+Partir de `main` plutôt que de la branche où l'on est évite d'embarquer un travail en cours dans la nouvelle : [Une branche par changement](/equipe/une-branche-par-changement/).
+
+**`git switch -`** : la branche précédente, comme `cd -`.
+
+```console
+$ git switch -
+Switched to branch 'feature/recherche'
+```
+
+**`git switch nom`** quand seule `origin/nom` existe : Git crée la branche locale et la relie à celle du serveur, en une commande.
+
+```console
+$ git switch feature/export
+branch 'feature/export' set up to track 'origin/feature/export'.
+Switched to a new branch 'feature/export'
+```
+
+**Avec des modifications en cours**, deux cas. Si la branche visée a une autre version d'un fichier que tu as modifié, `switch` refuse : il faudrait écraser ton travail. Sinon, tes modifications te suivent, telles quelles.
+
+```console
+$ git switch feature/recherche
+error: Your local changes to the following files would be overwritten by checkout:
+	README.md
+Please commit your changes or stash them before you switch branches.
+Aborting
+
+$ git switch fix/titre
+M	README.md
+Switched to branch 'fix/titre'
+
+$ git status --short
+ M README.md
+```
+
+La ligne `M	README.md` le dit : la modification est venue avec. Rien n'a été commité, rien n'est perdu. Pour la mettre de côté le temps de passer sur `feature/recherche` : [Mettre mon travail en cours de côté pour changer de branche](/situations/quotidien/mettre-son-travail-de-cote/).
+
+**`--detach`** se place sur un commit sans branche, pour regarder ou reconstruire. `switch` refuse une référence distante sans ce drapeau, et dit pourquoi ; `-` ramène ensuite d'où l'on venait.
+
+```console
+$ git switch origin/main
+fatal: a branch is expected, got remote branch 'origin/main'
+hint: If you want to detach HEAD at the commit, try again with the --detach option.
+
+$ git switch --detach origin/main
+HEAD is now at d0a0b32 Premier commit
+
+$ git switch -
+Switched to branch 'fix/titre'
+```
+
+## Pièges
+
+- **« detached HEAD » n'est pas une panne** : c'est l'état après `--detach`, ou après un `switch` sur un tag. Un commit fait là doit recevoir une branche avant qu'on reparte : [Je suis en « detached HEAD »](/situations/reparer/detached-head/).
+- **`git switch origin/main` n'existe pas** : `origin/main` est une copie, pas une branche à toi. Pour travailler dessus : `git switch main` puis `git pull`, ou `git switch -c nom origin/main` : [Les remotes et les références distantes](/comprendre/remotes-et-references-distantes/).
+- **`git checkout` fait encore tout.** Il marche, mais il mélange deux gestes. `switch` pour les branches, `restore` pour les fichiers : une commande, un sens.
+- **`--discard-changes`**, ou `-f`, force le passage en jetant les modifications en cours. Elles ne sont dans aucun commit : il n'y a pas de retour. Un `stash` coûte une commande de plus et ne perd rien.
+- **Les modifications qui suivent** peuvent surprendre : un fichier modifié sur `main` arrive sur la nouvelle branche. C'est voulu, et c'est la façon de rattraper un travail commencé sur la mauvaise branche avant le commit. Après le commit, c'est une autre page : [J'ai commité sur la mauvaise branche](/situations/reparer/commit-sur-la-mauvaise-branche/).
+
+## Où ça sert
+
+À lire d'abord : [Après un clone, je ne vois pas les branches des autres](/situations/quotidien/branches-invisibles-apres-clone/), [J'ai commité sur la mauvaise branche](/situations/reparer/commit-sur-la-mauvaise-branche/), [Je suis en « detached HEAD »](/situations/reparer/detached-head/).
+
+<CommandUsages command="switch" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/switch.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/switch.sh), exécuté avec Git 2.50 le 5 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::

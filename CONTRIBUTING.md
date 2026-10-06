@@ -182,6 +182,38 @@ Les dérives habituelles de la pratique.
 ## Voir aussi
 ```
 
+## Écrire une fiche « Commandes »
+
+Une fiche n'est pas une copie du manuel : elle s'en tient aux formes de la commande que les pages du site emploient, avec leurs vraies sorties, et renvoie aux pages où la commande sert. Une fiche existe si au moins deux pages du site exécutent la commande. Script dans `scripts/commandes/<commande>.sh`, même bibliothèque ; page en `.mdx`, parce que la liste « Où ça sert » est un composant. Plan fixe :
+
+```mdx
+---
+title: git log
+description: Deux phrases : ce que la commande lit, compare ou change, et les formes couvertes.
+gitVersion: "2.50"
+verified: 2026-10-05
+published: 2026-10-05
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+Trois phrases, l'idée, puis « Le manuel complet : `git help log`. »
+
+## Les formes qui servent
+Trois à six formes, chacune en gras (**`git log A..B`**), une phrase, sa vraie sortie.
+
+## Pièges
+Les formes qui trompent, les commandes voisines qu'on confond.
+
+## Où ça sert
+« À lire d'abord : » deux ou trois pages, puis la liste calculée :
+
+<CommandUsages command="log" />
+```
+
+Pas de `level`. `risk` seulement si une forme peut faire perdre du travail (`reset --hard`, `push --force`), et la fiche dit alors comment revenir en arrière. Le titre est `git <commande>`, l'adresse `/commandes/<commande>/` ; la barre latérale est alphabétique, la page d'entrée groupe par usage. `<CommandUsages>` liste au build les pages dont une ligne de terminal commence par `$ git <commande>` : rien à tenir à jour.
+
 ## Les commits
 
 Format conventionnel, en français, à l'impératif, sans point final. Le scope dit la section touchée.

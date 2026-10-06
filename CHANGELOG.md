@@ -7,9 +7,30 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 2, lot 9 : la section « Travailler en équipe » est complète
+## [Non publié] — Phase 2, lot 10 : les premières fiches « Commandes »
 
-Branche `equipe/lot-9`, partie de `main` (`4e0b6d4`).
+Branche `commandes/lot-10`, partie de `main` (`4ef1fb3`).
+
+### Contenu
+
+- **Quatre fiches « Commandes »**, `git log`, `git diff`, `git branch`, `git switch`, chacune avec son script dans `scripts/commandes/` et ses sorties réelles (Git 2.50, 5 octobre 2026). Une fiche s'en tient aux formes que les pages du site emploient, et renvoie aux pages où la commande sert.
+- **« Où ça sert » est calculé** : le composant `CommandUsages.astro` liste, au build, les pages dont une ligne de terminal commence par `$ git <commande>`. La liste ne se périme pas.
+- La page d'entrée « Commandes » liste les fiches disponibles et les vingt prévues, par usage, avec la règle de sélection : une fiche existe si au moins deux pages du site exécutent la commande. La mention « (à venir) » de « Voir ce qui a changé » devient deux liens.
+
+### Pour les contributeurs
+
+- Gabarit des fiches « Commandes » dans `CONTRIBUTING.md` : à quoi ça sert, les formes qui servent, pièges, où ça sert.
+- Le workflow « Rejouer les situations » exécute aussi `scripts/commandes/`.
+
+### Suite prévue
+
+- Fiches par lots de quatre, dans cet ordre : `fetch`, `pull`, `push`, `remote` ; `status`, `add`, `commit`, `stash` ; `reset`, `restore`, `revert`, `reflog` ; `merge`, `rebase`, `cherry-pick`, `tag` ; `config`, `show`, `ls-files`, `check-ignore` et `gh`. Point d'étape après le second lot : si les fiches n'apportent rien de plus que les situations, on s'arrête à huit.
+
+---
+
+## 5 octobre 2026 · Phase 2, lot 9 : la section « Travailler en équipe » est complète — en ligne le 5 octobre 2026
+
+Branche `equipe/lot-9`, partie de `main` (`4e0b6d4`), fusionnée par la PR #18 (`4ef1fb3`).
 
 ### Contenu
 

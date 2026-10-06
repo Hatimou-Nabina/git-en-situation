@@ -1,0 +1,111 @@
+---
+title: git diff
+description: Comparer deux états. Ce qui est modifié et pas encore ajouté, ce qui est prêt à être commité, ce qu'une branche a changé depuis qu'elle a quitté main, un fichier entre deux commits. Et le piège des deux points et trois points, inversés par rapport à log.
+gitVersion: "2.50"
+verified: 2026-10-05
+published: 2026-10-05
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git diff` compare deux états et montre ce qui change entre les deux, ligne par ligne. Sans argument, il compare ton dossier de travail à l'index ; avec deux références, il compare ces deux-là. Il ne liste jamais de commits : pour ça, c'est [`git log`](/commandes/log/). Le manuel complet : `git help diff`.
+
+## Les formes qui servent
+
+**`git diff`**, sans rien : ce que tu as modifié et pas encore ajouté avec `git add`. `--stat` résume par fichier.
+
+```console
+$ git diff
+diff --git a/recherche.js b/recherche.js
+index 093f8ac..b7f845c 100644
+--- a/recherche.js
++++ b/recherche.js
+@@ -1,3 +1,3 @@
+ recherche
+ filtre
+-tri
++tri par date
+
+$ git diff --stat
+ recherche.js | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+**`git diff --staged`** : ce qui est dans l'index, prêt à être commité. Après un `git add`, `git diff` tout court ne montre plus rien, c'est normal : la modification a changé de côté. `--word-diff` montre les mots plutôt que les lignes, utile sur du texte.
+
+```console
+$ git add recherche.js
+
+$ git diff
+
+$ git diff --staged
+diff --git a/recherche.js b/recherche.js
+index 093f8ac..b7f845c 100644
+--- a/recherche.js
++++ b/recherche.js
+@@ -1,3 +1,3 @@
+ recherche
+ filtre
+-tri
++tri par date
+
+$ git diff --staged --word-diff
+diff --git a/recherche.js b/recherche.js
+index 093f8ac..b7f845c 100644
+--- a/recherche.js
++++ b/recherche.js
+@@ -1,3 +1,3 @@
+recherche
+filtre
+tri {+par date+}
+```
+
+**`git diff main...feature`**, trois points : ce que la branche a changé depuis qu'elle a quitté `main`, sans ce que `main` a reçu entre-temps. Sans points, les deux branches sont comparées telles quelles, et ce que `main` a ajouté apparaît comme supprimé par la branche. `--name-status` ne donne que les fichiers et leur état.
+
+```console
+$ git diff --stat main feature/tri
+ contact.js   | 1 -
+ recherche.js | 1 +
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+
+$ git diff --stat main...feature/tri
+ recherche.js | 1 +
+ 1 file changed, 1 insertion(+)
+
+$ git diff --name-status main...feature/tri
+M	recherche.js
+```
+
+**`git diff A B -- fichier`** : un fichier entre deux commits, ici entre l'avant-dernier et le dernier.
+
+```console
+$ git diff HEAD~1 HEAD -- recherche.js
+diff --git a/recherche.js b/recherche.js
+index f7aabde..093f8ac 100644
+--- a/recherche.js
++++ b/recherche.js
+@@ -1,2 +1,3 @@
+ recherche
+ filtre
++tri
+```
+
+## Pièges
+
+- **Sans points, ce n'est pas trois points.** `git diff main feature/tri` montre `contact.js` supprimé alors que la branche n'y a pas touché : c'est `main` qui l'a ajouté entre-temps. Avant une pull request, c'est toujours trois points, et c'est ce que GitHub montre dans « Files changed ».
+- **`log` et `diff` ont des points inversés** pour la même intention : deux points avec `log`, trois avec `diff`. [Voir ce qui a changé entre ma branche et main](/situations/quotidien/voir-ce-qui-a-change/) explique pourquoi.
+- **`git diff` vide après `git add`** : les modifications sont passées dans l'index, `--staged` les montre. `--cached` est le même drapeau sous son ancien nom.
+- **Tout le fichier apparaît modifié** alors qu'une ligne a changé : fins de ligne, presque toujours. [Git voit tous mes fichiers comme modifiés](/situations/fichiers/tous-les-fichiers-modifies/). `-w` ignore les espaces, le temps de lire.
+- **`git diff` ne voit pas les fichiers nouveaux** tant qu'ils ne sont pas ajoutés : `git status` les liste en `??`.
+
+## Où ça sert
+
+À lire d'abord : [Voir ce qui a changé entre ma branche et main](/situations/quotidien/voir-ce-qui-a-change/), [La pull request, de l'ouverture à la fusion](/equipe/la-pull-request/), [Relire une pull request](/equipe/relire-une-pull-request/).
+
+<CommandUsages command="diff" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/diff.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/diff.sh), exécuté avec Git 2.50 le 5 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::

@@ -1,0 +1,142 @@
+---
+title: git branch
+description: Lister les branches, les tiennes et celles du serveur, avec leur suivi. En créer une sans y aller, renommer, supprimer avec -d qui refuse ce qui n'est pas fusionné, savoir quelles branches contiennent un commit, et pourquoi -D ne perd rien tout de suite.
+risk: reversible
+gitVersion: "2.50"
+verified: 2026-10-05
+published: 2026-10-05
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git branch` gère les marque-pages que sont les branches : les lister, en poser un, le renommer, le retirer, voir sur quelle branche du serveur chacun s'appuie. Il ne change jamais de branche : pour ça, c'est [`git switch`](/commandes/switch/). Le manuel complet : `git help branch`.
+
+## Les formes qui servent
+
+**`git branch`**, **`-vv`**, **`-r`** : les branches locales, l'étoile sur la courante ; avec `-vv`, le dernier commit de chacune et, entre crochets, la branche du serveur qu'elle suit ; avec `-r`, les copies des branches du serveur.
+
+```console
+$ git branch
+  feature/poussee
+  feature/recherche
+  fix/ancien
+* main
+
+$ git branch -vv
+  feature/poussee   a1f76e2 [origin/feature/poussee] feat(poussee): travail en cours, deja pousse
+  feature/recherche 7fb3039 feat(recherche): ajoute la barre de recherche
+  fix/ancien        02bcbed fix: ancien correctif
+* main              02bcbed [origin/main] fix: ancien correctif
+
+$ git branch -r
+  origin/HEAD -> origin/main
+  origin/feature/export
+  origin/feature/poussee
+  origin/main
+```
+
+`feature/recherche` n'a pas de crochets : elle n'a jamais été poussée, le serveur ne la connaît pas.
+
+**`git branch nom`** crée une branche au commit courant sans y aller ; **`-m`** renomme.
+
+```console
+$ git branch feature/filtres
+
+$ git branch -m feature/filtres feature/filtres-date
+
+$ git branch
+  feature/filtres-date
+  feature/poussee
+  feature/recherche
+  fix/ancien
+* main
+```
+
+**`-d`** supprime une branche fusionnée et refuse les autres ; **`--merged`** et **`--no-merged`** disent d'avance lesquelles passeront.
+
+```console
+$ git branch -d fix/ancien
+Deleted branch fix/ancien (was 02bcbed).
+
+$ git branch -d feature/recherche
+error: the branch 'feature/recherche' is not fully merged
+hint: If you are sure you want to delete it, run 'git branch -D feature/recherche'
+hint: Disable this message with "git config set advice.forceDeleteBranch false"
+
+$ git branch -d feature/poussee
+warning: deleting branch 'feature/poussee' that has been merged to
+         'refs/remotes/origin/feature/poussee', but not yet merged to HEAD
+Deleted branch feature/poussee (was a1f76e2).
+
+$ git branch --merged
+  feature/filtres-date
+* main
+
+$ git branch --no-merged
+  feature/recherche
+```
+
+Le cas du milieu surprend : `feature/poussee` n'est pas fusionnée dans `main`, mais elle l'est dans sa propre copie du serveur, et ça suffit à `-d`. Le travail n'est pas perdu, il est sur le serveur ; mais ce n'est pas ce que « fusionnée » veut dire pour toi. L'avertissement le dit, en deux lignes qu'on ne lit jamais.
+
+**`git branch nom origin/nom`** crée une branche locale depuis une branche du serveur, avec le lien de suivi ; `-u origin/nom` pose ce lien après coup sur une branche qui existe déjà.
+
+```console
+$ git branch feature/export origin/feature/export
+branch 'feature/export' set up to track 'origin/feature/export'.
+
+$ git branch -vv
+  feature/export       ad18806 [origin/feature/export] feat(export): ajoute l export CSV
+  feature/filtres-date 02bcbed fix: ancien correctif
+  feature/recherche    7fb3039 feat(recherche): ajoute la barre de recherche
+* main                 02bcbed [origin/main] fix: ancien correctif
+```
+
+**`--contains`** : quelles branches contiennent ce commit, `-a` pour inclure celles du serveur. La question du support : « ce correctif est-il dans la branche de production ? »
+
+```console
+$ git branch -a --contains 02bcbed
+  feature/export
+  feature/filtres-date
+  feature/recherche
+* main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/feature/export
+  remotes/origin/feature/poussee
+  remotes/origin/main
+```
+
+**`-D`** supprime sans vérifier. Le commit n'est pas effacé pour autant : tant qu'on a son identifiant, et le message le donne, une branche se recrée dessus.
+
+```console
+$ git branch -D feature/recherche
+Deleted branch feature/recherche (was 7fb3039).
+
+$ git branch feature/recherche 7fb3039
+
+$ git branch -vv
+  feature/export       ad18806 [origin/feature/export] feat(export): ajoute l export CSV
+  feature/filtres-date 02bcbed fix: ancien correctif
+  feature/recherche    7fb3039 feat(recherche): ajoute la barre de recherche
+* main                 02bcbed [origin/main] fix: ancien correctif
+```
+
+## Pièges
+
+- **`git branch nom` ne te déplace pas** : tu restes où tu étais, et le prochain commit ira sur l'ancienne branche. Pour créer et y aller d'un coup : `git switch -c nom`.
+- **`-d` refuse après un « Squash and merge »** : GitHub a créé un commit neuf, ta branche n'est pas un ancêtre de `main` même si tout est fusionné. Vérifie la PR, puis `-D` : [Supprimer une vieille branche sans rien perdre](/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/).
+- **`-d` accepte une branche poussée mais pas fusionnée**, parce qu'elle est fusionnée dans sa copie du serveur. C'est le cas montré plus haut.
+- **Supprimer en local ne supprime pas sur le serveur** : `git push origin --delete nom`. Et l'inverse : une branche supprimée sur GitHub reste chez toi jusqu'à `git fetch --prune` : [Une branche distante a été supprimée, mais je la vois encore](/situations/quotidien/branche-distante-supprimee-encore-visible/).
+- **Après `-D`, le commit survit** : son identifiant est dans le message, `(was 7fb3039)`, et dans le reflog pendant des semaines : [Retrouver un commit perdu](/situations/reparer/retrouver-un-commit-perdu/).
+- **Renommer une branche poussée** demande aussi de renommer sur le serveur, en deux commandes de plus : [Renommer une branche, en local et sur le serveur](/situations/quotidien/renommer-une-branche/).
+
+## Où ça sert
+
+À lire d'abord : [Une branche, c'est un marque-page](/comprendre/une-branche-est-un-marque-page/), [Supprimer une vieille branche sans rien perdre](/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/), [Une branche distante a été supprimée, mais je la vois encore](/situations/quotidien/branche-distante-supprimee-encore-visible/).
+
+<CommandUsages command="branch" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/branch.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/branch.sh), exécuté avec Git 2.50 le 5 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::
