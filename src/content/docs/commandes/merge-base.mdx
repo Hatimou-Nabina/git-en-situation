@@ -1,0 +1,74 @@
+---
+title: git merge-base
+description: Le commit d'où une branche est partie. Trouver l'ancêtre commun de deux branches, s'en servir pour voir ce que la branche a apporté, comprendre les trois points de diff, et répondre à « ce commit est-il déjà dans cette branche ? ».
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git merge-base A B` donne le commit le plus récent que `A` et `B` ont en commun : l'endroit où une branche a quitté `main`. C'est ce que `merge` et `rebase` calculent avant de travailler, ce que `diff A...B` cache derrière ses trois points, et ce qui permet de dire si un commit est déjà dans une branche. Le manuel complet : `git help merge-base`.
+
+## Les formes qui servent
+
+**`git merge-base main branche`** : l'identifiant de l'ancêtre commun. Sur le graphe, c'est le commit où les deux lignes se rejoignent.
+
+```console
+$ git log --oneline --graph --all
+* e2b8e53 feat(x): seconde partie
+* 7614151 feat(x): premiere partie
+| * 4b99ea3 feat: b
+|/
+* 8952b33 feat: a
+* d0a0b32 Premier commit
+
+$ git merge-base main feature/x
+8952b33d4bb2fc8dd5d65355e72668b17d4ae56a
+```
+
+**Ce que la branche a apporté depuis** : les commits avec `log`, le contenu avec `diff`. Et `diff main...feature/x`, trois points, fait exactement ce calcul tout seul.
+
+```console
+$ git log --oneline $(git merge-base main feature/x)..feature/x
+e2b8e53 feat(x): seconde partie
+7614151 feat(x): premiere partie
+
+$ git diff --stat $(git merge-base main feature/x) feature/x
+ x.js | 2 ++
+ 1 file changed, 2 insertions(+)
+
+$ git diff --stat main...feature/x
+ x.js | 2 ++
+ 1 file changed, 2 insertions(+)
+```
+
+**`--is-ancestor A B`** : est-ce que `A` est un ancêtre de `B` ? Rien n'est affiché, seul le code de sortie répond. « Est-ce que ce qui est sur le serveur est bien dans ma `main` ? », « est-ce que ma branche est déjà dans `main` ? » : deux questions, deux réponses.
+
+```console
+$ git merge-base --is-ancestor origin/main main && echo "oui" || echo "non"
+oui
+
+$ git merge-base --is-ancestor feature/x main && echo "oui" || echo "non"
+non
+```
+
+## Pièges
+
+- **Plusieurs ancêtres communs** existent quand deux branches se sont fusionnées l'une dans l'autre dans les deux sens ; `--all` les liste tous. Rare avec une branche par changement.
+- **Après un rebase, le merge-base bouge** : la branche repart d'un commit plus récent, et ce que « la branche a apporté » se recalcule.
+- **`--is-ancestor` ne dit rien**, il répond par le code de sortie. Dans un terminal, le `&& echo … || echo …` de la fiche le rend lisible.
+- **Après un « Squash and merge »**, la branche n'est jamais un ancêtre de `main` : les commits ont été refaits. `--is-ancestor` dit non alors que tout y est : [Supprimer une vieille branche sans rien perdre](/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/).
+- **`git branch --merged` et `--contains`** répondent aux mêmes questions pour toutes les branches d'un coup : [`git branch`](/commandes/branch/).
+
+## Où ça sert
+
+À lire d'abord : [Fast-forward, fusion, rebase](/comprendre/fast-forward-fusion-rebase/), [Voir ce qui a changé entre ma branche et main](/situations/quotidien/voir-ce-qui-a-change/), [`git diff`](/commandes/diff/).
+
+<CommandUsages command="merge-base" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/merge-base.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/merge-base.sh), exécuté avec Git 2.50 le 6 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::
