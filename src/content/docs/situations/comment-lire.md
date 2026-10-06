@@ -25,9 +25,9 @@ Chaque page répond à **une** situation, celle qu'on tape dans un moteur de rec
 
 ## Les sorties affichées sont vraies
 
-Aucune sortie n'est écrite à la main. Chaque situation a un script dans le dossier `scripts/situations/` du dépôt, qui rejoue le scénario dans des dépôts jetables, avec une configuration Git neutre, et imprime chaque commande suivie de sa sortie. La page recopie ce résultat.
+Aucune sortie n'est écrite à la main. Chaque situation a un script dans le dossier `scripts/situations/` du dépôt, qui rejoue le scénario dans des dépôts jetables, avec une configuration Git neutre, et imprime chaque commande suivie de sa sortie. La page recopie ce résultat, et un vérificateur rejoue tous les scripts à chaque changement du site pour s'assurer que les pages y correspondent toujours, avec la version de Git que chacune déclare.
 
-Deux simplifications, et seulement celles-là : l'adresse du serveur est remplacée par `github.com:equipe/projet.git`, et les identifiants de commit sont ceux du dépôt d'exemple. Chez toi, ces deux détails changent ; tout le reste doit être identique, à version de Git égale. Si ce n'est pas le cas, [signale-le](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=signaler-une-erreur.yml) : c'est précieux.
+Trois simplifications, et seulement celles-là : l'adresse du serveur est remplacée par `github.com:equipe/projet.git` ; les identifiants de commit sont ceux du dépôt d'exemple ; et pour une commande qui écrit à la fois des messages et des résultats, les messages (`Switched to branch…`, `hint:`…) sont affichés avant les résultats, dans un ordre fixe, alors que ton terminal peut les entremêler autrement. Chez toi, ces détails changent ; tout le reste doit être identique, à version de Git égale. Si ce n'est pas le cas, [signale-le](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=signaler-une-erreur.yml) : c'est précieux.
 
 ## Il manque ta situation ?
 
