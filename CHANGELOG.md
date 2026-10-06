@@ -7,9 +7,33 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 2, lot 14 : les fiches pour réunir
+## [Non publié] — Phase 2, lots 15 et 16 : les fiches « Commandes » sont complètes, fin de la phase 2
 
-Branche `commandes/lot-14`, partie de `main` (`9af69e3`).
+Branche `commandes/lots-15-16`, partie de `main` (`9cbd2d4`). Les deux lots sur une seule branche et une seule PR, à la demande du mainteneur.
+
+### Contenu
+
+- **Lot 15, régler et inspecter** : `git config`, `git show`, `git ls-files`, `git check-ignore`, chacune avec son script dans `scripts/commandes/` et ses sorties réelles (Git 2.50, 6 octobre 2026) ; et `gh`, la seule fiche sans script ni sorties vérifiées, parce qu'un script ne peut pas exécuter `gh` sans compte connecté. Elle rassemble les commandes `gh` que les pages du site citent, et le dit dans un encadré.
+- **Lot 16, les quatre fiches proposées le 6 octobre 2026** : `git checkout`, la commande qu'on tape encore, chaque forme avec son équivalent `switch` ou `restore`, et la différence entre `checkout commit -- fichier`, qui passe par l'index, et `restore --source`, qui ne touche que le dossier ; `git cat-file` ; `git merge-base` ; `git rm`.
+- **La section « Commandes » est complète** : vingt-neuf fiches, en sept groupes d'usage. Pas de fiche pour `blame`, `bisect`, `worktree`, `mv`, `clean`, qu'aucune page n'emploie.
+- **Fin de la phase 2** : 23 situations, 4 pages « Comprendre », 12 pages « Travailler en équipe », 29 fiches « Commandes », soit 68 pages, toutes sauf une adossées à un script rejoué sur Windows et sur Ubuntu.
+
+### Pour les contributeurs
+
+- `CommandUsages.astro` accepte `prefix` et `mode="cited"` : la liste « Où ça sert » peut compter les pages qui citent une commande entre accents graves, pour les outils qu'aucun script n'exécute.
+- `CONTRIBUTING.md` et `CLAUDE.md` consignent l'exception `gh`.
+- Issues : #13 (rejeu sur macOS) couvre désormais `scripts/commandes/` ; #24 et #25 ouvertes pour deux pages « Comprendre » que les situations citent encore « (à venir) », « Le reflog, ton filet de sécurité » et « L'index, l'étape entre ton dossier et le commit », étayées par les fiches `reflog`, `add` et `status`.
+
+### Suite prévue
+
+- **Phase 3** : vérification automatique en CI que les sorties des pages correspondent toujours aux scripts ; exercices dans un dépôt bac à sable. Et, au fil des contributions, les six pages « Comprendre » encore prévues (dont #11, #24, #25), qui feront disparaître les dernières mentions « (à venir) » des situations.
+- **Phase 4** : traduction anglaise, animation de la communauté.
+
+---
+
+## 6 octobre 2026 · Phase 2, lot 14 : les fiches pour réunir — en ligne le 6 octobre 2026
+
+Branche `commandes/lot-14`, partie de `main` (`9af69e3`), fusionnée par la PR #23 (`9cbd2d4`).
 
 ### Contenu
 
