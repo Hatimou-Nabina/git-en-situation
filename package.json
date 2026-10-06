@@ -17,6 +17,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "verifier": "node scripts/verifier-sorties.mjs",
     "astro": "astro"
   },
   "dependencies": {
