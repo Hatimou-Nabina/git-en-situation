@@ -7,9 +7,28 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 2, lot 10 : les premières fiches « Commandes »
+## [Non publié] — Phase 2, lot 11 : les fiches du serveur
 
-Branche `commandes/lot-10`, partie de `main` (`4ef1fb3`).
+Branche `commandes/lot-11`, partie de `main` (`74bd1d7`).
+
+### Contenu
+
+- **Quatre fiches « Commandes »**, `git fetch`, `git pull`, `git push`, `git remote`, chacune avec son script dans `scripts/commandes/` et ses sorties réelles (Git 2.50, 6 octobre 2026) :
+  - `fetch` : `--dry-run`, ce qu'un `fetch` rapporte, ce qu'il ne change pas, `--prune`, `fetch.prune` ;
+  - `pull` : l'avance rapide, le refus de deviner quand les deux côtés ont avancé, `--ff-only`, `--rebase`, `pull.ff only`, la branche sans suivi ;
+  - `push` : `-u`, le refus « fetch first », `--force-with-lease` refusé pour « stale info » puis accepté après une réécriture, `--delete`, `push.autoSetupRemote` ;
+  - `remote` : `-v`, `show`, `prune`, `add` et `remove` d'un second serveur, `set-url`.
+- La page d'entrée « Commandes » passe à huit fiches disponibles.
+
+### Point d'étape
+
+- Huit fiches en ligne, comme convenu le 5 octobre 2026 : à décider si les fiches continuent, avec les lots `status`, `add`, `commit`, `stash` ; `reset`, `restore`, `revert`, `reflog` ; `merge`, `rebase`, `cherry-pick`, `tag` ; `config`, `show`, `ls-files`, `check-ignore`, `gh`.
+
+---
+
+## 5 octobre 2026 · Phase 2, lot 10 : les premières fiches « Commandes » — en ligne le 5 octobre 2026
+
+Branche `commandes/lot-10`, partie de `main` (`4ef1fb3`), fusionnée par la PR #19 (`74bd1d7`).
 
 ### Contenu
 
