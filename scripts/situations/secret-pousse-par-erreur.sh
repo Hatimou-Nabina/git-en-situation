@@ -16,6 +16,8 @@ note "Le secret est parti sur le serveur, deux commits plus tôt"
 run awa git log --oneline -3
 run awa git show --stat --oneline HEAD~1
 
+exercice awa "un .env avec une clé a été poussé il y a deux commits. Retire-le du suivi, puis fais-le disparaître de tout l'historique et du serveur (git filter-repo doit être installé)."
+
 note "1. Révoquer la clé, puis retirer le fichier du suivi"
 run awa git rm --cached .env
 run_sh awa 'echo ".env" > .gitignore && git add .gitignore && git commit -q -m "Retire le fichier .env du suivi" && git push -q origin main'

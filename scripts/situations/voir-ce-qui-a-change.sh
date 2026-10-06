@@ -8,6 +8,8 @@ setup_team
 quiet_sh awa 'git switch -q -c feature/recherche && echo "recherche" > recherche.js && git add . && git commit -q -m "Ajoute la recherche" && echo "filtre" >> recherche.js && git commit -q -am "Filtre les resultats"'
 quiet_sh awa 'git switch -q main && echo "contact" > contact.html && git add . && git commit -q -m "Ajoute la page contact" && git switch -q feature/recherche'
 
+exercice awa "tu es sur feature/recherche et main a bougé. Trouve quels commits ta branche apporte, ce que main a reçu entre-temps, et quels fichiers ta branche a touchés depuis qu'elle a quitté main."
+
 note "Quels commits ma branche a-t-elle que main n'a pas ?"
 run awa git log --oneline main..feature/recherche
 

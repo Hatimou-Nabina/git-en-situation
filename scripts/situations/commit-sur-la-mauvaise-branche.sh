@@ -11,6 +11,8 @@ note "Cas 1 : le commit est sur main, pas poussé"
 run awa git status
 run awa git log --oneline -2
 
+exercice awa "ton dernier commit est sur main alors qu'il devait être sur une branche feature/recherche. Déplace-le, et remets main au niveau du serveur."
+
 note "Solution : poser une branche sur ce commit, puis remettre main où elle était"
 run awa git branch feature/recherche
 run awa git reset --keep origin/main

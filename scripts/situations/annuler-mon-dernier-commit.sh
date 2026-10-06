@@ -8,6 +8,8 @@ quiet_sh awa 'git switch -q -c feature/recherche && echo "recherche" > recherche
 
 note "Cas 1 : le message est faux"
 run awa git log --oneline -1
+exercice awa "le message du dernier commit est faux. Corrige-le sans toucher à son contenu, puis vérifie avec git log --oneline -1."
+
 run_sh awa 'git commit --amend -m "Ajoute la recherche"'
 run awa git log --oneline -1
 

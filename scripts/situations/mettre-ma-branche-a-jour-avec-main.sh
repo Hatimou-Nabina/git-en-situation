@@ -17,6 +17,8 @@ run awa git log --oneline --left-right origin/main...feature/recherche
 cp -r "$SANDBOX/awa" "$SANDBOX/awa-merge"
 BEFORE=$(cd "$SANDBOX/awa" && git rev-parse origin/feature/recherche)
 
+exercice awa "main a avancé pendant que tu travaillais sur feature/recherche. Mets ta branche à jour, en ligne droite, et pousse-la."
+
 note "Option 1 : rebase, ma branche repart du main à jour"
 run awa git rebase origin/main
 run awa git log --oneline --graph -4

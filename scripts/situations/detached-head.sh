@@ -17,6 +17,8 @@ quiet_sh awa 'echo "v1 corrige" > app.js && git commit -q -am "Corrige la versio
 run awa git log --oneline -1
 run awa git status
 
+exercice awa "tu viens de commiter en « detached HEAD ». Donne une branche à ce commit pour ne pas le perdre."
+
 note "Garder ce travail : lui donner une branche"
 run awa git switch -c hotfix/v1
 run awa git status

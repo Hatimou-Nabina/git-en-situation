@@ -28,6 +28,8 @@ run bakary git status --short
 run bakary git diff --stat
 run_sh bakary 'git diff a.txt | cat -A | tail -4'
 
+exercice bakary "tous les fichiers apparaissent modifiés sans que tu aies touché à rien. Trouve pourquoi, fixe la règle des fins de ligne dans le dépôt et remets le dossier d'équerre."
+
 note "Diagnostic : les fins de ligne, fichier par fichier"
 run bakary git ls-files --eol
 

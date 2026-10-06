@@ -15,6 +15,8 @@ note "Bakary vient de cloner : où est la branche d'Awa ?"
 run bakary git branch
 run bakary git branch -a
 
+exercice bakary "Awa a poussé la branche feature/export-pdf avant ton clone. Retrouve-la et place-toi dessus."
+
 note "Solution : basculer dessus, Git crée la branche locale"
 run bakary git switch feature/export-pdf
 run bakary git branch -vv

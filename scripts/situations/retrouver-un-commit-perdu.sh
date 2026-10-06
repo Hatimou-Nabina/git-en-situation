@@ -10,6 +10,8 @@ note "Cas 1 : une branche supprimée avec un commit unique"
 run awa git branch -D experimentation
 run awa git log --oneline --all
 
+exercice awa "la branche experimentation vient d'être supprimée avec son commit unique. Retrouve ce commit et recrée la branche dessus."
+
 note "Solution : le reflog se souvient de tout ce que HEAD a visité"
 run awa git reflog -4
 SHA=$(cd "$SANDBOX/awa" && git reflog --format='%h %gs' | awk '/commit: Essai prometteur/ {print $1; exit}')

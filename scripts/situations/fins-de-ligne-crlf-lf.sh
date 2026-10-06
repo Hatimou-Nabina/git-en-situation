@@ -20,6 +20,8 @@ note "Commité tel quel, il arrive cassé sur le serveur"
 run_sh awa 'git add deploy.sh && git commit -q -m "Ajoute le script de deploiement"'
 run awa git ls-files --eol deploy.sh
 
+exercice awa "deploy.sh est en CRLF dans le dépôt et casse sur le serveur Linux. Impose LF pour tout le monde, dans le dépôt lui-même, et vérifie avec git ls-files --eol."
+
 note "Solution : imposer LF dans le dépôt, pour tout le monde"
 run_sh awa 'printf "* text=auto eol=lf\n" > .gitattributes'
 run awa git add --renormalize .

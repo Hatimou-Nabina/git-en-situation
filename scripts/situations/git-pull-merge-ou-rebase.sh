@@ -14,6 +14,8 @@ run bakary git pull
 # Deux copies du même état, pour montrer les deux options.
 cp -r "$SANDBOX/bakary" "$SANDBOX/bakary-merge"
 
+exercice bakary "ton git pull refuse de choisir entre merge et rebase. Intègre les commits du serveur, et règle Git pour qu'il ne pose plus la question."
+
 note "Option 1 : rebase, l'historique reste en ligne droite"
 run bakary git pull --rebase
 run bakary git log --oneline --graph -4

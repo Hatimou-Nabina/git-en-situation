@@ -15,6 +15,8 @@ run awa git fetch
 run awa git status
 run awa git branch -vv
 
+exercice awa "la pull request de feature/recherche est fusionnée sur le serveur. Remets ta main au niveau sans créer de commit, puis fais le ménage de la branche."
+
 note "Solution : avancer main, sans rien créer"
 run awa git pull --ff-only
 run awa git log --oneline --graph -4

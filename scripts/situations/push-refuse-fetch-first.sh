@@ -11,6 +11,8 @@ quiet_sh bakary 'echo "# Projet EduShare" > README.md && git commit -q -am "Corr
 note "Bakary pousse son commit"
 run bakary git push
 
+exercice bakary "ton push est refusé, « fetch first ». Intègre le commit du serveur sans commit de merge, puis pousse."
+
 note "Que s'est-il passé ?"
 run bakary git fetch
 run bakary git status
