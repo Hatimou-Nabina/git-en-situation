@@ -7,9 +7,25 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 2, lot 12 : les fiches du quotidien
+## [Non publié] — Phase 2, lot 13 : les fiches pour réparer
 
-Branche `commandes/lot-12`, partie de `main` (`73574ad`).
+Branche `commandes/lot-13`, partie de `main` (`c33f8b8`).
+
+### Contenu
+
+- **Quatre fiches « Commandes »**, `git reset`, `git restore`, `git revert`, `git reflog`, chacune avec son script dans `scripts/commandes/` et ses sorties réelles (Git 2.50, 6 octobre 2026) :
+  - `reset` : `--soft`, sans option, `--hard` et le retour par le reflog, `--keep` avec une branche posée d'abord, `reset fichier` ; marquée *destructif* ;
+  - `restore` : `--staged`, sans option, `--staged --worktree`, `--source`, `restore .` ; marquée *destructif*, parce qu'une modification jetée n'est nulle part ;
+  - `revert` : un commit, un commit de merge avec `-m 1` et l'erreur sans `-m`, le revert du revert que Git 2.50 nomme « Reapply », le push qui passe ;
+  - `reflog` : le journal de `HEAD`, le retour après un `reset --hard`, la branche supprimée recréée, le journal d'une branche avec `--date=iso`.
+- La page d'entrée « Commandes » passe à seize fiches disponibles.
+- **Règle de sélection précisée** : une fiche existe si au moins deux pages du site s'appuient sur la commande, en l'exécutant ou en la recommandant. La formulation initiale, « l'exécutent », aurait écarté `restore`, qu'aucune page n'exécute, et `revert`, qu'une seule exécute, alors que le site les recommande en toutes lettres à la place de `checkout` et de `reset` sur une branche partagée. À confirmer par le mainteneur.
+
+---
+
+## 6 octobre 2026 · Phase 2, lot 12 : les fiches du quotidien — en ligne le 6 octobre 2026
+
+Branche `commandes/lot-12`, partie de `main` (`73574ad`), fusionnée par la PR #21 (`c33f8b8`).
 
 ### Contenu
 
