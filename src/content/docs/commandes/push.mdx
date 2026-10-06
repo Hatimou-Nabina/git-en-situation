@@ -1,0 +1,112 @@
+---
+title: git push
+description: Envoyer ses commits au serveur. Le premier push d'une branche avec -u, les suivants sans rien, le refus quand le serveur a avancé, --force-with-lease qui refuse d'écraser le travail des autres et accepte de remplacer le tien, la suppression d'une branche, et le réglage qui dispense de -u.
+risk: reversible
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git push` envoie tes commits au serveur et fait avancer la branche de là-bas jusqu'à la tienne. Il refuse si le serveur a reçu entre-temps quelque chose que tu n'as pas : c'est le garde-fou qui empêche d'écraser le travail des autres, et toute la fiche tourne autour. Le manuel complet : `git help push`.
+
+## Les formes qui servent
+
+**`git push -u origin branche`** pour le premier push d'une branche : il la crée sur le serveur et pose le lien de suivi. Sans `-u`, Git refuse et dit quoi faire.
+
+```console
+$ git push
+fatal: The current branch feature/recherche has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin feature/recherche
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+
+
+$ git push -u origin feature/recherche
+branch 'feature/recherche' set up to track 'origin/feature/recherche'.
+To github.com:equipe/projet.git
+ * [new branch]      feature/recherche -> feature/recherche
+```
+
+**`git push`** ensuite, sans argument : le lien de suivi dit où aller.
+
+```console
+$ git push
+To github.com:equipe/projet.git
+   b9b596d..93460ed  feature/recherche -> feature/recherche
+```
+
+**Refusé, « fetch first »** : le serveur a un commit que tu n'as pas, ici celui d'un collègue sur la même branche. `--force-with-lease` refuse aussi, « stale info » : ta copie du serveur est périmée, forcer écraserait son commit. La seule issue est de récupérer d'abord, avec `git pull --rebase`.
+
+```console
+$ git push
+To github.com:equipe/projet.git
+ ! [rejected]        feature/recherche -> feature/recherche (fetch first)
+error: failed to push some refs to 'github.com:equipe/projet.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+$ git push --force-with-lease
+To github.com:equipe/projet.git
+ ! [rejected]        feature/recherche -> feature/recherche (stale info)
+error: failed to push some refs to 'github.com:equipe/projet.git'
+```
+
+**`--force-with-lease`** sur ta propre branche, après l'avoir réécrite par un `--amend` ou un rebase. Un `push` simple est refusé, « non-fast-forward », parce que le serveur a l'ancienne version du commit ; `--force-with-lease` la remplace, parce que cette fois ta copie du serveur est à jour : personne n'a poussé entre-temps.
+
+```console
+$ git push
+To github.com:equipe/projet.git
+ ! [rejected]        feature/recherche -> feature/recherche (non-fast-forward)
+error: failed to push some refs to 'github.com:equipe/projet.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. If you want to integrate the remote changes,
+hint: use 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+$ git push --force-with-lease
+To github.com:equipe/projet.git
+ + dc812f2...bb388d8 feature/recherche -> feature/recherche (forced update)
+```
+
+**`git push origin --delete branche`** supprime une branche sur le serveur. La tienne reste.
+
+```console
+$ git push origin --delete feature/recherche
+To github.com:equipe/projet.git
+ - [deleted]         feature/recherche
+```
+
+**`push.autoSetupRemote`** : plus jamais de `-u`, le premier `push` d'une branche pose le lien tout seul.
+
+```console
+$ git config --global push.autoSetupRemote true
+```
+
+## Pièges
+
+- **`--force` tout court** écrase sans vérifier : si quelqu'un a poussé entre-temps, son travail disparaît du serveur. `--force-with-lease` refuse dans ce cas, pour quelques lettres de plus. Sur `main`, ni l'un ni l'autre : [Protéger la branche principale](/equipe/proteger-la-branche-principale/).
+- **Les anciens commits ne sont pas perdus** après un push forcé : ils sont dans ton reflog, et dans celui des collègues qui les avaient récupérés : [Retrouver un commit perdu](/situations/reparer/retrouver-un-commit-perdu/).
+- **« fetch first » et « non-fast-forward »** sont la même situation, vue avant et après le `fetch` : [Mon push est refusé, « rejected », « fetch first »](/situations/quotidien/push-refuse-fetch-first/).
+- **`git push` ne pousse pas les tags** : `git push origin v1.2.0`, ou `--follow-tags` : [Versions et tags](/equipe/versions-et-tags/).
+- **`git push origin main` depuis `feature/x`** ne pousse pas ta branche : il pousse ta `main` locale. Sans argument, `push` envoie la branche courante vers celle qu'elle suit, et c'est presque toujours ce qu'on veut.
+- **Un `push` refusé par GitHub avec un code `GH006` ou `GH013`** n'est pas cette situation : la branche est protégée, et attend une pull request.
+
+## Où ça sert
+
+À lire d'abord : [Premier push d'une branche, « has no upstream branch »](/situations/quotidien/premier-push-no-upstream/), [Mon push est refusé, « rejected », « fetch first »](/situations/quotidien/push-refuse-fetch-first/), [Mettre ma branche à jour avec main](/situations/avec-les-autres/mettre-ma-branche-a-jour-avec-main/).
+
+<CommandUsages command="push" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/push.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/push.sh), exécuté avec Git 2.50 le 6 octobre 2026. Le commit du collègue est poussé par un second poste. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::
