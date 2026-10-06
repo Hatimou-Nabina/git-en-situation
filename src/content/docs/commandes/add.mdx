@@ -1,0 +1,139 @@
+---
+title: git add
+description: Préparer le prochain commit. Un fichier, un dossier, tout, seulement une partie d'un fichier avec -p, les suppressions, la simulation avec --dry-run, et le fichier ignoré que add refuse.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git add` ne sauvegarde rien et n'envoie rien : il met une version d'un fichier dans l'index, la zone de préparation du prochain commit. C'est ce qui permet de commiter une partie de ce qu'on a changé, et pas tout ce qui traîne dans le dossier. Le manuel complet : `git help add`.
+
+## Les formes qui servent
+
+**`git add fichier`**, **`git add dossier/`** : un fichier, ou tout un dossier, nouveaux fichiers compris. Dans la forme courte de `status`, la colonne de gauche se remplit.
+
+```console
+$ git status --short
+ M config.js
+?? a.js
+?? b.js
+?? src/
+
+$ git add a.js
+
+$ git add src/
+
+$ git status --short
+A  a.js
+ M config.js
+A  src/s.js
+?? b.js
+```
+
+**`--dry-run`** : ce qu'un `git add .` ajouterait, sans le faire. Utile juste avant un `add .` dans un dossier qu'on connaît mal.
+
+```console
+$ git add --dry-run .
+add 'config.js'
+add 'b.js'
+```
+
+**`-p`** : morceau par morceau, avec une question à chaque fois. Ici, deux lignes ont changé dans `config.js`, loin l'une de l'autre ; la première est prise, la seconde laissée. Deux changements dans un même fichier, deux commits possibles.
+
+```console
+$ printf 'y\nn\n' | git add -p config.js
+diff --git a/config.js b/config.js
+index 1142fa8..57314ad 100644
+--- a/config.js
++++ b/config.js
+@@ -1,4 +1,4 @@
+-ligne 1
++ligne 1 modifiee
+ ligne 2
+ ligne 3
+ ligne 4
+(1/2) Stage this hunk [y,n,q,a,d,j,J,g,/,e,p,?]? @@ -17,4 +17,4 @@ ligne 16
+ ligne 17
+ ligne 18
+ ligne 19
+-ligne 20
++ligne 20 modifiee
+(2/2) Stage this hunk [y,n,q,a,d,K,g,/,e,p,?]?
+
+$ git diff --stat --staged
+ a.js      | 1 +
+ config.js | 2 +-
+ src/s.js  | 1 +
+ 3 files changed, 3 insertions(+), 1 deletion(-)
+
+$ git diff --stat
+ config.js | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+Les réponses sont données d'avance ici, `y` puis `n`, pour que le script tourne sans terminal ; en vrai, Git pose la question et attend. `s` découpe un morceau trop gros, `e` l'édite à la main, `q` arrête.
+
+**Les suppressions aussi** : un fichier effacé du disque est une modification comme une autre, et `git add` du chemin la met dans l'index.
+
+```console
+$ git status --short
+A  a.js
+MM config.js
+ D old.js
+A  src/s.js
+?? b.js
+
+$ git add old.js
+
+$ git status --short
+A  a.js
+MM config.js
+D  old.js
+A  src/s.js
+?? b.js
+```
+
+**`-A`** : tout, nouveaux fichiers, modifications et suppressions, dans tout le dépôt. `git add .` fait pareil pour le dossier courant et ce qu'il contient ; `-u` ne prend que les fichiers déjà suivis.
+
+```console
+$ git add -A
+
+$ git status --short
+A  a.js
+A  b.js
+M  config.js
+D  old.js
+A  src/s.js
+```
+
+**Un fichier ignoré** est refusé, avec la façon de forcer. Si tu en as vraiment besoin, c'est souvent le `.gitignore` qui a tort.
+
+```console
+$ git add debug.log
+The following paths are ignored by one of your .gitignore files:
+debug.log
+hint: Use -f if you really want to add them.
+hint: Disable this message with "git config set advice.addIgnoredFile false"
+```
+
+## Pièges
+
+- **`git add .` depuis un sous-dossier** n'ajoute que ce sous-dossier. `-A` prend tout le dépôt, d'où qu'on soit.
+- **Ajouté puis modifié** : le commit prendra la version ajoutée, pas celle du disque. `git status --short` le montre en `AM` ou `MM` ; un second `git add` met à jour.
+- **Ajouté par erreur** : `git restore --staged fichier` le retire de l'index sans toucher au fichier.
+- **`.env`, `node_modules/`, un fichier de 200 Mo** partis avec `git add .` : `--dry-run` d'abord, et un `.gitignore` tenu à jour. [Les secrets ne vont jamais dans le dépôt](/equipe/secrets-jamais-dans-le-depot/).
+- **`-f` sur un fichier ignoré** : il sera suivi pour toujours, et `.gitignore` ne le concernera plus : [.gitignore ne marche pas, le fichier est déjà suivi](/situations/fichiers/gitignore-fichier-deja-suivi/).
+
+## Où ça sert
+
+À lire d'abord : [Un commit, c'est un instantané](/comprendre/un-commit-est-un-instantane/), [.gitignore ne marche pas, le fichier est déjà suivi](/situations/fichiers/gitignore-fichier-deja-suivi/), [Les secrets ne vont jamais dans le dépôt](/equipe/secrets-jamais-dans-le-depot/).
+
+<CommandUsages command="add" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/add.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/add.sh), exécuté avec Git 2.50 le 6 octobre 2026. Les réponses à `git add -p` y sont fournies par `printf`. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::
