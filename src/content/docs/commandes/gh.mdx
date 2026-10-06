@@ -1,0 +1,75 @@
+---
+title: gh
+description: GitHub en ligne de commande. Les commandes gh que ce site cite, pour les pull requests, les issues, les forks, les releases, les secrets, les workflows et les comptes, ce qu'elles font, où elles servent, et pourquoi cette fiche est la seule sans sorties vérifiées.
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`gh` est l'outil en ligne de commande de GitHub : il parle à GitHub, là où `git` parle au dépôt. Pull requests, issues, releases, secrets, workflows, depuis le terminal, pour le dépôt du dossier où l'on est. Il demande un compte connecté, `gh auth login`, une fois par poste. Il est propre à GitHub : rien de ce qui suit ne vaut sur un autre serveur Git. Le manuel : `gh help`, et `gh <commande> --help` pour chacune.
+
+:::note[La seule fiche sans sorties vérifiées]
+Les scripts de ce site ne dépendent d'aucun service extérieur, et `gh` a besoin de GitHub et d'un compte connecté. Les commandes ci-dessous sont celles que les pages du site citent ; leurs sorties ne sont pas montrées, parce qu'elles changeraient à chaque exécution et d'une personne à l'autre.
+:::
+
+## Les formes qui servent
+
+**Les pull requests**, du côté de celui qui l'ouvre et de celui qui la relit :
+
+```bash
+gh pr create                 # ouvre la PR de la branche courante, titre et description demandés
+gh pr checks                 # l'état de la CI sur la PR courante
+gh pr view --web             # la PR dans le navigateur
+gh pr merge                  # fusionne, avec --merge, --squash ou --rebase
+gh pr checkout 14            # récupère la branche de la PR 14 sur ton poste, pour la relire
+gh pr diff 14                # son diff, sans changer de branche
+```
+
+**Les issues et les branches qui en partent** :
+
+```bash
+gh issue create              # une issue, avec les gabarits du dépôt
+gh issue develop 12 --checkout   # crée la branche liée à l'issue 12, et s'y place
+gh label create "bonne première contribution"   # une étiquette, que les gabarits peuvent alors poser
+```
+
+**Le dépôt et les forks** :
+
+```bash
+gh repo fork --clone         # forke, clone, et ajoute upstream, en une commande
+gh repo view --web           # le dépôt dans le navigateur
+```
+
+**Les versions, les secrets, les workflows** :
+
+```bash
+gh release create v1.2.0 --generate-notes   # une release sur le tag, notes rédigées depuis les PR
+gh secret set API_KEY        # un secret pour les workflows, saisi sans l'afficher
+gh workflow run situation.yml -f script=fins-de-ligne-crlf-lf   # lance un workflow à la demande
+gh run watch                 # suit l'exécution en cours
+gh run view --log            # le journal d'une exécution
+```
+
+**Les comptes** :
+
+```bash
+gh auth login                # se connecter, une fois
+gh auth status               # avec quel compte on parle à GitHub
+gh auth switch               # passer à un autre compte connecté
+```
+
+## Pièges
+
+- **`gh` agit sur le dépôt du dossier courant**, celui de `origin`. Ailleurs, ou pour un autre dépôt, `-R proprietaire/depot`.
+- **Deux comptes** : `gh auth status` dit lequel est actif, `gh auth switch` change. Un `gh pr create` sous le mauvais compte ouvre la PR au nom de l'autre : [Deux comptes GitHub sur le même poste](/situations/avec-les-autres/deux-comptes-github-sur-un-poste/).
+- **`gh pr merge` respecte les règles du dépôt** : une PR sans CI verte ou sans approbation requise est refusée, comme par le bouton. [Protéger la branche principale](/equipe/proteger-la-branche-principale/).
+- **`gh` n'est pas `git`.** Après un `gh pr merge`, ta `main` locale est en retard : `git pull --ff-only`, puis le ménage. [Ma branche locale est en retard après une fusion sur GitHub](/situations/avec-les-autres/branche-locale-en-retard-apres-fusion/).
+- **`gh workflow run` ne connaît que les workflows de la branche par défaut.** Sur une branche, c'est le déclencheur `push` qui sert : [Une CI qui vérifie ce que les postes ne voient pas](/equipe/ci-ce-que-les-postes-ne-voient-pas/).
+
+## Où ça sert
+
+À lire d'abord : [La pull request, de l'ouverture à la fusion](/equipe/la-pull-request/), [Relire une pull request](/equipe/relire-une-pull-request/), [Forker et contribuer à un projet open source](/equipe/forker-et-contribuer/).
+
+<CommandUsages command="gh" prefix="" mode="cited" />
