@@ -1,6 +1,6 @@
 ---
 title: Les commandes qui comptent
-description: Une fiche par commande, limitée aux formes utiles, avec leurs vraies sorties, qui renvoie aux pages où elle sert. Seize fiches disponibles, neuf prévues.
+description: Une fiche par commande, limitée aux formes utiles, avec leurs vraies sorties, qui renvoie aux pages où elle sert. Vingt fiches disponibles, cinq prévues.
 sidebar:
   order: 0
 ---
@@ -15,10 +15,10 @@ Disponibles :
 - **Le serveur** : [`git fetch`](/commandes/fetch/), [`git pull`](/commandes/pull/), [`git push`](/commandes/push/), [`git remote`](/commandes/remote/).
 - **Le quotidien** : [`git status`](/commandes/status/), [`git add`](/commandes/add/), [`git commit`](/commandes/commit/), [`git stash`](/commandes/stash/).
 - **Réparer** : [`git reset`](/commandes/reset/), [`git restore`](/commandes/restore/), [`git revert`](/commandes/revert/), [`git reflog`](/commandes/reflog/).
+- **Réunir** : [`git merge`](/commandes/merge/), [`git rebase`](/commandes/rebase/), [`git cherry-pick`](/commandes/cherry-pick/), [`git tag`](/commandes/tag/).
 
-À venir, dans cet ordre :
+À venir :
 
-- **Réunir** : `merge`, `rebase`, `cherry-pick`, `tag`.
 - **Régler et inspecter** : `config`, `show`, `ls-files`, `check-ignore`, et une fiche `gh` pour GitHub en ligne de commande, signalée comme telle.
 
 Tu veux écrire l'une de ces fiches ? Le gabarit est dans le `CONTRIBUTING.md` du dépôt.
