@@ -1,0 +1,105 @@
+---
+title: git rm
+description: Retirer un fichier du suivi. Du disque et de l'index d'un coup, ou du suivi seulement avec --cached, un dossier avec -r, le refus quand le fichier est modifié et -f qui force, et comment revenir en arrière avant le commit.
+risk: destructif
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git rm` retire un fichier du suivi de Git et, par défaut, du disque, en préparant la suppression pour le prochain commit. Avec `--cached`, il ne retire que du suivi et laisse le fichier en place : c'est le geste pour un fichier commité par erreur, un `.env`, un dossier de build. Le manuel complet : `git help rm`.
+
+## Les formes qui servent
+
+**`git rm fichier`** : le fichier disparaît du disque, et sa suppression est dans l'index, prête à être commitée.
+
+```console
+$ git rm a.js
+rm 'a.js'
+
+$ git status --short
+D  a.js
+```
+
+**`--cached`** : retiré du suivi, le fichier reste sur le disque. Il apparaît alors comme non suivi, et c'est le moment de l'ajouter au `.gitignore`.
+
+```console
+$ git rm --cached .env
+rm '.env'
+
+$ git status --short
+D  .env
+D  a.js
+?? .env
+
+$ ls -a
+.
+..
+.env
+.git
+README.md
+c.js
+docs
+```
+
+**`-r`** pour un dossier, avec tout ce qu'il contient.
+
+```console
+$ git rm -r docs
+rm 'docs/x.md'
+rm 'docs/y.md'
+
+$ git status --short
+D  .env
+D  a.js
+D  docs/x.md
+D  docs/y.md
+?? .env
+```
+
+**Un fichier modifié est refusé** : sa modification n'est dans aucun commit, la supprimer la perdrait. `-f` force, et la perd.
+
+```console
+$ git rm c.js
+error: the following file has local modifications:
+    c.js
+(use --cached to keep the file, or -f to force removal)
+
+$ git rm -f c.js
+rm 'c.js'
+```
+
+**Revenir en arrière avant le commit** : `restore --staged --worktree` remet le fichier dans l'index et sur le disque, tel qu'il était au dernier commit.
+
+```console
+$ git restore --staged --worktree a.js
+
+$ git status --short
+D  .env
+D  c.js
+D  docs/x.md
+D  docs/y.md
+?? .env
+```
+
+## Pièges
+
+- **`--cached` ne retire rien de l'historique.** Un secret commité reste lisible dans tous les commits passés : [J'ai poussé un secret par erreur](/situations/fichiers/secret-pousse-par-erreur/). `rm --cached` empêche la suite, pas le passé.
+- **Chez les collègues, le prochain `pull` supprime le fichier** retiré avec `--cached`, puisque le commit dit « supprimé ». Les prévenir de sauvegarder leur copie : [.gitignore ne marche pas, le fichier est déjà suivi](/situations/fichiers/gitignore-fichier-deja-suivi/).
+- **Supprimer avec l'explorateur ou `rm`** marche aussi : `git status` montre ` D`, et `git add fichier` ou `git add -A` enregistre la suppression. `git rm` fait les deux gestes d'un coup.
+- **`-f` perd la modification en cours**, sans retour : lire le message, et `git stash` ou `git diff` d'abord si l'on doute.
+- **Après le commit**, un fichier supprimé se relit toujours : `git show HEAD~1:fichier`, et se restaure avec `git restore --source=HEAD~1 fichier` : [`git restore`](/commandes/restore/).
+
+## Où ça sert
+
+À lire d'abord : [.gitignore ne marche pas, le fichier est déjà suivi](/situations/fichiers/gitignore-fichier-deja-suivi/), [J'ai poussé un secret par erreur](/situations/fichiers/secret-pousse-par-erreur/), [`git restore`](/commandes/restore/).
+
+<CommandUsages command="rm" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/rm.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/rm.sh), exécuté avec Git 2.50 le 6 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::

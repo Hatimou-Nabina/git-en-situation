@@ -1,0 +1,85 @@
+---
+title: git show
+description: Regarder un objet de près. Le dernier commit avec son bilan et son diff, n'importe quel commit dans le format qu'on veut, les fichiers qu'il touche, et un fichier tel qu'il était à un commit donné.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git show` affiche un objet : un commit avec son message et son diff, un fichier tel qu'il était à un commit, un tag avec son annotation. Là où [`git log`](/commandes/log/) parcourt l'historique, `show` s'arrête sur un point et le montre en entier. Le manuel complet : `git help show`.
+
+## Les formes qui servent
+
+**`git show --stat HEAD`** : le dernier commit, son message, et le bilan par fichier. **`git show HEAD -- fichier`** : le même commit, mais seulement le diff d'un fichier.
+
+```console
+$ git show --stat HEAD
+commit e370e857ac7e232a1ed92f20a2d1b80942741aa4
+Author: Awa <awa@example.com>
+Date:   Mon Oct 5 10:00:00 2026 +0000
+
+    fix(config): passe le port a 8080
+
+ README.md | 1 +
+ config.js | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+$ git show HEAD -- config.js
+commit e370e857ac7e232a1ed92f20a2d1b80942741aa4
+Author: Awa <awa@example.com>
+Date:   Mon Oct 5 10:00:00 2026 +0000
+
+    fix(config): passe le port a 8080
+
+diff --git a/config.js b/config.js
+index 899fe75..fc6826a 100644
+--- a/config.js
++++ b/config.js
+@@ -1 +1 @@
+-port=80
++port=8080
+```
+
+**N'importe quel commit, dans le format qu'on veut** : `--no-patch` sans le diff, `--format` pour composer, `--name-only` pour la liste des fichiers.
+
+```console
+$ git show --no-patch --format='%h %an %ad%n%s' --date=short HEAD~1
+145e96d Awa 2026-10-05
+docs: complete le README
+
+$ git show --name-only --oneline HEAD~1
+145e96d docs: complete le README
+README.md
+```
+
+**`git show commit:fichier`** : le contenu d'un fichier tel qu'il était à ce commit, sans toucher au dossier de travail. Pour le récupérer : `git show HEAD~2:config.js > config.ancien.js`.
+
+```console
+$ git show HEAD~2:config.js
+port=80
+
+$ git show HEAD:config.js
+port=8080
+```
+
+## Pièges
+
+- **`commit:fichier` sans espace**, et le chemin depuis la racine du dépôt, même depuis un sous-dossier. Avec un espace et deux tirets, `git show HEAD -- fichier`, c'est le diff du commit limité au fichier, pas le contenu.
+- **Un commit de merge** se montre sans diff par défaut : il en a deux. `git show -m` les affiche l'un après l'autre, `--first-parent` seulement par rapport à `main`.
+- **`git show` d'un fichier supprimé** : `git show HEAD~1:fichier` le lit encore, tant qu'un commit le contient. C'est la façon de relire ce qu'on a effacé.
+- **`git show` d'un tag** affiche l'annotation puis le commit : [`git tag`](/commandes/tag/) ; d'une branche, son dernier commit.
+- **Pour l'intérieur brut d'un objet**, arbre et parents compris, c'est [`git cat-file`](/commandes/cat-file/) ; `show` met en forme.
+
+## Où ça sert
+
+À lire d'abord : [Un commit, c'est un instantané](/comprendre/un-commit-est-un-instantane/), [J'ai poussé un secret par erreur](/situations/fichiers/secret-pousse-par-erreur/), [Relire une pull request](/equipe/relire-une-pull-request/).
+
+<CommandUsages command="show" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/show.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/show.sh), exécuté avec Git 2.50 le 6 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::

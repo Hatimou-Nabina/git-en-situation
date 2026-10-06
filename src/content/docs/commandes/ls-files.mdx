@@ -1,0 +1,108 @@
+---
+title: git ls-files
+description: Ce que l'index contient. Les fichiers que Git suit, leur mode, leur objet, leurs fins de ligne ; ce qu'il ne suit pas ; ce qui est modifié ou supprimé du disque ; et le test « ce fichier est-il suivi ? ». La commande qui lit la même chose sur tous les systèmes.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git ls-files` liste ce que l'index contient : les fichiers que Git suit, et, à la demande, leur mode, l'objet qu'ils désignent, leurs fins de ligne. Il lit l'index, pas le disque : sa réponse est la même sous Windows, macOS et Linux, et c'est pour ça qu'il sert aux vérifications de CI. Le manuel complet : `git help ls-files`.
+
+## Les formes qui servent
+
+**`git ls-files`**, seul ou avec un dossier : les fichiers suivis, un par ligne.
+
+```console
+$ git ls-files
+.gitignore
+README.md
+ancien.txt
+old.js
+scripts/run.sh
+src/a.js
+src/b.js
+
+$ git ls-files src/
+src/a.js
+src/b.js
+```
+
+**`-s`** : le mode, l'identifiant de l'objet et le chemin ; `100755` est un fichier exécutable, `100644` un fichier ordinaire. **`--eol`** : les fins de ligne dans l'index (`i/`), dans le dossier (`w/`) et les attributs qui s'appliquent.
+
+```console
+$ git ls-files -s
+100644 397b4a7624e35fa60563a9c03b1213d93f7b6546 0	.gitignore
+100644 b60e1ad35025d69cbe886686e6a0b040551b9fde 0	README.md
+100644 36340c1f4b2b10db570d87c86eae2ad3284c515e 0	ancien.txt
+100644 3367afdbbf91e638efe983616377c60477cc6612 0	old.js
+100755 64d05256673c292d707365590e5c8a4af10dce07 0	scripts/run.sh
+100644 78981922613b2afb6025042ff6bd878ac1994e85 0	src/a.js
+100644 61780798228d17af2d34fce4cfbdf35556832472 0	src/b.js
+
+$ git ls-files --eol
+i/lf    w/lf    attr/                 	.gitignore
+i/lf    w/lf    attr/                 	README.md
+i/crlf  w/crlf  attr/                 	ancien.txt
+i/lf    w/      attr/                 	old.js
+i/lf    w/lf    attr/                 	scripts/run.sh
+i/lf    w/lf    attr/                 	src/a.js
+i/lf    w/lf    attr/                 	src/b.js
+```
+
+`ancien.txt` est en CRLF dans le dépôt, et `old.js` n'a plus de version sur le disque : deux choses que `git status` ne dit pas aussi clairement.
+
+**`-o`** : ce que Git ne suit pas ; avec **`--exclude-standard`**, sans les fichiers ignorés.
+
+```console
+$ git ls-files -o --exclude-standard
+notes.txt
+
+$ git ls-files -o
+debug.log
+notes.txt
+```
+
+**`-m`** et **`-d`** : les fichiers suivis modifiés sur le disque, et ceux qui en ont disparu.
+
+```console
+$ git ls-files -m
+README.md
+old.js
+
+$ git ls-files -d
+old.js
+```
+
+**`--error-unmatch fichier`** : échoue si le fichier n'est pas suivi. Le test à poser dans un script quand le code dépend d'un fichier qui pourrait n'exister que sur ton poste.
+
+```console
+$ git ls-files --error-unmatch notes.txt
+error: pathspec 'notes.txt' did not match any file(s) known to git
+Did you forget to 'git add'?
+
+$ git ls-files --error-unmatch README.md && echo "suivi"
+README.md
+suivi
+```
+
+## Pièges
+
+- **Depuis un sous-dossier**, `ls-files` ne liste que ce sous-dossier, comme `git add .`. Pour tout le dépôt, se placer à la racine ou donner le chemin.
+- **`-o` sans `--exclude-standard`** liste aussi les fichiers ignorés : c'est rarement ce qu'on veut.
+- **Le mode `100644` d'un script** sous Windows est normal, le système ne connaît pas le bit d'exécution ; c'est en CI qu'il manque. [Une CI qui vérifie ce que les postes ne voient pas](/equipe/ci-ce-que-les-postes-ne-voient-pas/).
+- **`i/crlf`** dans `--eol` est le signe d'un fichier arrivé avec des fins de ligne Windows : [Mes scripts cassent sur le serveur : fins de ligne](/situations/fichiers/fins-de-ligne-crlf-lf/).
+- **Un fichier dans `.gitignore` et pourtant listé** : il est suivi, l'ignorer ne change rien. [.gitignore ne marche pas, le fichier est déjà suivi](/situations/fichiers/gitignore-fichier-deja-suivi/).
+
+## Où ça sert
+
+À lire d'abord : [Mes scripts cassent sur le serveur : fins de ligne](/situations/fichiers/fins-de-ligne-crlf-lf/), [Une CI qui vérifie ce que les postes ne voient pas](/equipe/ci-ce-que-les-postes-ne-voient-pas/), [Les secrets ne vont jamais dans le dépôt](/equipe/secrets-jamais-dans-le-depot/).
+
+<CommandUsages command="ls-files" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/ls-files.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/ls-files.sh), exécuté avec Git 2.50 le 6 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::
