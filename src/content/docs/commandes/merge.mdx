@@ -1,0 +1,129 @@
+---
+title: git merge
+description: Réunir une branche dans la courante. L'avance rapide quand main n'a pas bougé, le commit de merge quand les deux ont avancé, --no-ff pour le forcer, --ff-only pour l'interdire, --squash pour un seul commit, et le conflit avec sa sortie de secours.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git merge` fait entrer dans la branche courante tout ce qu'une autre branche a de plus. Selon la situation, la branche courante avance simplement jusqu'à l'autre, ou un commit de merge à deux parents réunit les deux lignes. Sur GitHub, c'est ce que fait le bouton de fusion d'une pull request. Le manuel complet : `git help merge`.
+
+## Les formes qui servent
+
+**`git merge branche`**, quand la courante n'a pas bougé depuis que la branche en est partie : avance rapide, « Fast-forward », pas de commit de merge.
+
+```console
+$ git merge feature/a
+Updating d0a0b32..c18da03
+Fast-forward
+ a.js | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 a.js
+```
+
+**Quand les deux ont avancé** : un commit de merge, à deux parents. `--graph` le montre.
+
+```console
+$ git merge feature/b
+Merge made by the 'ort' strategy.
+ b.js | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 b.js
+
+$ git log --oneline --graph -4
+*   fa84cca Merge branch 'feature/b'
+|\
+| * c3cc1dc feat(b): ajoute b
+* | 00f3be5 feat(contact): ajoute la page contact
+|/
+* c18da03 feat(a): ajoute a
+```
+
+**`--no-ff`** force le commit de merge même quand l'avance rapide est possible : la branche reste visible dans l'historique. C'est ce que fait GitHub avec « Create a merge commit ».
+
+```console
+$ git merge --no-ff feature/c
+Merge made by the 'ort' strategy.
+ c.js | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 c.js
+
+$ git log --oneline -2
+ea5ea6e Merge branch 'feature/c'
+fa84cca Merge branch 'feature/b'
+```
+
+**`--ff-only`** refuse tout ce qui n'est pas une avance rapide. C'est le réglage sûr pour mettre `main` au niveau du serveur sans créer de commit par accident.
+
+```console
+$ git merge --ff-only feature/d
+hint: Diverging branches can't be fast-forwarded, you need to either:
+hint:
+hint: 	git merge --no-ff
+hint:
+hint: or:
+hint:
+hint: 	git rebase
+hint:
+hint: Disable this message with "git config set advice.diverging false"
+fatal: Not possible to fast-forward, aborting.
+```
+
+**`--squash`** prépare dans l'index tout ce que la branche apporte, en un seul changement, sans commiter : le commit suivant est à toi, avec ton message. L'historique de la branche n'est pas repris, et c'est ce que fait GitHub avec « Squash and merge ».
+
+```console
+$ git merge --squash feature/d
+Squash commit -- not updating HEAD
+Automatic merge went well; stopped before committing as requested
+
+$ git status --short
+A  d.js
+
+$ git commit -m "feat(d): ajoute d"
+[main fb29340] feat(d): ajoute d
+ 1 file changed, 2 insertions(+)
+ create mode 100644 d.js
+
+$ git log --oneline -3
+fb29340 feat(d): ajoute d
+a454aa7 feat(export): ajoute l export
+ea5ea6e Merge branch 'feature/c'
+```
+
+**Un conflit** arrête le merge avant le commit ; `--abort` ramène exactement à l'état d'avant.
+
+```console
+$ git merge feature/e
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.
+
+$ git status --short
+UU README.md
+
+$ git merge --abort
+
+$ git status --short
+```
+
+## Pièges
+
+- **Merge ou rebase ?** Merge garde l'histoire telle qu'elle s'est passée, avec ses croisements ; rebase la réécrit en ligne droite. [Fast-forward, fusion, rebase](/comprendre/fast-forward-fusion-rebase/) compare les deux sur le même état.
+- **`git branch -d` refuse après un `--squash`** : la branche n'est pas un ancêtre de `main`, même si tout y est. `-D`, après avoir vérifié : [Supprimer une vieille branche sans rien perdre](/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/).
+- **Le mauvais sens** : on fusionne la branche dans `main`, depuis `main`. Fusionner `main` dans sa branche sert à la mettre à jour, et c'est un autre geste : [Mettre ma branche à jour avec main](/situations/avec-les-autres/mettre-ma-branche-a-jour-avec-main/).
+- **Le conflit** se résout fichier par fichier, puis `git add` et `git commit` : [Un conflit pendant un merge ou un rebase](/situations/reparer/resoudre-un-conflit/). Avec `merge`, « ours » est la branche courante.
+- **`git pull` est un `fetch` suivi d'un `merge`**, d'où les commits « Merge branch 'main' of … » quand on tire sans réfléchir : [`git pull`](/commandes/pull/).
+
+## Où ça sert
+
+À lire d'abord : [Fast-forward, fusion, rebase](/comprendre/fast-forward-fusion-rebase/), [Un conflit pendant un merge ou un rebase](/situations/reparer/resoudre-un-conflit/), [Branche de travail et branche de production](/equipe/branche-de-travail-et-de-production/).
+
+<CommandUsages command="merge" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/merge.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/merge.sh), exécuté avec Git 2.50 le 6 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::
