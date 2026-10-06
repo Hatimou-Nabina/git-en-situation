@@ -22,6 +22,8 @@ run bakary git branch -a
 run bakary git fetch
 run bakary git branch -a
 
+exercice bakary "la branche feature/export-pdf a été supprimée sur le serveur et tu la vois encore. Fais-la disparaître de ton poste, la copie du serveur comme la branche locale."
+
 note "Solution"
 run bakary git fetch --prune
 run bakary git branch -a

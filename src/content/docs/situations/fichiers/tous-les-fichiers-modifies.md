@@ -110,6 +110,16 @@ Git stocke les fichiers texte avec des fins de ligne LF et peut les convertir à
 - [Mes scripts cassent sur le serveur, fins de ligne](/situations/fichiers/fins-de-ligne-crlf-lf/)
 - [Mettre mon travail en cours de côté pour changer de branche](/situations/quotidien/mettre-son-travail-de-cote/)
 
+:::note[Essaie-le toi-même]
+Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :
+
+```bash
+EXERCICE=1 bash scripts/situations/tous-les-fichiers-modifies.sh
+```
+
+Il s'arrête juste après le symptôme, te dit dans quel dossier aller et quoi faire. Répare, puis relance sans `EXERCICE=1` pour comparer avec la solution.
+:::
+
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/tous-les-fichiers-modifies.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/tous-les-fichiers-modifies.sh), exécuté avec Git 2.50 le 6 octobre 2026, sur un clone fait avec `core.autocrlf=true` pour reproduire un poste Windows. Après le changement de réglage, les fichiers sont rafraîchis par `touch` : Git fait confiance à leurs dates et ne relirait pas leur contenu sinon, ce que fait sur un vrai poste le premier enregistrement dans l'éditeur. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

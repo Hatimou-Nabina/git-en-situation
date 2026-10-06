@@ -7,9 +7,28 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 3, lot 17 : la vérification automatique des sorties
+## [Non publié] — Phase 3, lot 18 : les exercices
 
-Branche `site/verifier-sorties`, partie de `main` (`8add348`).
+Branche `situations/exercices-1`, partie de `main` (`0432e13`).
+
+### Contenu
+
+- **Chaque situation se termine par un encadré « Essaie-le toi-même »**, sauf « Deux comptes GitHub sur le même poste », dont le scénario dépend du dossier personnel et de SSH. Avec `EXERCICE=1 bash scripts/situations/<slug>.sh`, le script de la page fabrique la panne dans `exercices/<slug>/` à la racine d'un clone du dépôt, s'arrête juste après le symptôme et affiche le dossier où aller et l'objectif, formulé sans donner la commande. On répare, puis on relance sans la variable pour comparer avec la solution. Rien n'est envoyé nulle part : le serveur est un dossier à côté.
+- « Comment lire une situation » explique les exercices.
+
+### Pour les contributeurs
+
+- `_lib.sh` : le mode exercice et la fonction `exercice <poste> '<objectif>'`, une ligne par script de situation, juste après le symptôme ; `exercices/` est ignoré par Git. Gabarit mis à jour dans `CONTRIBUTING.md`. En mode normal, la ligne ne fait rien : le vérificateur confirme que les 22 pages donnent les mêmes 126 blocs.
+
+### Suite prévue
+
+- **Phase 4** : traduction anglaise, animation de la communauté. Et, au fil des contributions, les pages « Comprendre » prévues (#11, #24, #25).
+
+---
+
+## 6 octobre 2026 · Phase 3, lot 17 : la vérification automatique des sorties — en ligne le 6 octobre 2026
+
+Branche `site/verifier-sorties`, partie de `main` (`8add348`), fusionnée par la PR #27 (`0432e13`).
 
 ### Pour les contributeurs
 

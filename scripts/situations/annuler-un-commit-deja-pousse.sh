@@ -11,6 +11,8 @@ quiet bakary git pull
 note "Le dernier commit poussé casse la production"
 run awa git log --oneline -3
 
+exercice awa "le dernier commit poussé casse la production. Annule-le sans réécrire l'historique du serveur, puis pousse."
+
 note "Ce qu'il ne faut pas faire : revenir en arrière et pousser"
 cp -r "$SANDBOX/awa" "$SANDBOX/awa-reset"
 run awa-reset git reset --hard HEAD~1

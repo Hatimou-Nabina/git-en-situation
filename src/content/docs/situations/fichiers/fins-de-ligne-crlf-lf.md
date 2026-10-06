@@ -99,6 +99,16 @@ Git peut convertir les fins de ligne à l'entrée, vers l'index, et à la sortie
 - [.gitignore ne marche pas, le fichier est déjà suivi](/situations/fichiers/gitignore-fichier-deja-suivi/)
 - [Travailler en équipe : une CI qui vérifie ce que les postes ne voient pas](/equipe/ci-ce-que-les-postes-ne-voient-pas/)
 
+:::note[Essaie-le toi-même]
+Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :
+
+```bash
+EXERCICE=1 bash scripts/situations/fins-de-ligne-crlf-lf.sh
+```
+
+Il s'arrête juste après le symptôme, te dit dans quel dossier aller et quoi faire. Répare, puis relance sans `EXERCICE=1` pour comparer avec la solution.
+:::
+
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/fins-de-ligne-crlf-lf.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/fins-de-ligne-crlf-lf.sh), rejoué **sur Ubuntu** par le workflow « Rejouer les situations » du dépôt, avec Git 2.55, le 6 octobre 2026. Sous Windows, le bash de Git Bash tolère les CRLF et l'erreur n'y apparaît pas : c'est précisément le sujet de la page. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

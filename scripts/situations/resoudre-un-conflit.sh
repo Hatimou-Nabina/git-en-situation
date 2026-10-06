@@ -17,6 +17,8 @@ run bakary git pull --rebase
 run bakary git status
 run bakary cat README.md
 
+exercice bakary "ton pull --rebase s'est arrêté sur un conflit dans README.md. Résous-le en gardant les deux changements, puis termine le rebase."
+
 note "Résoudre : écrire la version voulue, puis continuer"
 quiet_sh bakary 'printf "# Projet EduShare\n\nContact : contact@example.com\n" > README.md'
 run bakary cat README.md

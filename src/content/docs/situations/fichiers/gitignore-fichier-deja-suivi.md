@@ -121,6 +121,16 @@ Git tient la liste des fichiers suivis dans l'**index**. Les règles du `.gitign
 - [Travailler sur le même projet depuis deux machines](/situations/avec-les-autres/travailler-depuis-deux-machines/)
 - [Travailler en équipe : les secrets ne vont jamais dans le dépôt](/equipe/secrets-jamais-dans-le-depot/)
 
+:::note[Essaie-le toi-même]
+Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :
+
+```bash
+EXERCICE=1 bash scripts/situations/gitignore-fichier-deja-suivi.sh
+```
+
+Il s'arrête juste après le symptôme, te dit dans quel dossier aller et quoi faire. Répare, puis relance sans `EXERCICE=1` pour comparer avec la solution.
+:::
+
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/gitignore-fichier-deja-suivi.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/gitignore-fichier-deja-suivi.sh), exécuté avec Git 2.50 le 5 octobre 2026. Le `.gitignore` en UTF-16 y est fabriqué avec `iconv`, tel que PowerShell 5 l'écrirait. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

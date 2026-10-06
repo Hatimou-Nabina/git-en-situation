@@ -29,6 +29,16 @@ Aucune sortie n'est écrite à la main. Chaque situation a un script dans le dos
 
 Trois simplifications, et seulement celles-là : l'adresse du serveur est remplacée par `github.com:equipe/projet.git` ; les identifiants de commit sont ceux du dépôt d'exemple ; et pour une commande qui écrit à la fois des messages et des résultats, les messages (`Switched to branch…`, `hint:`…) sont affichés avant les résultats, dans un ordre fixe, alors que ton terminal peut les entremêler autrement. Chez toi, ces détails changent ; tout le reste doit être identique, à version de Git égale. Si ce n'est pas le cas, [signale-le](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=signaler-une-erreur.yml) : c'est précieux.
 
+## Essaie-le toi-même
+
+Lire une solution et la faire ne sont pas la même chose. Chaque situation se termine par un encadré « Essaie-le toi-même » : le script de la page sait fabriquer la panne sur ton poste, dans un dossier jetable, et s'arrêter juste après le symptôme. Il te dit dans quel dossier aller et quoi obtenir, sans donner la commande. Tu répares, puis tu relances le script sans la variable pour comparer avec la solution. Il faut un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation) et, sous Windows, Git Bash :
+
+```bash
+EXERCICE=1 bash scripts/situations/premier-push-no-upstream.sh
+```
+
+Rien n'est envoyé nulle part : le « serveur » est un dossier à côté, et tout se supprime en effaçant `exercices/`.
+
 ## Il manque ta situation ?
 
 [Propose-la](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=proposer-une-situation.yml), même sans connaître la réponse. Ce que tu as vu et ce que tu essayais de faire suffisent pour commencer.

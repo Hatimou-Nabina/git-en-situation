@@ -109,6 +109,16 @@ Dans `.git/HEAD`, il y a soit un nom de branche, soit un identifiant de commit. 
 - [Après un clone, je ne vois pas les branches des autres](/situations/quotidien/branches-invisibles-apres-clone/)
 - Comprendre : *HEAD, ou « où je suis »* (à venir)
 
+:::note[Essaie-le toi-même]
+Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :
+
+```bash
+EXERCICE=1 bash scripts/situations/detached-head.sh
+```
+
+Il s'arrête juste après le symptôme, te dit dans quel dossier aller et quoi faire. Répare, puis relance sans `EXERCICE=1` pour comparer avec la solution.
+:::
+
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/detached-head.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/detached-head.sh), exécuté avec Git 2.50 le 6 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

@@ -22,9 +22,12 @@ En français d'abord, pour les développeurs francophones de tous niveaux. Une v
 Aucune sortie de commande n'est écrite à la main. Chaque page a un script dans [`scripts/`](scripts/) qui rejoue le scénario dans des dépôts jetables, avec une configuration Git neutre et des dates figées, et imprime chaque commande suivie de sa sortie. La page recopie ce résultat et indique la version de Git et la date. Un vérificateur rejoue les scripts et compare avec les pages, sur chaque pull request, avec la version de Git que chaque page déclare.
 
 ```bash
-bash scripts/situations/push-refuse-fetch-first.sh   # rejoue une situation
-npm run verifier                                     # rejoue tout et compare avec les pages
+bash scripts/situations/push-refuse-fetch-first.sh              # rejoue une situation
+EXERCICE=1 bash scripts/situations/push-refuse-fetch-first.sh   # fabrique la panne, à toi de réparer
+npm run verifier                                                # rejoue tout et compare avec les pages
 ```
+
+Les mêmes scripts servent d'exercices : avec `EXERCICE=1`, le script s'arrête juste après le symptôme, dans un dossier jetable, et dit quoi obtenir. Chaque situation du site se termine par cet encadré.
 
 ## Contribuer
 

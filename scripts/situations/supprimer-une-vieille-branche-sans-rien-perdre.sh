@@ -15,6 +15,8 @@ note "État des lieux"
 run awa git fetch --prune
 run awa git branch -a
 
+exercice awa "trois vieilles branches, refonte-header, experimentation, brouillon. Supprime celles qui ne contiennent rien que main n'ait pas, en local et sur le serveur, et garde les autres."
+
 note "refonte-header a-t-elle des commits que main n'a pas ?"
 run awa git log --oneline main..refonte-header
 run awa git rev-list --count main..refonte-header

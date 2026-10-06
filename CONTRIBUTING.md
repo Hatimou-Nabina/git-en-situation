@@ -45,6 +45,7 @@ npm run dev      # http://localhost:4321/git-en-situation/
 | `npm run check` | Vérifie les types des composants et de la configuration |
 | `npm run verifier` | Rejoue le script de chaque page et vérifie que ses blocs de terminal en sortent tels quels ; `npm run verifier -- commandes/log` pour une seule page |
 | `bash scripts/situations/<slug>.sh` | Rejoue une situation et affiche ses vraies sorties |
+| `EXERCICE=1 bash scripts/situations/<slug>.sh` | Fabrique la panne dans `exercices/<slug>/`, s'arrête après le symptôme et dit quoi faire : pour s'entraîner |
 
 ## Écrire une situation
 
@@ -62,7 +63,8 @@ Pars d'un script existant. La bibliothèque `_lib.sh` fournit :
 - `run <poste> <commande>` : affiche `$ commande` puis sa sortie, les messages (`stderr`) avant les résultats (`stdout`), dans un ordre fixe quel que soit le système ;
 - `run_sh <poste> '<ligne>'` : pareil, pour une ligne avec `&&` ou `|` ;
 - `quiet` et `quiet_sh` : la mise en place, sans affichage ;
-- `note '<titre>'` : un repère dans la sortie.
+- `note '<titre>'` : un repère dans la sortie ;
+- `exercice <poste> '<objectif>'` : le point d'arrêt du mode exercice, à placer juste après le symptôme. Avec `EXERCICE=1`, le script s'arrête là, garde le bac à sable dans `exercices/<slug>/` et affiche le dossier où aller et l'objectif, en une ou deux phrases qui disent le but sans donner la commande. Sans la variable, la ligne ne fait rien.
 
 La configuration Git est neutre et les dates figées : le script donne les mêmes identifiants de commit à chaque exécution, chez tout le monde.
 
@@ -102,6 +104,16 @@ Les variantes qui trompent, ce qu'il ne faut pas faire.
 
 ## Voir aussi
 Les situations voisines. Les pages qui n'existent pas encore sont citées en italique avec « (à venir) », sans lien.
+
+:::note[Essaie-le toi-même]
+Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :
+
+```bash
+EXERCICE=1 bash scripts/situations/<slug>.sh
+```
+
+Il s'arrête juste après le symptôme, te dit dans quel dossier aller et quoi faire. Répare, puis relance sans `EXERCICE=1` pour comparer avec la solution.
+:::
 
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/<slug>.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/<slug>.sh), exécuté avec Git X.Y le JJ mois AAAA. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.

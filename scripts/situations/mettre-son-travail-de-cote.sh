@@ -11,6 +11,8 @@ note "Awa a du travail en cours et doit corriger un bug sur main"
 run awa git status --short
 run awa git switch main
 
+exercice awa "tu as du travail en cours sur feature/recherche et un bug à corriger sur main. Passe sur main sans rien perdre ni commiter, puis reviens reprendre ton travail."
+
 note "Solution : mettre de côté, changer de branche, corriger"
 run_sh awa 'git stash push -u -m "Filtre de recherche en cours"'
 run awa git status --short

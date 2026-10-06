@@ -13,6 +13,8 @@ run_sh awa 'echo "SECRET=def" > .env'
 run awa git status --short
 run awa git check-ignore -v .env
 
+exercice awa ".env est dans le .gitignore et Git le voit encore comme modifié. Fais en sorte qu'il ne soit plus suivi, sans le supprimer du disque."
+
 note "Diagnostic : le fichier est déjà suivi"
 run awa git ls-files
 

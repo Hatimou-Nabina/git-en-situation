@@ -9,6 +9,8 @@ quiet_sh awa 'git switch -q -c feature/recherche && echo "recherche" > recherche
 note "Awa pousse sa nouvelle branche"
 run awa git push
 
+exercice awa "git push refuse, feature/recherche n'a pas de branche de suivi. Pousse-la de façon que les prochains git push suffisent."
+
 note "Solution"
 run awa git push -u origin feature/recherche
 run awa git branch -vv

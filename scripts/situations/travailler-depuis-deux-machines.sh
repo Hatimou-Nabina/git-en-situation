@@ -22,6 +22,8 @@ note "À la maison, le soir : rien de tout ça"
 run maison git fetch
 run maison git branch -a
 
+exercice bureau "tu quittes le bureau. Fais en sorte que tout ce qui n'existe que sur ce poste, le commit et sa branche, soit sur le serveur ; le travail mis de côté et le .env ne voyageront pas, trouve comment les emporter."
+
 note "La routine en partant : vérifier ce qui n'est que sur ce poste, puis pousser"
 run bureau git status --short --branch
 run bureau git log --branches --not --remotes --oneline

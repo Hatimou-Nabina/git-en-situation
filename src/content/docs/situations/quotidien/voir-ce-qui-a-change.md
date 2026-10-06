@@ -103,6 +103,16 @@ Les deux notations sont nées séparément, pour des commandes différentes, et 
 - [Mettre mon travail en cours de côté pour changer de branche](/situations/quotidien/mettre-son-travail-de-cote/)
 - Commandes : [`git log`](/commandes/log/), [`git diff`](/commandes/diff/)
 
+:::note[Essaie-le toi-même]
+Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :
+
+```bash
+EXERCICE=1 bash scripts/situations/voir-ce-qui-a-change.sh
+```
+
+Il s'arrête juste après le symptôme, te dit dans quel dossier aller et quoi faire. Répare, puis relance sans `EXERCICE=1` pour comparer avec la solution.
+:::
+
 :::tip[Sorties vérifiées]
 Les sorties de cette page viennent du script [`scripts/situations/voir-ce-qui-a-change.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/voir-ce-qui-a-change.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

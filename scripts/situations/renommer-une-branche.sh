@@ -13,6 +13,8 @@ quiet bakary git switch main
 note "Une faute dans le nom, et la branche est déjà sur le serveur"
 run awa git branch -vv
 
+exercice awa "ta branche s'appelle feautre/recherche, avec une faute, et elle est déjà sur le serveur. Renomme-la des deux côtés, sans laisser l'ancien nom sur le serveur."
+
 note "1. Renommer en local"
 run awa git branch -m feautre/recherche feature/recherche
 run awa git branch -vv
