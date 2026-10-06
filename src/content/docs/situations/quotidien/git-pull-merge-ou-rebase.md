@@ -4,7 +4,7 @@ description: « fatal - Need to specify how to reconcile divergent branches ». 
 level: debutant
 risk: aucun
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 ---
 
@@ -59,7 +59,7 @@ Merge made by the 'ort' strategy.
  create mode 100644 contact.html
 
 $ git log --oneline --graph -4
-*   b6fe553 Merge branch 'main' of github.com:equipe/projet
+*   8e0725f Merge branch 'main' of github.com:equipe/projet
 |\
 | * 40cf319 Ajoute la page contact
 * | 0e03633 Corrige le titre du README
@@ -99,5 +99,5 @@ La troisième option du message, `pull.ff only`, est la plus stricte : `git pull
 - [Comprendre : fast-forward, fusion, rebase](/comprendre/fast-forward-fusion-rebase/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/situations/git-pull-merge-ou-rebase.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/git-pull-merge-ou-rebase.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/situations/git-pull-merge-ou-rebase.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/git-pull-merge-ou-rebase.sh), exécuté avec Git 2.50 le 6 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::
