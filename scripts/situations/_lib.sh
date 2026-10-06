@@ -10,9 +10,21 @@
 # Usage : bash scripts/situations/<slug>.sh
 #   SANDBOX=/chemin   dossier de travail (sinon un dossier temporaire)
 #   KEEP_SANDBOX=1    ne pas supprimer le dossier à la fin
+#   EXERCICE=1        mode exercice : le script fabrique la panne dans
+#                     exercices/<slug>/ à la racine du dépôt, s'arrête juste
+#                     après le symptôme (fonction exercice) et dit dans quel
+#                     dossier aller. Sans la variable, il joue la solution.
 
 set -u
 
+EXERCICE="${EXERCICE:-}"
+SLUG="$(basename "$0" .sh)"
+if [ -n "$EXERCICE" ]; then
+  SANDBOX="$(cd "$(dirname "$0")/../.." && pwd)/exercices/$SLUG"
+  rm -rf "$SANDBOX"
+  mkdir -p "$SANDBOX"
+  KEEP_SANDBOX=1
+fi
 SANDBOX="${SANDBOX:-$(mktemp -d)}"
 KEEP_SANDBOX="${KEEP_SANDBOX:-}"
 cleanup() { [ -n "$KEEP_SANDBOX" ] || rm -rf "$SANDBOX"; }
@@ -112,3 +124,22 @@ setup_team() {
 
 # note '<texte>' : un titre dans la sortie, pour s'y retrouver.
 note() { echo "### $*"; echo; }
+
+# exercice <poste> '<objectif>' : le point d'arrêt du mode exercice, à placer
+# juste après le symptôme. Avec EXERCICE=1, affiche le dossier où aller et
+# l'objectif, puis s'arrête en gardant le bac à sable. Sinon, ne fait rien.
+exercice() {
+  [ -n "$EXERCICE" ] || return 0
+  local dir="$1"; shift
+  echo "### À toi"
+  echo
+  echo "La situation est en place. Va dans le dossier, et répare :"
+  echo
+  echo "  cd \"$SANDBOX/$dir\""
+  echo
+  echo "Objectif : $*"
+  echo
+  echo "Pour voir la solution : bash scripts/situations/$SLUG.sh"
+  echo "Pour recommencer : EXERCICE=1 bash scripts/situations/$SLUG.sh (le dossier est recréé)."
+  exit 0
+}
