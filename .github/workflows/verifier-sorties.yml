@@ -1,0 +1,79 @@
+name: Vérifier les sorties
+
+# Chaque page promet que ses blocs de terminal viennent de son script. Ce
+# workflow le vérifie : il rejoue les scripts et compare, page par page, avec
+# la version de Git que la page déclare dans son en-tête (gitVersion). Une
+# version par job : celle du runner sert telle quelle, les autres sont
+# construites depuis les sources et mises en cache.
+#
+# En local : npm run verifier (les pages dont la version est celle du poste).
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: verifier-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  versions:
+    name: Versions de Git déclarées par les pages
+    runs-on: ubuntu-latest
+    outputs:
+      liste: ${{ steps.liste.outputs.liste }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: liste
+        run: |
+          liste=$(grep -rhoE '^gitVersion: "[0-9]+\.[0-9]+"' src/content/docs | grep -oE '[0-9]+\.[0-9]+' | sort -uV | jq -Rc . | jq -sc .)
+          echo "liste=$liste" >> "$GITHUB_OUTPUT"
+          echo "Versions : $liste"
+
+  verifier:
+    name: Git ${{ matrix.git }}
+    needs: versions
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        git: ${{ fromJSON(needs.versions.outputs.liste) }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+
+      - name: Installer git-filter-repo (utilisé par une situation)
+        run: pip install --quiet git-filter-repo
+
+      - name: Cache de Git ${{ matrix.git }} construit depuis les sources
+        uses: actions/cache@v4
+        with:
+          path: ~/git-${{ matrix.git }}
+          key: git-${{ matrix.git }}-${{ runner.os }}-${{ runner.arch }}
+
+      - name: Git ${{ matrix.git }}, celui du runner ou construit depuis les sources
+        run: |
+          installee=$(git --version | grep -oE '[0-9]+\.[0-9]+' | head -1)
+          if [ "$installee" = "${{ matrix.git }}" ]; then
+            echo "Git $installee est celui du runner."
+            exit 0
+          fi
+          dest="$HOME/git-${{ matrix.git }}"
+          if [ ! -x "$dest/bin/git" ]; then
+            sudo apt-get update -q >/dev/null && sudo apt-get install -y -q zlib1g-dev >/dev/null
+            tag=$(git ls-remote --tags https://github.com/git/git.git "refs/tags/v${{ matrix.git }}.*" | grep -v '\^{}' | sed 's#.*refs/tags/##' | sort -V | tail -1)
+            echo "Construction de Git $tag…"
+            curl -sL "https://github.com/git/git/archive/refs/tags/$tag.tar.gz" | tar xz
+            make -C git-*/ -j"$(nproc)" prefix="$dest" NO_CURL=1 NO_EXPAT=1 NO_GETTEXT=1 NO_TCLTK=1 install >/dev/null
+          fi
+          echo "$dest/bin" >> "$GITHUB_PATH"
+
+      - name: Version de Git utilisée
+        run: git --version
+
+      - name: Vérifier les pages déclarées en Git ${{ matrix.git }}
+        run: node scripts/verifier-sorties.mjs --git-version ${{ matrix.git }}
