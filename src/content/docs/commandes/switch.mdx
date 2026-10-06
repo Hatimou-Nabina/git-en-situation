@@ -2,7 +2,7 @@
 title: git switch
 description: Changer de branche, en créer une depuis le bon point de départ, revenir à la précédente, récupérer une branche qui n'existe que sur le serveur, se placer sur un commit sans branche. Ce qui se passe quand des modifications sont en cours, et ce que switch refuse.
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 ---
 
@@ -37,8 +37,8 @@ Switched to branch 'feature/recherche'
 
 ```console
 $ git switch feature/export
-branch 'feature/export' set up to track 'origin/feature/export'.
 Switched to a new branch 'feature/export'
+branch 'feature/export' set up to track 'origin/feature/export'.
 ```
 
 **Avec des modifications en cours**, deux cas. Si la branche visée a une autre version d'un fichier que tu as modifié, `switch` refuse : il faudrait écraser ton travail. Sinon, tes modifications te suivent, telles quelles.
@@ -51,8 +51,8 @@ Please commit your changes or stash them before you switch branches.
 Aborting
 
 $ git switch fix/titre
-M	README.md
 Switched to branch 'fix/titre'
+M	README.md
 
 $ git status --short
  M README.md
@@ -89,5 +89,5 @@ Switched to branch 'fix/titre'
 <CommandUsages command="switch" />
 
 :::tip[Sorties vérifiées]
-Les sorties de cette fiche viennent du script [`scripts/commandes/switch.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/switch.sh), exécuté avec Git 2.50 le 5 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette fiche viennent du script [`scripts/commandes/switch.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/switch.sh), exécuté avec Git 2.50 le 6 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

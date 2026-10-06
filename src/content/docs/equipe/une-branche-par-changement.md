@@ -3,7 +3,7 @@ title: Une branche par changement
 description: Nommer, créer, garder courte, supprimer après fusion. Pourquoi un changement par branche rend les pull requests lisibles et les conflits rares, et un garde-fou local contre le commit sur main par habitude.
 level: debutant
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 sidebar:
   order: 3
@@ -21,8 +21,8 @@ La règle tient en une phrase : une branche porte un changement, et un seul. Ell
 
 ```console
 $ git switch main
-Your branch is up to date with 'origin/main'.
 Already on 'main'
+Your branch is up to date with 'origin/main'.
 
 $ git pull --ff-only
 Already up to date.
@@ -48,8 +48,8 @@ $ git diff --stat main...HEAD
 
 ```console
 $ git switch main
-Your branch is up to date with 'origin/main'.
 Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
 
 $ git switch -c feature/export-csv
 Switched to a new branch 'feature/export-csv'
@@ -97,9 +97,9 @@ if [ "$(git symbolic-ref --short HEAD 2>/dev/null)" = "main" ]; then
 fi
 
 $ git switch main
+Switched to branch 'main'
 Your branch is behind 'origin/main' by 1 commit, and can be fast-forwarded.
   (use "git pull" to update your local branch)
-Switched to branch 'main'
 
 $ git commit -m "fix: corrige un detail"
 Pas de commit direct sur main : cree une branche, git switch -c type/sujet
@@ -119,9 +119,9 @@ Les fichiers préparés pour le commit suivent dans la nouvelle branche : rien n
 
 ```console
 $ git switch main
+Switched to branch 'main'
 Your branch is behind 'origin/main' by 1 commit, and can be fast-forwarded.
   (use "git pull" to update your local branch)
-Switched to branch 'main'
 
 $ git pull --ff-only
 From github.com:equipe/projet
@@ -173,5 +173,5 @@ hint: Disable this message with "git config set advice.forceDeleteBranch false"
 - [Une branche, c'est un marque-page](/comprendre/une-branche-est-un-marque-page/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/equipe/une-branche-par-changement.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/une-branche-par-changement.sh), exécuté avec Git 2.50 le 5 octobre 2026, hook compris. La fusion « par GitHub » y est jouée par un second poste. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/equipe/une-branche-par-changement.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/une-branche-par-changement.sh), exécuté avec Git 2.50 le 6 octobre 2026, hook compris. La fusion « par GitHub » y est jouée par un second poste. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

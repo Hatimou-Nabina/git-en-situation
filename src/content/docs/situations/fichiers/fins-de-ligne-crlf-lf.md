@@ -4,7 +4,7 @@ description: Un script qui marche sur ton poste Windows échoue sur le serveur L
 level: intermediaire
 risk: aucun
 gitVersion: "2.55"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 ---
 
@@ -15,11 +15,11 @@ Un script de déploiement écrit sous Windows, testé sur ton poste, commité, p
 ```console
 $ bash deploy.sh
 deploy.sh: line 2: $'\r': command not found
-Deploiement en cours
 ls: cannot access 'deploy.sh'$'\r': No such file or directory
+Deploiement en cours
 ```
 
-Une ligne vide devient une commande inconnue, et un nom de fichier se termine par un caractère invisible.
+Une ligne vide devient une commande inconnue, et un nom de fichier se termine par un caractère invisible. Les deux erreurs sont affichées avant le message du script, comme toutes les pages de ce site le font ; dans ton terminal, « Deploiement en cours » apparaît entre les deux.
 
 ## Diagnostic
 
@@ -100,5 +100,5 @@ Git peut convertir les fins de ligne à l'entrée, vers l'index, et à la sortie
 - [Travailler en équipe : une CI qui vérifie ce que les postes ne voient pas](/equipe/ci-ce-que-les-postes-ne-voient-pas/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/situations/fins-de-ligne-crlf-lf.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/fins-de-ligne-crlf-lf.sh), rejoué **sur Ubuntu** par le workflow « Rejouer les situations » du dépôt, avec Git 2.55, le 5 octobre 2026. Sous Windows, le bash de Git Bash tolère les CRLF et l'erreur n'y apparaît pas : c'est précisément le sujet de la page. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/situations/fins-de-ligne-crlf-lf.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/fins-de-ligne-crlf-lf.sh), rejoué **sur Ubuntu** par le workflow « Rejouer les situations » du dépôt, avec Git 2.55, le 6 octobre 2026. Sous Windows, le bash de Git Bash tolère les CRLF et l'erreur n'y apparaît pas : c'est précisément le sujet de la page. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

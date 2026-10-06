@@ -4,7 +4,7 @@ description: Tu n'as rien touché, et git status annonce chaque fichier modifié
 level: intermediaire
 risk: destructif
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 ---
 
@@ -111,5 +111,5 @@ Git stocke les fichiers texte avec des fins de ligne LF et peut les convertir à
 - [Mettre mon travail en cours de côté pour changer de branche](/situations/quotidien/mettre-son-travail-de-cote/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/situations/tous-les-fichiers-modifies.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/tous-les-fichiers-modifies.sh), exécuté avec Git 2.50 le 5 octobre 2026, sur un clone fait avec `core.autocrlf=true` pour reproduire un poste Windows. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/situations/tous-les-fichiers-modifies.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/tous-les-fichiers-modifies.sh), exécuté avec Git 2.50 le 6 octobre 2026, sur un clone fait avec `core.autocrlf=true` pour reproduire un poste Windows. Après le changement de réglage, les fichiers sont rafraîchis par `touch` : Git fait confiance à leurs dates et ne relirait pas leur contenu sinon, ce que fait sur un vrai poste le premier enregistrement dans l'éditeur. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

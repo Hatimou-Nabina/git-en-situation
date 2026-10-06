@@ -6,9 +6,7 @@
 # maintenu par Bakary. Awa n'y a pas le droit d'écrire : son fork est un second
 # dépôt nu, github.com:awa/projet.git, et son poste est le dossier « contrib ».
 source "$(dirname "$0")/../situations/_lib.sh"
-clean() {
-  sed -e "s#$SANDBOX_ALT/##g" -e "s#$SANDBOX/##g" -e "s#github.com/equipe#github.com:equipe#g" -e "s#github.com/awa#github.com:awa#g"
-}
+CLEAN_EXTRA=(-e 's#github.com/awa#github.com:awa#g')
 setup_team
 quiet_sh bakary 'echo "Un outil en ligne de commande." >> README.md && git commit -q -am "docs: decrit le projet" && git push -q'
 
@@ -16,10 +14,11 @@ quiet_sh bakary 'echo "Un outil en ligne de commande." >> README.md && git commi
 FORK="$SANDBOX/github.com/awa/projet.git"
 git clone -q --bare "$SERVER" "$FORK"
 git clone -q "$FORK" "$SANDBOX/contrib"
+quiet contrib git remote set-url origin ../github.com/awa/projet.git
 
 note "1. Cloner son fork, et ajouter le projet d'origine sous le nom upstream"
 run contrib git remote -v
-run contrib git remote add upstream "$SERVER"
+run contrib git remote add upstream ../github.com/equipe/projet.git
 run contrib git remote -v
 run contrib git fetch upstream
 

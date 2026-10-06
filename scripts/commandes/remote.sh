@@ -5,9 +5,7 @@
 # Un second serveur, github.com:organisation/projet.git, joue le projet
 # d'origine d'un fork.
 source "$(dirname "$0")/../situations/_lib.sh"
-clean() {
-  sed -e "s#$SANDBOX_ALT/##g" -e "s#$SANDBOX/##g" -e "s#github.com/equipe#github.com:equipe#g" -e "s#github.com/organisation#github.com:organisation#g"
-}
+CLEAN_EXTRA=(-e 's#github.com/organisation#github.com:organisation#g')
 setup_team
 UPSTREAM="$SANDBOX/github.com/organisation/projet.git"
 git clone -q --bare "$SERVER" "$UPSTREAM"

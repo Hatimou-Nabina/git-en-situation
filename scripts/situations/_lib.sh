@@ -38,19 +38,37 @@ SERVER="$SANDBOX/github.com/equipe/projet.git"
 
 # Dans les sorties, le dossier temporaire est effacé pour ne laisser que
 # « github.com:equipe/projet.git », lisible et proche de ce qu'on voit en vrai.
+# Les durées (« in 0.21 seconds ») ne sont pas reproductibles : remplacées par N.NN.
+# Un script peut ajouter ses propres règles sed : CLEAN_PRE s'applique avant
+# les règles communes (par exemple pour garder un chemin sous /home), CLEAN_EXTRA
+# après (par exemple pour un second serveur github.com/awa).
 SANDBOX_ALT="$SANDBOX"
 command -v cygpath >/dev/null 2>&1 && SANDBOX_ALT="$(cygpath -m "$SANDBOX")"
+CLEAN_PRE=()
+CLEAN_EXTRA=()
 clean() {
-  sed -e "s#$SANDBOX_ALT/##g" -e "s#$SANDBOX/##g" -e "s#github.com/equipe#github.com:equipe#g"
+  sed ${CLEAN_PRE[@]+"${CLEAN_PRE[@]}"} \
+    -e "s#$SANDBOX_ALT/##g" -e "s#$SANDBOX/##g" -e 's#\.\./github\.com/#github.com/#g' -e "s#github.com/equipe#github.com:equipe#g" \
+    -E -e 's/[0-9]+\.[0-9]+ seconds/N.NN seconds/g' \
+    ${CLEAN_EXTRA[@]+"${CLEAN_EXTRA[@]}"}
 }
 
-# run <poste> <commande...> : affiche « $ commande » puis sa sortie, telle quelle.
+# run <poste> <commande...> : affiche « $ commande » puis sa sortie.
 # La ligne de commande est nettoyée comme la sortie : un chemin du bac à sable
 # passé en argument s'affiche en adresse de serveur.
+#
+# Les deux flux de sortie sont capturés séparément et imprimés dans un ordre
+# fixe, stderr puis stdout. Mélangés (2>&1), leur ordre dépend du système :
+# Git pour Windows met stderr en tampon et le vide à la fin, après stdout,
+# Linux l'écrit immédiatement. « git switch main » donnait ainsi ses deux
+# lignes dans un ordre différent selon le poste. L'ordre choisi est celui d'un
+# terminal dans les cas courants : « Switched to branch » avant « Your branch
+# is up to date », « From … » avant « Updating … ».
 run() {
   local dir="$1"; shift
   echo "\$ $*" | clean
-  ( cd "$SANDBOX/$dir" && "$@" 2>&1 ) | clean
+  ( cd "$SANDBOX/$dir" && "$@" >"$SANDBOX/.stdout" 2>"$SANDBOX/.stderr" )
+  cat "$SANDBOX/.stderr" "$SANDBOX/.stdout" | clean
   echo
 }
 
@@ -58,7 +76,8 @@ run() {
 run_sh() {
   local dir="$1" line="$2"
   echo "\$ $line" | clean
-  ( cd "$SANDBOX/$dir" && bash -c "$line" 2>&1 ) | clean
+  ( cd "$SANDBOX/$dir" && bash -c "$line" >"$SANDBOX/.stdout" 2>"$SANDBOX/.stderr" )
+  cat "$SANDBOX/.stderr" "$SANDBOX/.stdout" | clean
   echo
 }
 
@@ -75,11 +94,18 @@ quiet_sh() {
 }
 
 # setup_team : le serveur avec un premier commit, et deux postes clonés : awa et bakary.
+# L'adresse d'origin est relative (../github.com/equipe/projet.git) : elle est
+# la même sur tous les postes et tous les systèmes, donc les commits de merge
+# créés par git pull, dont le message cite l'adresse, ont partout le même
+# identifiant. Un clone enregistre une adresse absolue : on la remplace.
+REMOTE_URL="../github.com/equipe/projet.git"
 setup_team() {
   git init -q --bare "$SERVER"
   git clone -q "$SERVER" "$SANDBOX/awa" 2>/dev/null
+  quiet awa git remote set-url origin "$REMOTE_URL"
   quiet_sh awa 'echo "# Projet" > README.md && git add . && git commit -q -m "Premier commit" && git push -q -u origin main'
   git clone -q "$SERVER" "$SANDBOX/bakary"
+  quiet bakary git remote set-url origin "$REMOTE_URL"
   quiet bakary git config user.name "Bakary"
   quiet bakary git config user.email "bakary@example.com"
 }

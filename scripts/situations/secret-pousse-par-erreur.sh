@@ -39,7 +39,9 @@ if ! command -v git-filter-repo >/dev/null 2>&1; then
 fi
 
 note "2. Réécrire l'historique sans ce fichier"
-run awa git filter-repo --invert-paths --path .env --force
+# --quiet : sans la progression « Parsed N commits », qui s'affiche selon
+# l'horloge et non selon le nombre de commits, donc jamais deux fois pareil.
+run awa git filter-repo --quiet --invert-paths --path .env --force
 run awa git log --oneline --all -- .env
 run awa git log --oneline -3
 run awa git show HEAD~2:.env

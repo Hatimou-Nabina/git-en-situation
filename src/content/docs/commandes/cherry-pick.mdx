@@ -82,8 +82,6 @@ A  x.md
 
 ```console
 $ git cherry-pick feature/z
-Auto-merging README.md
-CONFLICT (content): Merge conflict in README.md
 error: could not apply 678f6d1... docs(z): titre version z
 hint: After resolving the conflicts, mark them with
 hint: "git add/rm <pathspec>", then run
@@ -92,6 +90,8 @@ hint: You can instead skip this commit with "git cherry-pick --skip".
 hint: To abort and get back to the state before "git cherry-pick",
 hint: run "git cherry-pick --abort".
 hint: Disable this message with "git config set advice.mergeConflict false"
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
 
 $ git status --short
 UU README.md

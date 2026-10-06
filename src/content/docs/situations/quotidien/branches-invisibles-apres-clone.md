@@ -4,7 +4,7 @@ description: git branch n'affiche que main alors que l'équipe travaille sur plu
 level: debutant
 risk: aucun
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 ---
 
@@ -37,8 +37,8 @@ La branche de ta collègue est là, en lecture seule. Il te manque une branche l
 
 ```console
 $ git switch feature/export-pdf
-branch 'feature/export-pdf' set up to track 'origin/feature/export-pdf'.
 Switched to a new branch 'feature/export-pdf'
+branch 'feature/export-pdf' set up to track 'origin/feature/export-pdf'.
 
 $ git branch -vv
 * feature/export-pdf 7abda0a [origin/feature/export-pdf] Ajoute la fonction export PDF
@@ -62,8 +62,8 @@ From github.com:equipe/projet
  * [new branch]      feature/recherche -> origin/feature/recherche
 
 $ git switch feature/recherche
-branch 'feature/recherche' set up to track 'origin/feature/recherche'.
 Switched to a new branch 'feature/recherche'
+branch 'feature/recherche' set up to track 'origin/feature/recherche'.
 ```
 
 ## Pourquoi ça marche
@@ -86,5 +86,5 @@ Switched to a new branch 'feature/recherche'
 - [Comprendre : les remotes et les références distantes](/comprendre/remotes-et-references-distantes/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/situations/branches-invisibles-apres-clone.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/branches-invisibles-apres-clone.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/situations/branches-invisibles-apres-clone.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/branches-invisibles-apres-clone.sh), exécuté avec Git 2.50 le 6 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

@@ -4,7 +4,7 @@ description: Une clé d'API dans un .env commité et poussé. Dans quel ordre ag
 level: avance
 risk: destructif
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 ---
 
@@ -68,15 +68,12 @@ pip install git-filter-repo
 Puis, depuis la racine du dépôt :
 
 ```console
-$ git filter-repo --invert-paths --path .env --force
+$ git filter-repo --quiet --invert-paths --path .env --force
 NOTICE: Removing 'origin' remote; see 'Why is my origin removed?'
         in the manual if you want to push back there.
         (was github.com:equipe/projet.git)
-Parsed 1 commitsParsed 4 commitsHEAD is now at 9521054 Retire le fichier .env du suivi
-
-New history written in 0.21 seconds; now repacking/cleaning...
-Repacking your repo and cleaning out old unneeded objects
-Completely finished after 0.58 seconds.
+New history written in N.NN seconds; now repacking/cleaning...
+Completely finished after N.NN seconds.
 
 $ git log --oneline --all -- .env
 
@@ -145,5 +142,5 @@ Rien de tout cela ne retire le secret de la mémoire de ceux qui l'ont vu. D'où
 - [Travailler en équipe : les secrets ne vont jamais dans le dépôt](/equipe/secrets-jamais-dans-le-depot/), pour que ça n'arrive plus
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/situations/secret-pousse-par-erreur.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/secret-pousse-par-erreur.sh), exécuté avec Git 2.50 et git-filter-repo le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple. La révocation de la clé, hors Git, n'est pas jouée.
+Les sorties de cette page viennent du script [`scripts/situations/secret-pousse-par-erreur.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/secret-pousse-par-erreur.sh), exécuté avec Git 2.50 et git-filter-repo le 6 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple ; les durées affichées par `filter-repo`, qui changent à chaque exécution, sont remplacées par `N.NN`. La révocation de la clé, hors Git, n'est pas jouée.
 :::

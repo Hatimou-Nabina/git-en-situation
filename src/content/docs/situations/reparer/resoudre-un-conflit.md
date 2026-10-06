@@ -4,7 +4,7 @@ description: « CONFLICT (content) - Merge conflict in README.md ». Lire les ma
 level: intermediaire
 risk: reversible
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 ---
 
@@ -16,8 +16,6 @@ Tu récupères le travail de l'équipe, et ça s'arrête en plein milieu :
 $ git pull --rebase
 From github.com:equipe/projet
    d0a0b32..c6daf1f  main       -> origin/main
-Auto-merging README.md
-CONFLICT (content): Merge conflict in README.md
 Rebasing (1/1)error: could not apply 0e03633... Corrige le titre du README
 hint: Resolve all conflicts manually, mark them as resolved with
 hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
@@ -25,6 +23,8 @@ hint: You can instead skip this commit: run "git rebase --skip".
 hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
 hint: Disable this message with "git config set advice.mergeConflict false"
 Could not apply 0e03633... # Corrige le titre du README
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
 ```
 
 ## Diagnostic
@@ -84,9 +84,9 @@ Contact : contact@example.com
 $ git add README.md
 
 $ git rebase --continue
+Successfully rebased and updated refs/heads/main.
 [detached HEAD d7f74cf] Corrige le titre du README
  1 file changed, 1 insertion(+), 1 deletion(-)
-Successfully rebased and updated refs/heads/main.
 
 $ git log --oneline -3
 d7f74cf Corrige le titre du README
@@ -145,10 +145,10 @@ Contact : contact@example.com
 $ git add README.md
 
 $ git commit --no-edit
-[main 7a35596] Merge branch 'main' of github.com:equipe/projet
+[main 89c2416] Merge branch 'main' of github.com:equipe/projet
 
 $ git log --oneline --graph -4
-*   7a35596 Merge branch 'main' of github.com:equipe/projet
+*   89c2416 Merge branch 'main' of github.com:equipe/projet
 |\
 | * c6daf1f Ajoute le contact au README
 * | 0e03633 Corrige le titre du README
@@ -180,5 +180,5 @@ Git fusionne ligne par ligne, en comparant chaque version à l'ancêtre commun. 
 - [Comprendre : fast-forward, fusion, rebase](/comprendre/fast-forward-fusion-rebase/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/situations/resoudre-un-conflit.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/resoudre-un-conflit.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/situations/resoudre-un-conflit.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/resoudre-un-conflit.sh), exécuté avec Git 2.50 le 6 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

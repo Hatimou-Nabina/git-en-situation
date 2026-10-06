@@ -3,7 +3,7 @@ title: Une branche, c'est un marque-page
 description: Une branche est un fichier qui contient l'identifiant d'un commit, rien de plus. Commiter déplace ce marque-page, en créer un est gratuit, en supprimer un ne supprime aucun commit. Une fois ce modèle en tête, reset, detached HEAD et branches perdues deviennent évidents.
 level: debutant
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 sidebar:
   order: 2
@@ -78,8 +78,8 @@ Supprimer la branche efface le marque-page. Le commit, lui, est toujours là :
 
 ```console
 $ git switch main
-Your branch is up to date with 'origin/main'.
 Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
 
 $ git branch -D feature/recherche
 Deleted branch feature/recherche (was 5b5dda8).
@@ -113,5 +113,5 @@ $ git log --oneline -1 5b5dda8
 - [Les remotes et les références distantes](/comprendre/remotes-et-references-distantes/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/comprendre/une-branche-est-un-marque-page.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/comprendre/une-branche-est-un-marque-page.sh), exécuté avec Git 2.50 le 5 octobre 2026. Dans un dépôt plus ancien, Git compacte les marque-pages dans `.git/packed-refs` et les fichiers individuels peuvent manquer ; `git show-ref` les liste dans tous les cas.
+Les sorties de cette page viennent du script [`scripts/comprendre/une-branche-est-un-marque-page.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/comprendre/une-branche-est-un-marque-page.sh), exécuté avec Git 2.50 le 6 octobre 2026. Dans un dépôt plus ancien, Git compacte les marque-pages dans `.git/packed-refs` et les fichiers individuels peuvent manquer ; `git show-ref` les liste dans tous les cas.
 :::

@@ -6,9 +6,7 @@
 # personnel, /home/awa/.gitconfig, pour que --show-origin affiche un chemin
 # qui ressemble à celui d'un vrai poste.
 source "$(dirname "$0")/../situations/_lib.sh"
-clean() {
-  sed -e "s#$SANDBOX_ALT/home#/home#g" -e "s#$SANDBOX/home#/home#g" -e "s#$SANDBOX_ALT/##g" -e "s#$SANDBOX/##g" -e "s#github.com/equipe#github.com:equipe#g"
-}
+CLEAN_PRE=(-e "s#$SANDBOX_ALT/home#/home#g" -e "s#$SANDBOX/home#/home#g")
 mkdir -p "$SANDBOX/home/awa"
 cp "$GIT_CONFIG_GLOBAL" "$SANDBOX/home/awa/.gitconfig"
 export GIT_CONFIG_GLOBAL="$SANDBOX/home/awa/.gitconfig"

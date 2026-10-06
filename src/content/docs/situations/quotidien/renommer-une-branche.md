@@ -4,7 +4,7 @@ description: Une faute de frappe dans le nom d'une branche déjà poussée. Les 
 level: intermediaire
 risk: aucun
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 ---
 
@@ -40,9 +40,9 @@ La branche locale a changé de nom, mais elle suit toujours l'ancienne branche d
 
 ```console
 $ git push -u origin feature/recherche
-branch 'feature/recherche' set up to track 'origin/feature/recherche'.
 To github.com:equipe/projet.git
  * [new branch]      feature/recherche -> feature/recherche
+branch 'feature/recherche' set up to track 'origin/feature/recherche'.
 
 $ git push origin --delete feautre/recherche
 To github.com:equipe/projet.git
@@ -97,5 +97,5 @@ Une branche est un marque-page posé sur un commit, rangé dans `.git/refs/heads
 - [Comprendre : une branche, c'est un marque-page](/comprendre/une-branche-est-un-marque-page/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/situations/renommer-une-branche.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/renommer-une-branche.sh), exécuté avec Git 2.50 le 5 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/situations/renommer-une-branche.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/renommer-une-branche.sh), exécuté avec Git 2.50 le 6 octobre 2026. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

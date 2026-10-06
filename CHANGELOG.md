@@ -7,9 +7,34 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 2, lots 15 et 16 : les fiches « Commandes » sont complètes, fin de la phase 2
+## [Non publié] — Phase 3, lot 17 : la vérification automatique des sorties
 
-Branche `commandes/lots-15-16`, partie de `main` (`9cbd2d4`). Les deux lots sur une seule branche et une seule PR, à la demande du mainteneur.
+Branche `site/verifier-sorties`, partie de `main` (`8add348`).
+
+### Pour les contributeurs
+
+- **`npm run verifier`** : `scripts/verifier-sorties.mjs` rejoue le script de chaque page et vérifie que chaque bloc de terminal s'y retrouve tel quel, commande par commande et dans l'ordre, retours chariot et espaces de fin retirés. C'est une inclusion, pas une égalité : une page montre un extrait de son script. Les blocs `text`, `bash` et `yaml` sont cités par nature et ne sont pas vérifiés ; une page sans script est ignorée. Par défaut, seules les pages dont le `gitVersion` est celui du poste sont vérifiées ; `--toutes`, `--git-version 2.50`, ou un morceau de chemin pour n'en vérifier qu'une.
+- **Workflow « Vérifier les sorties »**, bloquant sur chaque PR et sur `main` : une version de Git par job, celle du runner telle quelle, les autres construites depuis les sources et mises en cache. Chaque page est vérifiée avec la version qu'elle déclare.
+- **La bibliothèque des scripts** : l'adresse d'`origin` est relative, `../github.com/equipe/projet.git`, la même sur tous les postes et tous les systèmes, pour que les commits de merge créés par `git pull`, dont le message cite l'adresse, aient partout le même identifiant ; les durées (`in 0.21 seconds`) sont remplacées par `N.NN` ; un script ajoute ses règles de nettoyage par `CLEAN_PRE` et `CLEAN_EXTRA` au lieu de redéfinir `clean`.
+- **Les deux flux de sortie sont imprimés dans un ordre fixe, `stderr` puis `stdout`.** Le premier passage du workflow sur Linux a échoué sur 23 pages qui passaient sur Windows : mélangés par `2>&1`, les deux flux n'arrivent pas dans le même ordre selon le système, Git pour Windows mettant `stderr` en tampon. Les 23 pages sont réécrites dans l'ordre fixe, qui est celui d'un terminal pour `git switch`, `git pull` et `git push -u` ; pour un rebase ou un cherry-pick en conflit, les lignes « CONFLICT » viennent après les `hint:`. La page « Comment lire une page » l'explique au lecteur.
+
+### Ce que le premier passage a trouvé, et corrigé
+
+- « Les remotes et les références distantes » omettait une ligne de la sortie de `git status`.
+- « J'ai poussé un secret par erreur » montrait des durées de `filter-repo` que personne ne peut reproduire.
+- « Git voit tous mes fichiers comme modifiés » dépendait de la vitesse d'exécution : après un changement de `core.autocrlf`, Git fait confiance aux dates des fichiers et ne relit pas leur contenu, sauf quand le clone et l'index datent de la même seconde. Le script rafraîchit les fichiers, et la page le dit.
+- « git pull me demande de choisir entre merge et rebase » et « Un conflit pendant un merge ou un rebase » montraient des identifiants de commit de merge qui changeaient à chaque exécution, le chemin du bac à sable étant dans leur message. Avec l'adresse relative, ils sont stables ; mis à jour.
+- 65 pages et 351 blocs vérifiés sur le poste, en Git 2.50 ; les deux pages en Git 2.55 le sont en CI.
+
+### Suite prévue
+
+- Lot 18 : le mode exercice des scripts de situation, et l'encadré « Essaie-le toi-même » dans chaque situation.
+
+---
+
+## 6 octobre 2026 · Phase 2, lots 15 et 16 : les fiches « Commandes » sont complètes, fin de la phase 2 — en ligne le 6 octobre 2026
+
+Branche `commandes/lots-15-16`, partie de `main` (`9cbd2d4`), fusionnée par la PR #26 (`8add348`). Les deux lots sur une seule branche et une seule PR, à la demande du mainteneur.
 
 ### Contenu
 

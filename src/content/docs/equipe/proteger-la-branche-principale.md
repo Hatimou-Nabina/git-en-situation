@@ -3,7 +3,7 @@ title: Protéger la branche principale
 description: Pull request obligatoire, CI verte, push forcé et suppression interdits. Ce qu'un push forcé fait à main sans protection, les deux réglages que tout serveur Git connaît, et la règle GitHub qui rend la pull request incontournable.
 level: intermediaire
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 sidebar:
   order: 4
@@ -125,9 +125,9 @@ $ git switch feature/filtre
 Switched to branch 'feature/filtre'
 
 $ git push -u origin feature/filtre
-branch 'feature/filtre' set up to track 'origin/feature/filtre'.
 To github.com:equipe/projet.git
  * [new branch]      feature/filtre -> feature/filtre
+branch 'feature/filtre' set up to track 'origin/feature/filtre'.
 ```
 
 Le détail de ces trois commandes est dans [J'ai commité sur la mauvaise branche](/situations/reparer/commit-sur-la-mauvaise-branche/).
@@ -157,5 +157,5 @@ Le détail de ces trois commandes est dans [J'ai commité sur la mauvaise branch
 - [Retrouver un commit perdu](/situations/reparer/retrouver-un-commit-perdu/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/equipe/proteger-la-branche-principale.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/proteger-la-branche-principale.sh), exécuté avec Git 2.50 le 5 octobre 2026. Le serveur y est un dépôt nu du bac à sable, configuré puis muni du hook montré ; les règles de GitHub elles-mêmes ne se rejouent pas, et les codes `GH006` et `GH013` sont cités, pas exécutés. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/equipe/proteger-la-branche-principale.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/proteger-la-branche-principale.sh), exécuté avec Git 2.50 le 6 octobre 2026. Le serveur y est un dépôt nu du bac à sable, configuré puis muni du hook montré ; les règles de GitHub elles-mêmes ne se rejouent pas, et les codes `GH006` et `GH013` sont cités, pas exécutés. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

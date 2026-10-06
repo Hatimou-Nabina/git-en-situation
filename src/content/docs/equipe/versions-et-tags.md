@@ -3,7 +3,7 @@ title: Versions et tags
 description: Le versionnage sémantique, le tag annoté qui marque la version, le push qui ne l'emporte pas tout seul, describe pour savoir où on en est, la version qui contient un correctif, et la release GitHub qui s'appuie dessus.
 level: debutant
 gitVersion: "2.50"
-verified: 2026-10-05
+verified: 2026-10-06
 published: 2026-10-05
 sidebar:
   order: 9
@@ -96,9 +96,9 @@ $ git describe --tags
 v1.2.0
 
 $ git switch main
-Your branch is up to date with 'origin/main'.
 Previous HEAD position was 52ac0b8 fix(export): corrige l export d une liste vide
 Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
 ```
 
 Tu es alors en « detached HEAD », l'état normal pour regarder sans toucher : [Je suis en « detached HEAD »](/situations/reparer/detached-head/).
@@ -141,5 +141,5 @@ v1.2.0
 - Versionnage sémantique : [semver.org](https://semver.org/lang/fr/)
 
 :::tip[Sorties vérifiées]
-Les sorties de cette page viennent du script [`scripts/equipe/versions-et-tags.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/versions-et-tags.sh), exécuté avec Git 2.50 le 5 octobre 2026. La release GitHub ne se rejoue pas dans un bac à sable et est décrite, pas exécutée. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+Les sorties de cette page viennent du script [`scripts/equipe/versions-et-tags.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/equipe/versions-et-tags.sh), exécuté avec Git 2.50 le 6 octobre 2026. La release GitHub ne se rejoue pas dans un bac à sable et est décrite, pas exécutée. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
 :::

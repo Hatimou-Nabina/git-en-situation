@@ -19,10 +19,11 @@ En français d'abord, pour les développeurs francophones de tous niveaux. Une v
 
 ## Les sorties sont vraies
 
-Aucune sortie de commande n'est écrite à la main. Chaque situation a un script dans [`scripts/situations/`](scripts/situations/) qui rejoue le scénario dans des dépôts jetables, avec une configuration Git neutre et des dates figées, et imprime chaque commande suivie de sa sortie. La page recopie ce résultat et indique la version de Git et la date.
+Aucune sortie de commande n'est écrite à la main. Chaque page a un script dans [`scripts/`](scripts/) qui rejoue le scénario dans des dépôts jetables, avec une configuration Git neutre et des dates figées, et imprime chaque commande suivie de sa sortie. La page recopie ce résultat et indique la version de Git et la date. Un vérificateur rejoue les scripts et compare avec les pages, sur chaque pull request, avec la version de Git que chaque page déclare.
 
 ```bash
-bash scripts/situations/push-refuse-fetch-first.sh
+bash scripts/situations/push-refuse-fetch-first.sh   # rejoue une situation
+npm run verifier                                     # rejoue tout et compare avec les pages
 ```
 
 ## Contribuer

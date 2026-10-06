@@ -43,6 +43,7 @@ npm run dev      # http://localhost:4321/git-en-situation/
 | `npm run dev` | Serveur de développement, rechargement à chaud |
 | `npm run build` | Construit le site et **valide tous les liens internes** : une page qui pointe vers une page absente fait échouer le build |
 | `npm run check` | Vérifie les types des composants et de la configuration |
+| `npm run verifier` | Rejoue le script de chaque page et vérifie que ses blocs de terminal en sortent tels quels ; `npm run verifier -- commandes/log` pour une seule page |
 | `bash scripts/situations/<slug>.sh` | Rejoue une situation et affiche ses vraies sorties |
 
 ## Écrire une situation
@@ -58,7 +59,7 @@ Chaque page de situation est adossée à un script `scripts/situations/<slug>.sh
 Pars d'un script existant. La bibliothèque `_lib.sh` fournit :
 
 - `setup_team` : un « serveur » (`github.com:equipe/projet.git`) et deux postes clonés, `awa` et `bakary` ;
-- `run <poste> <commande>` : affiche `$ commande` puis sa sortie ;
+- `run <poste> <commande>` : affiche `$ commande` puis sa sortie, les messages (`stderr`) avant les résultats (`stdout`), dans un ordre fixe quel que soit le système ;
 - `run_sh <poste> '<ligne>'` : pareil, pour une ligne avec `&&` ou `|` ;
 - `quiet` et `quiet_sh` : la mise en place, sans affichage ;
 - `note '<titre>'` : un repère dans la sortie.
@@ -111,7 +112,7 @@ Les champs de l'en-tête :
 
 - **`level`** : *debutant* se suit sans préparation ; *intermediaire* suppose d'être à l'aise avec les branches ; *avance* touche à l'historique ou à la configuration.
 - **`risk`** : *aucun* si rien ne peut être perdu ; *reversible* si un retour en arrière existe et est expliqué dans la page ; *destructif* si une commande peut faire perdre du travail. Dans ce cas, la page dit précisément quoi, et comment s'en prémunir.
-- **`gitVersion`** et **`verified`** : la version de Git et la date de l'exécution du script dont viennent les sorties. Si tu relances le script plus tard et que rien ne change, mets la date à jour.
+- **`gitVersion`** et **`verified`** : la version de Git et la date de l'exécution du script dont viennent les sorties. Si tu relances le script plus tard et que rien ne change, mets la date à jour. La CI vérifie la page avec cette version de Git, exactement.
 - **`published`** : la date de publication, qui ne change plus ensuite. L'accueil montre les situations les plus récentes.
 
 ### 4. Le style
@@ -126,8 +127,11 @@ Les champs de l'en-tête :
 ### 5. Vérifier, puis proposer
 
 ```bash
-npm run build     # doit passer : liens valides, en-têtes conformes au schéma
+npm run verifier -- <slug>   # les blocs de la page sortent bien du script, tels quels
+npm run build                # doit passer : liens valides, en-têtes conformes au schéma
 ```
+
+Le vérificateur compare commande par commande : une page peut montrer un extrait de son script, dans l'ordre qu'elle veut, mais chaque commande et sa sortie doivent être exactement celles du script. En CI, il tourne sur chaque pull request, avec la version de Git que la page déclare.
 
 Ouvre la pull request depuis une branche nommée `situation/<slug>` (ou `fix/<sujet>`, `site/<sujet>`). Le gabarit de PR liste ce qu'on vérifie. Une PR = une page, ou une correction cohérente.
 
