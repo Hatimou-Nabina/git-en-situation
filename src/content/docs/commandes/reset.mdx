@@ -1,0 +1,117 @@
+---
+title: git reset
+description: Déplacer la branche courante, et choisir ce qu'on garde. --soft garde tout dans l'index, sans option garde les fichiers, --hard jette tout, --keep déplace sans toucher au travail en cours. Le filet du reflog, et ce qu'il ne rattrape pas.
+risk: destructif
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git reset` déplace la branche courante sur un autre commit, et décide ce que deviennent l'index et le dossier de travail : conservés tels quels, remis au niveau du commit, ou les deux. C'est l'outil pour défaire des commits pas encore poussés, et la seule forme de cette fiche qui peut faire perdre du travail est `--hard`. Le manuel complet : `git help reset`.
+
+## Les formes qui servent
+
+**`--soft HEAD~1`** : la branche recule d'un commit, tout ce qu'il contenait reste dans l'index, prêt à être recommité autrement. Le commit n'a pas disparu, plus rien ne pointe dessus.
+
+```console
+$ git log --oneline -3
+d3e7dbe feat: c
+4b99ea3 feat: b
+8952b33 feat: a
+
+$ git reset --soft HEAD~1
+
+$ git status --short
+A  c.js
+
+$ git log --oneline -2
+4b99ea3 feat: b
+8952b33 feat: a
+```
+
+**Sans option** : la branche recule, l'index aussi, les fichiers restent sur le disque. Ce que le commit contenait redevient « à ajouter ».
+
+```console
+$ git reset HEAD~1
+
+$ git status --short
+?? c.js
+```
+
+**`--hard`** : la branche recule, l'index et le dossier sont remis au niveau du commit. Ce qui était commité se retrouve dans le reflog, d'où on le rattrape ; ce qui ne l'était pas est perdu.
+
+```console
+$ git reset --hard HEAD~1
+HEAD is now at 4b99ea3 feat: b
+
+$ git status --short
+
+$ git log --oneline -2
+4b99ea3 feat: b
+8952b33 feat: a
+
+$ git reflog -3
+4b99ea3 HEAD@{0}: reset: moving to HEAD~1
+d3e7dbe HEAD@{1}: commit: feat: c
+4b99ea3 HEAD@{2}: reset: moving to HEAD~1
+
+$ git reset --hard HEAD@{1}
+HEAD is now at d3e7dbe feat: c
+
+$ git log --oneline -3
+d3e7dbe feat: c
+4b99ea3 feat: b
+8952b33 feat: a
+```
+
+**`--keep`** : la branche va ailleurs, et les modifications en cours suivent, à condition de ne pas toucher aux fichiers qui changent entre les deux commits. Avec une branche posée d'abord sur les commits qu'on quitte, rien n'est perdu : c'est la recette de [J'ai commité sur la mauvaise branche](/situations/reparer/commit-sur-la-mauvaise-branche/).
+
+```console
+$ git branch feature/b-et-c
+
+$ git reset --keep origin/main
+
+$ git status --short
+ M a.js
+
+$ git log --oneline -1
+8952b33 feat: a
+
+$ git log --oneline feature/b-et-c -3
+d3e7dbe feat: c
+4b99ea3 feat: b
+8952b33 feat: a
+```
+
+**`git reset fichier`** retire un fichier de l'index, l'ancienne façon ; [`git restore --staged`](/commandes/restore/) fait la même chose avec un nom qui dit ce qu'il fait.
+
+```console
+$ git reset a.js
+Unstaged changes after reset:
+M	a.js
+
+$ git status --short
+ M a.js
+```
+
+## Pièges
+
+- **`--hard` ne demande pas confirmation**, et ce qui n'était pas commité n'est nulle part : ni reflog, ni stash. Avant un `--hard`, `git status` ; au moindre doute, `git stash` d'abord.
+- **`reset` sur un commit déjà poussé** réécrit l'historique : le prochain push est refusé, et le forcer efface le commit chez les autres. Sur une branche partagée, c'est [`git revert`](/commandes/revert/) : [Annuler un commit déjà poussé](/situations/reparer/annuler-un-commit-deja-pousse/).
+- **Les commits défaits restent dans le reflog** au moins trente jours : [`git reflog`](/commandes/reflog/), et [Retrouver un commit perdu](/situations/reparer/retrouver-un-commit-perdu/).
+- **`git reset --hard origin/main`** remet ta `main` au niveau du serveur en jetant tes commits locaux : la bonne commande après un push forcé d'un collègue qui te l'a demandé, la mauvaise si tu avais du travail à toi dessus.
+- **`reset`, `restore`, `checkout`** se recouvrent : `reset` bouge la branche, `restore` ne touche que des fichiers. Pour un fichier, `restore`.
+
+## Où ça sert
+
+À lire d'abord : [Annuler mon dernier commit, pas encore poussé](/situations/reparer/annuler-mon-dernier-commit/), [J'ai commité sur la mauvaise branche](/situations/reparer/commit-sur-la-mauvaise-branche/), [Une branche, c'est un marque-page](/comprendre/une-branche-est-un-marque-page/).
+
+<CommandUsages command="reset" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/reset.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/reset.sh), exécuté avec Git 2.50 le 6 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::

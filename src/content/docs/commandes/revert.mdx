@@ -1,0 +1,119 @@
+---
+title: git revert
+description: Annuler un commit par un nouveau commit, sans réécrire l'historique. Le commit ordinaire, le commit de merge qui demande -m, le revert du revert, et pourquoi c'est la seule annulation possible sur une branche que d'autres ont déjà récupérée.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git revert` crée un nouveau commit qui défait exactement ce qu'un commit précédent avait fait. L'historique n'est pas réécrit : le commit annulé reste, le commit qui l'annule s'ajoute, et le push passe sans forcer. C'est la seule façon d'annuler sur une branche que d'autres ont déjà récupérée. Le manuel complet : `git help revert`.
+
+## Les formes qui servent
+
+**`git revert <commit>`** : un commit qui fait l'inverse, avec un message tout prêt qui cite le commit annulé. `--no-edit` garde ce message sans ouvrir l'éditeur. N'importe quel commit, pas seulement le dernier : ici, « feat: b », trois commits en arrière.
+
+```console
+$ git log --oneline -5
+f8d7f52 Merge branch feature/x
+d3e7dbe feat: c
+5a8ef40 feat: x
+4b99ea3 feat: b
+8952b33 feat: a
+
+$ git revert --no-edit 4b99ea3
+[main a97ba68] Revert "feat: b"
+ Date: Mon Oct 5 10:00:00 2026 +0000
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 b.js
+
+$ git log --oneline -2
+a97ba68 Revert "feat: b"
+f8d7f52 Merge branch feature/x
+
+$ git show --stat --format='%B' HEAD
+Revert "feat: b"
+
+This reverts commit 4b99ea302f16132c78ff6ca2f439aafecebc5840.
+
+
+ b.js | 1 -
+ 1 file changed, 1 deletion(-)
+```
+
+**Un commit de merge demande `-m`** : il a deux parents, et Git ne sait pas lequel est la ligne principale. `-m 1` désigne le premier parent, la branche sur laquelle on a fusionné, et c'est presque toujours ce qu'on veut : tout ce que la branche fusionnée avait apporté est défait.
+
+```console
+$ git revert --no-edit f8d7f52
+error: commit f8d7f52b805e744e69d8074008849f0e95bf3385 is a merge but no -m option was given.
+fatal: revert failed
+
+$ git revert --no-edit -m 1 f8d7f52
+[main c932c3c] Revert "Merge branch feature/x"
+ Date: Mon Oct 5 10:00:00 2026 +0000
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 x.js
+
+$ git log --oneline -3
+c932c3c Revert "Merge branch feature/x"
+a97ba68 Revert "feat: b"
+f8d7f52 Merge branch feature/x
+```
+
+**Le revert du revert** remet le changement, et Git le nomme « Reapply ». C'est la façon de rejouer un changement annulé en urgence, une fois corrigé.
+
+```console
+$ git revert --no-edit HEAD~1
+[main bfb7e85] Reapply "feat: b"
+ Date: Mon Oct 5 10:00:00 2026 +0000
+ 1 file changed, 1 insertion(+)
+ create mode 100644 b.js
+
+$ git log --oneline -1
+bfb7e85 Reapply "feat: b"
+
+$ ls
+README.md
+a.js
+b.js
+c.js
+```
+
+**L'historique est intact, et le push passe** : rien n'a été réécrit, tout s'est ajouté.
+
+```console
+$ git log --oneline -8
+bfb7e85 Reapply "feat: b"
+c932c3c Revert "Merge branch feature/x"
+a97ba68 Revert "feat: b"
+f8d7f52 Merge branch feature/x
+d3e7dbe feat: c
+5a8ef40 feat: x
+4b99ea3 feat: b
+8952b33 feat: a
+
+$ git push
+To github.com:equipe/projet.git
+   f8d7f52..bfb7e85  main -> main
+```
+
+## Pièges
+
+- **Un conflit**, si des commits postérieurs ont touché les mêmes lignes. `git status` montre les fichiers, on résout, `git add`, puis `git revert --continue` ; `git revert --abort` abandonne. [Un conflit pendant un merge ou un rebase](/situations/reparer/resoudre-un-conflit/).
+- **Annuler un merge avec `-m 1`, puis refusionner la branche** ne ramène rien : Git considère ses commits déjà fusionnés. Il faut d'abord annuler le revert, puis refusionner.
+- **Plusieurs commits** : `git revert --no-edit A..B` les annule du plus récent au plus ancien, un commit d'annulation chacun ; `--no-commit` les regroupe dans l'index pour n'en faire qu'un.
+- **`revert` n'est pas `reset`** : `reset` efface des commits, `revert` en ajoute. Sur une branche à soi, pas encore poussée, `reset` est plus propre : [`git reset`](/commandes/reset/).
+- **Le commit annulé reste lisible par tous** : un secret commité ne disparaît pas par `revert`. [J'ai poussé un secret par erreur](/situations/fichiers/secret-pousse-par-erreur/).
+
+## Où ça sert
+
+À lire d'abord : [Annuler un commit déjà poussé](/situations/reparer/annuler-un-commit-deja-pousse/), [Protéger la branche principale](/equipe/proteger-la-branche-principale/), [`git reset`](/commandes/reset/).
+
+<CommandUsages command="revert" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/revert.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/revert.sh), exécuté avec Git 2.50 le 6 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::

@@ -184,7 +184,7 @@ Les dérives habituelles de la pratique.
 
 ## Écrire une fiche « Commandes »
 
-Une fiche n'est pas une copie du manuel : elle s'en tient aux formes de la commande que les pages du site emploient, avec leurs vraies sorties, et renvoie aux pages où la commande sert. Une fiche existe si au moins deux pages du site exécutent la commande. Script dans `scripts/commandes/<commande>.sh`, même bibliothèque ; page en `.mdx`, parce que la liste « Où ça sert » est un composant. Plan fixe :
+Une fiche n'est pas une copie du manuel : elle s'en tient aux formes de la commande que les pages du site emploient, avec leurs vraies sorties, et renvoie aux pages où la commande sert. Une fiche existe si au moins deux pages du site s'appuient sur la commande, en l'exécutant ou en la recommandant. Script dans `scripts/commandes/<commande>.sh`, même bibliothèque ; page en `.mdx`, parce que la liste « Où ça sert » est un composant. Plan fixe :
 
 ```mdx
 ---

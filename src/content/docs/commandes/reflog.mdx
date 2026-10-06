@@ -1,0 +1,82 @@
+---
+title: git reflog
+description: Le journal de tout ce que HEAD et les branches ont fait sur ton poste. Retrouver un commit après un reset --hard, une branche supprimée de force, le journal d'une branche avec ses dates, ce que le reflog ne contient pas et combien de temps il garde.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git reflog` affiche le journal des positions successives de `HEAD`, et de chaque branche : chaque commit, changement de branche, reset, rebase ou merge y laisse une ligne, avec le commit où l'on était. Quand un commit a « disparu », il est presque toujours là. Le manuel complet : `git help reflog`.
+
+## Les formes qui servent
+
+**`git reflog`** : du plus récent au plus ancien, ce que `HEAD` a fait. Ici, `main` a perdu « feat: b » dans un `reset --hard`, et la branche `feature/x` a été supprimée de force. `git log` ne les montre plus, le reflog si.
+
+```console
+$ git log --oneline
+8952b33 feat: a
+d0a0b32 Premier commit
+
+$ git reflog
+8952b33 HEAD@{0}: reset: moving to HEAD~1
+4b99ea3 HEAD@{1}: checkout: moving from feature/x to main
+ae0fb9e HEAD@{2}: commit: feat: x
+4b99ea3 HEAD@{3}: checkout: moving from main to feature/x
+4b99ea3 HEAD@{4}: commit: feat: b
+8952b33 HEAD@{5}: commit: feat: a
+d0a0b32 HEAD@{6}: commit (initial): Premier commit
+```
+
+**Retrouver un commit après un `reset --hard`** : `HEAD@{1}` est là où `HEAD` était juste avant la dernière opération.
+
+```console
+$ git reset --hard HEAD@{1}
+HEAD is now at 4b99ea3 feat: b
+
+$ git log --oneline
+4b99ea3 feat: b
+8952b33 feat: a
+d0a0b32 Premier commit
+```
+
+**Retrouver une branche supprimée** : son dernier commit est dans la ligne « commit: feat: x », avec son identifiant. Une branche se recrée dessus.
+
+```console
+$ git branch feature/x ae0fb9e
+
+$ git log --oneline feature/x -1
+ae0fb9e feat: x
+```
+
+**`git reflog show branche`** : le journal d'une branche précise, et `--date=iso` pour les dates. Celles de ce bac à sable sont figées ; chez toi, elles disent quand chaque chose a eu lieu, et c'est souvent ce qui permet de retrouver « le commit d'hier soir ».
+
+```console
+$ git reflog show --date=iso main
+4b99ea3 main@{2026-10-05 10:00:00 +0000}: reset: moving to HEAD@{1}
+8952b33 main@{2026-10-05 10:00:00 +0000}: reset: moving to HEAD~1
+4b99ea3 main@{2026-10-05 10:00:00 +0000}: commit: feat: b
+8952b33 main@{2026-10-05 10:00:00 +0000}: commit: feat: a
+d0a0b32 main@{2026-10-05 10:00:00 +0000}: commit (initial): Premier commit
+```
+
+## Pièges
+
+- **Le reflog est local.** Il n'est ni poussé, ni cloné : un dépôt fraîchement cloné n'en a aucun, et le serveur n'en garde pas par défaut. Ce qu'un `push --force` a effacé sur le serveur ne se retrouve que dans le reflog de quelqu'un qui l'avait récupéré : [Protéger la branche principale](/equipe/proteger-la-branche-principale/).
+- **Il expire** : quatre-vingt-dix jours pour ce qui est encore atteignable, trente pour ce qui ne l'est plus, puis `git gc` supprime les commits orphelins. Un commit perdu se récupère vite, pas dans six mois.
+- **`HEAD@{1}` n'est pas `HEAD~1`** : avec les accolades, le journal, « là où `HEAD` était avant » ; avec le tilde, l'historique, « le parent du commit ». Les deux se confondent souvent, et ne désignent le même commit que par hasard.
+- **Ce qui n'a jamais été commité n'y est pas** : un `restore` ou un `reset --hard` sur des modifications non commitées ne laisse aucune trace. Le reflog rattrape des commits, pas le travail en cours.
+- **`main@{1}` et `HEAD@{1}` diffèrent** : la première est la position précédente de `main`, la seconde celle de `HEAD`, qui bouge aussi à chaque changement de branche.
+
+## Où ça sert
+
+À lire d'abord : [Retrouver un commit perdu](/situations/reparer/retrouver-un-commit-perdu/), [Annuler mon dernier commit, pas encore poussé](/situations/reparer/annuler-mon-dernier-commit/), [`git reset`](/commandes/reset/).
+
+<CommandUsages command="reflog" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/reflog.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/reflog.sh), exécuté avec Git 2.50 le 6 octobre 2026. Les dates du reflog sont celles, figées, du bac à sable. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::
