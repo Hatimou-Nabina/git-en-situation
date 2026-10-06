@@ -1,0 +1,106 @@
+---
+title: git remote
+description: Les serveurs que ton dépôt connaît. Lire leurs adresses, tout ce que Git sait d'un serveur, le ménage des branches supprimées, ajouter un second serveur pour un fork, changer une adresse pour passer en SSH ou sur un autre compte.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git remote` gère les serveurs que ton dépôt connaît : leur nom court, `origin` pour celui d'où tu as cloné, et leur adresse. On s'en sert rarement, et toujours pour la même raison : savoir où `push` envoie et d'où `fetch` tire, changer une adresse, ajouter un second serveur. Le manuel complet : `git help remote`.
+
+## Les formes qui servent
+
+**`git remote -v`** et **`get-url`** : les serveurs et leurs adresses, pour lire et pour écrire.
+
+```console
+$ git remote -v
+origin	github.com:equipe/projet.git (fetch)
+origin	github.com:equipe/projet.git (push)
+
+$ git remote get-url origin
+github.com:equipe/projet.git
+```
+
+**`git remote show origin`** : tout ce que Git sait d'un serveur, après le lui avoir demandé. Sa branche par défaut, ses branches et celles dont tu as la copie, où va chacune de tes branches au `pull` et au `push`, et si ta copie est en retard.
+
+```console
+$ git remote show origin
+* remote origin
+  Fetch URL: github.com:equipe/projet.git
+  Push  URL: github.com:equipe/projet.git
+  HEAD branch: main
+  Remote branches:
+    feature/export new (next fetch will store in remotes/origin)
+    main           tracked
+  Local branch configured for 'git pull':
+    main merges with remote main
+  Local ref configured for 'git push':
+    main pushes to main (local out of date)
+```
+
+**`git remote prune origin`** retire les copies des branches que le serveur a supprimées, `--dry-run` pour voir d'abord. C'est ce que fait `git fetch --prune`, sans le `fetch`.
+
+```console
+$ git remote prune --dry-run origin
+Pruning origin
+URL: github.com:equipe/projet.git
+ * [would prune] origin/feature/export
+
+$ git remote prune origin
+Pruning origin
+URL: github.com:equipe/projet.git
+ * [pruned] origin/feature/export
+```
+
+**`git remote add nom adresse`** ajoute un second serveur, et **`remove`** le retire. Le cas type : le projet d'origine d'un fork, sous le nom `upstream`. Ajouter ne récupère rien, c'est le `fetch` qui suit qui fait apparaître ses branches.
+
+```console
+$ git remote add upstream github.com:organisation/projet.git
+
+$ git fetch upstream
+From github.com:organisation/projet
+ * [new branch]      main       -> upstream/main
+
+$ git remote -v
+origin	github.com:equipe/projet.git (fetch)
+origin	github.com:equipe/projet.git (push)
+upstream	github.com:organisation/projet.git (fetch)
+upstream	github.com:organisation/projet.git (push)
+
+$ git remote remove upstream
+
+$ git remote
+origin
+```
+
+**`git remote set-url origin adresse`** change l'adresse d'un serveur : passer de HTTPS à SSH, ou vers un alias d'hôte pour un second compte.
+
+```console
+$ git remote set-url origin git@github.com:equipe/projet.git
+
+$ git remote -v
+origin	git@github.com:equipe/projet.git (fetch)
+origin	git@github.com:equipe/projet.git (push)
+```
+
+## Pièges
+
+- **`origin` n'est qu'un nom.** Il désigne le serveur d'où tu as cloné, rien de plus. On peut le renommer avec `rename`, en avoir plusieurs, et `main` n'a avec lui que le lien de suivi que `git branch -vv` affiche.
+- **`set-url` ne touche pas aux branches** : les liens de suivi restent, les copies `origin/*` aussi. Après un changement d'adresse, un `git fetch` suffit.
+- **Un `remote add` ne récupère rien** : il faut `git fetch nom` pour que ses branches apparaissent, en `nom/main`. Et `remove` supprime aussi les copies `nom/*`.
+- **Deux comptes GitHub, deux adresses** : l'alias d'hôte dans `~/.ssh/config`, puis `set-url` : [Deux comptes GitHub sur le même poste](/situations/avec-les-autres/deux-comptes-github-sur-un-poste/).
+- **`git remote show` interroge le serveur**, il lui faut la connexion ; `git remote -v` lit la configuration locale et marche hors ligne.
+
+## Où ça sert
+
+À lire d'abord : [Les remotes et les références distantes](/comprendre/remotes-et-references-distantes/), [Deux comptes GitHub sur le même poste](/situations/avec-les-autres/deux-comptes-github-sur-un-poste/), [Forker et contribuer à un projet open source](/equipe/forker-et-contribuer/).
+
+<CommandUsages command="remote" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/remote.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/remote.sh), exécuté avec Git 2.50 le 6 octobre 2026. Le second serveur, `github.com:organisation/projet.git`, est un dépôt nu du bac à sable. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls les adresses des serveurs et les identifiants de commit sont ceux du dépôt d'exemple.
+:::
