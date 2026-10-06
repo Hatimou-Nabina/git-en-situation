@@ -1,0 +1,133 @@
+---
+title: git tag
+description: Poser un nom sur un commit, pour toujours. Le tag annoté et le tag léger, lister, filtrer et trier, l'envoi au serveur qui ne se fait pas tout seul, la suppression en local puis sur le serveur, et lire ce qu'un tag contient.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git tag` pose un nom fixe sur un commit, `v1.1.0`, pour marquer une version. Contrairement à une branche, un tag ne bouge pas. Le manuel complet : `git help tag`. Le choix du numéro, la release GitHub et le reste de la pratique : [Versions et tags](/equipe/versions-et-tags/).
+
+## Les formes qui servent
+
+**`-a nom -m "message"`** : un tag annoté, sur le commit courant ou sur celui qu'on donne. `git tag` seul liste, `-n` avec les messages, et `--decorate` sur `log` les montre à leur place.
+
+```console
+$ git tag -a v1.1.0 -m "Version 1.1.0"
+
+$ git tag -a v1.0.0 -m "Version 1.0.0" HEAD~2
+
+$ git tag
+v1.0.0
+v1.1.0
+
+$ git tag -n
+v1.0.0          Version 1.0.0
+v1.1.0          Version 1.1.0
+
+$ git log --oneline --decorate -3
+6226bbe (HEAD -> main, tag: v1.1.0, origin/main) feat: c
+aaf484e fix: b
+8952b33 (tag: v1.0.0) feat: a
+```
+
+**Annoté ou léger** : sans `-a`, le tag n'est qu'un pointeur, sans auteur, sans date ni message. `cat-file -t` fait la différence. Léger pour un repère à soi, annoté pour une version.
+
+```console
+$ git tag brouillon
+
+$ git cat-file -t v1.1.0
+tag
+
+$ git cat-file -t brouillon
+commit
+
+$ git tag -d brouillon
+Deleted tag 'brouillon' (was 6226bbe)
+```
+
+**Filtrer et trier** : `-l` avec un motif, `--sort=-version:refname` dans l'ordre des numéros de version, et non dans l'ordre alphabétique où `v1.10.0` passe avant `v1.2.0`.
+
+```console
+$ git tag -l 'v1.1*'
+v1.1.0
+
+$ git tag --sort=-version:refname
+v1.1.0
+v1.0.0
+```
+
+**Envoyer au serveur** : `push` ne pousse pas les tags. Un par un, ou tous d'un coup avec `--tags`.
+
+```console
+$ git push origin v1.1.0
+To github.com:equipe/projet.git
+ * [new tag]         v1.1.0 -> v1.1.0
+
+$ git push --tags
+To github.com:equipe/projet.git
+ * [new tag]         v1.0.0 -> v1.0.0
+
+$ git ls-remote --tags origin
+e8ed368f9e6ab0268871f7b5693505d95f659f49	refs/tags/v1.0.0
+8952b33d4bb2fc8dd5d65355e72668b17d4ae56a	refs/tags/v1.0.0^{}
+ac1d081a28a9f4839aad852f5ef453d03240fad1	refs/tags/v1.1.0
+6226bbe0bf0e2ee29997b6ad79978e868e52e3c3	refs/tags/v1.1.0^{}
+```
+
+**Supprimer** : en local, puis sur le serveur, en deux commandes distinctes. Pour un tag jamais publié seulement ; un tag publié ne se retire pas, on publie la version suivante.
+
+```console
+$ git tag -d v1.0.0
+Deleted tag 'v1.0.0' (was e8ed368)
+
+$ git push origin --delete v1.0.0
+To github.com:equipe/projet.git
+ - [deleted]         v1.0.0
+
+$ git ls-remote --tags origin
+ac1d081a28a9f4839aad852f5ef453d03240fad1	refs/tags/v1.1.0
+6226bbe0bf0e2ee29997b6ad79978e868e52e3c3	refs/tags/v1.1.0^{}
+```
+
+**Lire un tag** : `show` donne l'annotation puis le commit, `describe` dit de quelle version un commit relève.
+
+```console
+$ git show --no-patch v1.1.0
+tag v1.1.0
+Tagger: Awa <awa@example.com>
+Date:   Mon Oct 5 10:00:00 2026 +0000
+
+Version 1.1.0
+
+commit 6226bbe0bf0e2ee29997b6ad79978e868e52e3c3
+Author: Awa <awa@example.com>
+Date:   Mon Oct 5 10:00:00 2026 +0000
+
+    feat: c
+
+$ git describe --tags HEAD
+v1.1.0
+```
+
+## Pièges
+
+- **Oublier de pousser le tag** : le poste a la version, pas le serveur. `git config --global push.followTags true` pousse les tags annotés avec la branche.
+- **`--tags` pousse tout**, brouillons et tags légers compris. `git push origin v1.1.0` ou `--follow-tags`, qui ne prend que les tags annotés atteignables, valent mieux.
+- **Déplacer un tag publié** : ceux qui l'ont récupéré gardent l'ancien. Si la version est fausse, c'est `v1.1.1`.
+- **Un tag supprimé sur le serveur reste chez les collègues** jusqu'à `git fetch --prune --prune-tags`.
+- **Une règle de branche ne protège pas les tags** : sur GitHub, un ruleset de tags pour `v*` : [Protéger la branche principale](/equipe/proteger-la-branche-principale/).
+
+## Où ça sert
+
+À lire d'abord : [Versions et tags](/equipe/versions-et-tags/), [Tenir un changelog](/equipe/tenir-un-changelog/), [Je suis en « detached HEAD »](/situations/reparer/detached-head/).
+
+<CommandUsages command="tag" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/tag.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/tag.sh), exécuté avec Git 2.50 le 6 octobre 2026. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::
