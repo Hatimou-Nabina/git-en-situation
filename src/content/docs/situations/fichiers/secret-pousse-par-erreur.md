@@ -68,14 +68,11 @@ pip install git-filter-repo
 Puis, depuis la racine du dépôt :
 
 ```console
-$ git filter-repo --invert-paths --path .env --force
+$ git filter-repo --quiet --invert-paths --path .env --force
 NOTICE: Removing 'origin' remote; see 'Why is my origin removed?'
         in the manual if you want to push back there.
         (was github.com:equipe/projet.git)
-Parsed 1 commitsParsed 4 commitsHEAD is now at 9521054 Retire le fichier .env du suivi
-
 New history written in N.NN seconds; now repacking/cleaning...
-Repacking your repo and cleaning out old unneeded objects
 Completely finished after N.NN seconds.
 
 $ git log --oneline --all -- .env
