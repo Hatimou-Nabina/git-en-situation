@@ -1,0 +1,113 @@
+---
+title: git config
+description: Lire et régler la configuration de Git. La valeur effective et d'où elle vient, les trois niveaux et lequel gagne, les réglages que ce site recommande, un alias, et comment retirer un réglage.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../components/CommandUsages.astro';
+
+## À quoi ça sert
+
+`git config` lit et écrit les réglages de Git : ton identité, le comportement de `pull` et de `push`, l'éditeur, des alias. Trois fichiers s'empilent, celui de la machine, le tien, celui du dépôt, et le plus proche gagne. La plupart des réglages de ce site se font une fois, en `--global`, et valent pour tous tes dépôts. Le manuel complet : `git help config`.
+
+## Les formes qui servent
+
+**`git config clé`** lit la valeur effective ; **`--show-origin`** dit de quel fichier elle vient ; **`--global --list`** liste tout ce que ton fichier contient.
+
+```console
+$ git config user.email
+awa@example.com
+
+$ git config --show-origin user.email
+file:/home/awa/.gitconfig	awa@example.com
+
+$ git config --global --list
+user.name=Awa
+user.email=awa@example.com
+init.defaultbranch=main
+core.autocrlf=false
+color.ui=never
+```
+
+**Trois niveaux** : `--system` pour la machine, `--global` pour toi, dans `~/.gitconfig`, `--local` pour ce dépôt, dans `.git/config`. Le plus proche gagne : une adresse réglée en local l'emporte sur la globale, le temps d'un projet.
+
+```console
+$ git config --local user.email awa.pro@example.com
+
+$ git config user.email
+awa.pro@example.com
+
+$ git config --show-origin user.email
+file:.git/config	awa.pro@example.com
+
+$ git config --local --unset user.email
+
+$ git config user.email
+awa@example.com
+```
+
+**Les réglages que ce site recommande**, une fois pour toutes : `pull.ff only`, pour que `pull` refuse de fusionner sans te le dire ; `push.autoSetupRemote`, pour ne plus taper `-u` ; `fetch.prune`, pour que les branches supprimées sur le serveur disparaissent de ta copie ; `rebase.autoStash`, pour rebaser avec des modifications en cours.
+
+```console
+$ git config --global pull.ff only
+
+$ git config --global push.autoSetupRemote true
+
+$ git config --global fetch.prune true
+
+$ git config --global rebase.autoStash true
+
+$ git config --global --list
+user.name=Awa
+user.email=awa@example.com
+init.defaultbranch=main
+core.autocrlf=false
+color.ui=never
+pull.ff=only
+push.autosetupremote=true
+fetch.prune=true
+rebase.autostash=true
+```
+
+**Un alias** : une commande longue sous un nom court.
+
+```console
+$ git config --global alias.lg "log --oneline --graph --decorate --all"
+
+$ git lg
+* 67d377b (feature/x) feat: x
+* 8952b33 (HEAD -> main) feat: a
+* d0a0b32 (origin/main) Premier commit
+```
+
+**`--unset`** retire un réglage.
+
+```console
+$ git config --global --unset alias.lg
+
+$ git lg
+git: 'lg' is not a git command. See 'git --help'.
+
+The most similar command is
+	log
+```
+
+## Pièges
+
+- **Le mauvais niveau.** `git config user.email …` sans `--global` écrit dans le dépôt courant seulement. Pour ton identité partout, `--global` ; pour une exception sur un projet, `--local`.
+- **Les réglages ne voyagent pas avec le dépôt.** Ce qui est en `--global` est à refaire sur chaque poste : [Travailler sur le même projet depuis deux machines](/situations/avec-les-autres/travailler-depuis-deux-machines/). Ce qui doit suivre le dépôt va dans `.gitattributes`, pas dans la configuration.
+- **Une identité par dossier** : `includeIf "gitdir:~/perso/"` charge un fichier de plus selon l'emplacement du dépôt : [Deux comptes GitHub sur le même poste](/situations/avec-les-autres/deux-comptes-github-sur-un-poste/).
+- **`git config set` et `git config get`**, depuis Git 2.46, sont la syntaxe que les messages de Git suggèrent désormais ; l'ancienne reste valable, et c'est elle que cette fiche emploie.
+- **L'éditeur qui s'ouvre** et qu'on ne sait pas fermer : `git config --global core.editor "code --wait"` le remplace par le tien.
+
+## Où ça sert
+
+À lire d'abord : [Deux comptes GitHub sur le même poste](/situations/avec-les-autres/deux-comptes-github-sur-un-poste/), [Premier push d'une branche, « has no upstream branch »](/situations/quotidien/premier-push-no-upstream/), [git pull me demande de choisir entre merge et rebase](/situations/quotidien/git-pull-merge-ou-rebase/).
+
+<CommandUsages command="config" />
+
+:::tip[Sorties vérifiées]
+Les sorties de cette fiche viennent du script [`scripts/commandes/config.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/config.sh), exécuté avec Git 2.50 le 6 octobre 2026. La configuration globale du bac à sable y est placée dans un faux dossier personnel, `/home/awa/.gitconfig`, pour que `--show-origin` affiche un chemin réaliste. La liste « Où ça sert » est calculée au build depuis le contenu du site. Seuls l'adresse du serveur et les identifiants de commit sont ceux du dépôt d'exemple.
+:::
