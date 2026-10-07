@@ -7,9 +7,51 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 3, lot 18 : les exercices
+## [Non publié]
 
-Branche `situations/exercices-1`, partie de `main` (`0432e13`).
+Rien pour l'instant.
+
+## [1.0.0] — 7 octobre 2026 · Phase 4, lot 19 : ouvrir les portes
+
+Branche `communaute/ouvrir-les-portes`, partie de `main` (`305e917`). **Première version numérotée** : le site est complet en français, vérifié et déployé, et des gens vont s'en servir. À partir d'ici, le changelog suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) à la lettre, comme la page « Tenir un changelog » le recommande : une section par version, numérotée et datée, et un tag annoté `v1.0.0` sur le commit de fusion.
+
+### Ce que contient la version 1.0.0
+
+- **68 pages** : 23 situations en quatre thèmes (au quotidien, réparer, avec les autres, fichiers et dépôt), 4 pages « Comprendre », 12 pages « Travailler en équipe », 29 fiches « Commandes ».
+- **Des sorties vraies** : chaque page est adossée à un script qui rejoue le scénario dans des dépôts jetables ; un vérificateur compare les pages aux scripts à chaque pull request, avec la version de Git que chaque page déclare.
+- **Des exercices** : `EXERCICE=1 bash scripts/situations/<slug>.sh` fabrique la panne et s'arrête au symptôme.
+- **Un site** : recherche, catalogue par thème et par niveau, badges de niveau, de risque et de version de Git ; français en locale racine, anglais préparé.
+- **Un dépôt ouvert** : guide de contribution, code de conduite, gabarits d'issue et de PR, Discussions, cinq tâches « bonne première contribution ».
+
+### Site
+
+- **Image de partage** : `public/og-image.png` (1200 × 630), rendue depuis `src/assets/og-image.html` avec les polices du site, et les balises `og:image` et `twitter:image` sur toutes les pages. Un lien du site posté sur une messagerie ou un réseau affiche désormais une carte avec une image ; Starlight pose `twitter:card` mais pas `og:image`.
+- « À propos » dit où suivre les versions, et que la version anglaise est en préparation.
+
+### Dépôt
+
+- README : le site n'est plus « en construction » ; badges de la CI, de la vérification des sorties et du déploiement ; comment suivre le projet.
+- `CLAUDE.md` : décisions de la phase 4 (la communauté avant la traduction, procédure de version, image de partage, messages de commit du dépôt d'exemple gardés en français dans la version anglaise).
+
+### Actions requises après la fusion
+
+Par le mainteneur, ou par l'assistant avec son feu vert explicite : elles engagent le compte.
+
+1. **Le tag et la release** : tag annoté `v1.0.0` sur le commit de fusion de `main`, poussé, puis release GitHub reprenant cette section.
+2. **Le dépôt** : adresse du site et sujets ; Wiki et Projects, non utilisés, désactivés.
+3. **Les Discussions** : une catégorie « Annonces » (format annonce, seuls les mainteneurs publient), et un premier message de bienvenue épinglé.
+4. **Un ruleset de tags `v*`**, pour que personne ne supprime ni ne déplace une version.
+
+### Suite prévue
+
+- **Lot 20** : la version anglaise sans encore de pages : composants qui lisent la locale, vérificateur sur `en/`, pages d'index anglaises, section « Traduire » du CONTRIBUTING avec un glossaire, une situation pilote.
+- **Lots 21 à 30** : situations par thème, Comprendre, Travailler en équipe, Commandes, puis clôture en 1.1.0. Et, au fil des contributions, les pages « Comprendre » prévues (#11, #24, #25).
+
+---
+
+## 6 octobre 2026 · Phase 3, lot 18 : les exercices — en ligne le 6 octobre 2026
+
+Branche `situations/exercices-1`, partie de `main` (`0432e13`), fusionnée par la PR #28 (`305e917`).
 
 ### Contenu
 
@@ -438,3 +480,6 @@ Squelette poussé directement sur `main`, puis identité visuelle par la PR #1. 
 - **Phase 2** : section équipe complète, fiches commandes.
 - **Phase 3** : exercices dans un dépôt bac à sable ; vérification automatique en CI que les sorties des pages correspondent toujours aux scripts.
 - **Phase 4** : traduction anglaise, animation de la communauté.
+
+[Non publié]: https://github.com/Hatimou-Nabina/git-en-situation/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/Hatimou-Nabina/git-en-situation/releases/tag/v1.0.0

@@ -12,6 +12,13 @@ Le propriétaire travaille sur **plusieurs machines**. Tout ce qui est nécessai
 - **Hébergement** : GitHub Pages, `https://hatimou-nabina.github.io/git-en-situation/`, d'où `base: '/git-en-situation'` dans `astro.config.mjs`. Un domaine propre viendra peut-être : il suffira de changer `site` et `base`, le contenu n'a pas à bouger.
 - **Le projet s'applique à lui-même** : commits conventionnels, pull requests, `CODEOWNERS`, CI, changelog, gabarits d'issue.
 
+## Décisions (7 octobre 2026, phase 4)
+
+- **La communauté avant la traduction** : le site français est complet, l'annonce n'attend pas 68 pages traduites. Lot 19 « ouvrir les portes », puis lots 20 à 30 pour l'anglais : infrastructure et situation pilote, situations par thème, Comprendre, équipe, Commandes, clôture en 1.1.0.
+- **Versions** : `1.0.0` au lot 19. Le projet suit ses propres pages « Versions et tags » et « Tenir un changelog » : une section `[x.y.z] — date` dans `CHANGELOG.md`, dans un commit `chore(release): version x.y.z`, avec une section `[Non publié]` vide au-dessus et les liens de version en bas du fichier. Après la fusion, **tag annoté sur le commit de fusion de `main`** (`git tag -a vX.Y.Z -m "Version X.Y.Z : …" <commit>`, `git push origin vX.Y.Z`), puis `gh release create vX.Y.Z --verify-tag --title "X.Y.Z" --notes-file <la section du changelog>`. Le tag, la release et les réglages du dépôt engagent le compte du propriétaire : **jamais sans son feu vert explicite**, lot par lot.
+- **Version anglaise** : les sorties sont déjà en anglais (`LANG=C` dans la bibliothèque) ; une page anglaise reprend les blocs de la page française tels quels et se vérifie avec le même script. Les messages de commit du dépôt d'exemple restent en français (« Ajoute la fonction export PDF »), et « How to read a situation » le dira. Les liens des pages anglaises s'écrivent `/en/…`.
+- **Image de partage** : `public/og-image.png` (1200 × 630) est rendue depuis `src/assets/og-image.html` avec Chrome headless (voir Commandes) ; les balises sont dans `head` (`astro.config.mjs`), Starlight ne posant pas `og:image`. À régénérer si le titre, la promesse ou l'identité visuelle changent.
+
 ## Règles de collaboration
 
 - **Ne jamais pousser** sans autorisation explicite du propriétaire.
@@ -38,6 +45,9 @@ npm run check                            # types des composants Astro
 npm run verifier                         # rejoue les scripts et compare avec les blocs des pages
 bash scripts/situations/<slug>.sh        # rejoue une situation (Git Bash sous Windows)
 EXERCICE=1 bash scripts/situations/<slug>.sh   # fabrique la panne dans exercices/<slug>/ et s'arrête au symptôme
+# Régénère l'image de partage (Git Bash, depuis la racine du dépôt ; Chrome veut des chemins Windows) :
+"/c/Program Files/Google/Chrome/Application/chrome.exe" --headless=new --hide-scrollbars --window-size=1200,630 \
+  --screenshot="$(cygpath -w "$PWD")\\public\\og-image.png" "file:///$(cygpath -m "$PWD")/src/assets/og-image.html"
 ```
 
 ## Architecture

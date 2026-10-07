@@ -4,7 +4,11 @@
 
 Personne ne cherche « fetch prune ». On cherche « je vois encore une branche qui a été supprimée ». Ce site part de là : chaque page répond à une situation, du symptôme au pourquoi, en moins de cinq minutes, avec des commandes **réellement exécutées** dont la sortie affichée est la vraie.
 
-Site : https://hatimou-nabina.github.io/git-en-situation/ (en construction)
+Site : https://hatimou-nabina.github.io/git-en-situation/
+
+[![CI](https://github.com/Hatimou-Nabina/git-en-situation/actions/workflows/ci.yml/badge.svg)](https://github.com/Hatimou-Nabina/git-en-situation/actions/workflows/ci.yml)
+[![Vérifier les sorties](https://github.com/Hatimou-Nabina/git-en-situation/actions/workflows/verifier-sorties.yml/badge.svg)](https://github.com/Hatimou-Nabina/git-en-situation/actions/workflows/verifier-sorties.yml)
+[![Déploiement GitHub Pages](https://github.com/Hatimou-Nabina/git-en-situation/actions/workflows/deploy.yml/badge.svg)](https://github.com/Hatimou-Nabina/git-en-situation/actions/workflows/deploy.yml)
 
 ## Ce qu'on y trouve
 
@@ -15,7 +19,7 @@ Site : https://hatimou-nabina.github.io/git-en-situation/ (en construction)
 | **Travailler en équipe** | Branches, pull requests, revue, commits conventionnels, changelog, protections, secrets, plusieurs machines. |
 | **Commandes** | Une fiche par commande, limitée aux options utiles, qui renvoie aux situations où elle sert. |
 
-En français d'abord, pour les développeurs francophones de tous niveaux. Une version anglaise suivra.
+En français d'abord, pour les développeurs francophones de tous niveaux. Une version anglaise est en préparation.
 
 ## Les sorties sont vraies
 
@@ -36,6 +40,8 @@ Une situation vécue, une correction, une page : tout est bienvenu. Le [guide de
 - [Proposer une situation](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=proposer-une-situation.yml)
 - [Signaler une erreur](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=signaler-une-erreur.yml)
 - [Poser une question](https://github.com/Hatimou-Nabina/git-en-situation/discussions), dans les Discussions
+
+Pour suivre le projet : une étoile, et « Watch », puis « Custom » et « Releases », pour être prévenu des nouvelles versions. Elles sont annoncées dans les [releases](https://github.com/Hatimou-Nabina/git-en-situation/releases) et consignées dans le [changelog](CHANGELOG.md).
 
 ## Lancer le site en local
 
