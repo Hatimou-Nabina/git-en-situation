@@ -94,7 +94,7 @@ Chaque branche a aussi son propre reflog : `git reflog show feature/recherche` m
 - [Annuler mon dernier commit, pas encore poussé](/situations/reparer/annuler-mon-dernier-commit/)
 - [Je suis en « detached HEAD »](/situations/reparer/detached-head/)
 - [Supprimer une vieille branche sans rien perdre](/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/)
-- Comprendre : *Le reflog, ton filet de sécurité* et *Ce que Git supprime, et quand* (à venir)
+- [Comprendre : le reflog, ton filet de sécurité](/comprendre/le-reflog-ton-filet-de-securite/) et [ce que Git supprime, et quand](/comprendre/ce-que-git-supprime-et-quand/)
 
 :::note[Essaie-le toi-même]
 Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :

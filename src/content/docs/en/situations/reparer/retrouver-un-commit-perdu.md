@@ -94,7 +94,7 @@ Each branch also has its own reflog: `git reflog show feature/recherche` shows o
 - [Undoing my last commit, not yet pushed](/en/situations/reparer/annuler-mon-dernier-commit/)
 - [I am in "detached HEAD"](/en/situations/reparer/detached-head/)
 - [Deleting an old branch without losing anything](/en/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/)
-- Understand: *The reflog, your safety net* and *What Git deletes, and when* (coming)
+- [Understand: the reflog, your safety net](/en/comprendre/le-reflog-ton-filet-de-securite/) and [what Git deletes, and when](/en/comprendre/ce-que-git-supprime-et-quand/)
 
 :::note[Try it yourself]
 This page's script can create the problem on your machine. From a clone of the [site's repository](https://github.com/Hatimou-Nabina/git-en-situation), in Git Bash on Windows:

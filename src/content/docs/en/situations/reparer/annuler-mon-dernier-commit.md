@@ -123,7 +123,7 @@ A commit cannot be modified: `--amend` creates a new one, with the same parent, 
 - [I committed on the wrong branch](/en/situations/reparer/commit-sur-la-mauvaise-branche/)
 - [Undoing a commit already pushed](/en/situations/reparer/annuler-un-commit-deja-pousse/)
 - [Finding a lost commit](/en/situations/reparer/retrouver-un-commit-perdu/)
-- Understand: *The reflog, your safety net* (coming)
+- [Understand: the reflog, your safety net](/en/comprendre/le-reflog-ton-filet-de-securite/)
 
 :::note[Try it yourself]
 This page's script can create the problem on your machine. From a clone of the [site's repository](https://github.com/Hatimou-Nabina/git-en-situation), in Git Bash on Windows:

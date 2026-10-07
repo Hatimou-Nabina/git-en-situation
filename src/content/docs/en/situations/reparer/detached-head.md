@@ -107,7 +107,7 @@ In `.git/HEAD`, there is either a branch name or a commit id. With a branch name
 
 - [Finding a lost commit](/en/situations/reparer/retrouver-un-commit-perdu/)
 - [After cloning, I don't see the other people's branches](/en/situations/quotidien/branches-invisibles-apres-clone/)
-- Understand: *HEAD, or "where am I"* (coming)
+- [Understand: HEAD, or "where am I"](/en/comprendre/head-ou-ou-je-suis/)
 
 :::note[Try it yourself]
 This page's script can create the problem on your machine. From a clone of the [site's repository](https://github.com/Hatimou-Nabina/git-en-situation), in Git Bash on Windows:

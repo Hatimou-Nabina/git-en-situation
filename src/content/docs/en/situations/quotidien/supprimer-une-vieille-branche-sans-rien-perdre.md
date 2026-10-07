@@ -142,7 +142,7 @@ A branch is only a bookmark placed on a commit. Deleting the branch deletes the 
 ## See also
 
 - [A remote branch was deleted, but I still see it](/en/situations/quotidien/branche-distante-supprimee-encore-visible/)
-- [Understand: a branch is a bookmark](/en/comprendre/une-branche-est-un-marque-page/), and *The reflog, your safety net* (coming)
+- [Understand: a branch is a bookmark](/en/comprendre/une-branche-est-un-marque-page/), and [the reflog, your safety net](/en/comprendre/le-reflog-ton-filet-de-securite/)
 - [Working as a team: the pull request, from opening to merge](/en/equipe/la-pull-request/)
 
 :::note[Try it yourself]

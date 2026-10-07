@@ -107,7 +107,7 @@ Dans `.git/HEAD`, il y a soit un nom de branche, soit un identifiant de commit. 
 
 - [Retrouver un commit perdu](/situations/reparer/retrouver-un-commit-perdu/)
 - [Après un clone, je ne vois pas les branches des autres](/situations/quotidien/branches-invisibles-apres-clone/)
-- Comprendre : *HEAD, ou « où je suis »* (à venir)
+- [Comprendre : HEAD, ou « où je suis »](/comprendre/head-ou-ou-je-suis/)
 
 :::note[Essaie-le toi-même]
 Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :
