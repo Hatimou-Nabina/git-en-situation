@@ -1,0 +1,110 @@
+---
+title: git ls-files
+description: What the index contains. The files Git tracks, their mode, their object, their line endings; what it doesn't track; what is modified or deleted from the disk; and the test "is this file tracked?". The command that reads the same thing on every system.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git ls-files` lists what the index contains: the files Git tracks, and, on request, their mode, the object they point to, their line endings. It reads the index, not the disk: its answer is the same on Windows, macOS and Linux, and that's why it's used for CI checks. The full manual: `git help ls-files`.
+
+## The forms that matter
+
+**`git ls-files`**, alone or with a folder: the tracked files, one per line.
+
+```console
+$ git ls-files
+.gitignore
+README.md
+ancien.txt
+old.js
+scripts/run.sh
+src/a.js
+src/b.js
+
+$ git ls-files src/
+src/a.js
+src/b.js
+```
+
+**`-s`**: the mode, the object's id and the path; `100755` is an executable file, `100644` an ordinary file. **`--eol`**: the line endings in the index (`i/`), in the folder (`w/`) and the attributes that apply.
+
+```console
+$ git ls-files -s
+100644 397b4a7624e35fa60563a9c03b1213d93f7b6546 0	.gitignore
+100644 b60e1ad35025d69cbe886686e6a0b040551b9fde 0	README.md
+100644 36340c1f4b2b10db570d87c86eae2ad3284c515e 0	ancien.txt
+100644 3367afdbbf91e638efe983616377c60477cc6612 0	old.js
+100755 64d05256673c292d707365590e5c8a4af10dce07 0	scripts/run.sh
+100644 78981922613b2afb6025042ff6bd878ac1994e85 0	src/a.js
+100644 61780798228d17af2d34fce4cfbdf35556832472 0	src/b.js
+
+$ git ls-files --eol
+i/lf    w/lf    attr/                 	.gitignore
+i/lf    w/lf    attr/                 	README.md
+i/crlf  w/crlf  attr/                 	ancien.txt
+i/lf    w/      attr/                 	old.js
+i/lf    w/lf    attr/                 	scripts/run.sh
+i/lf    w/lf    attr/                 	src/a.js
+i/lf    w/lf    attr/                 	src/b.js
+```
+
+`ancien.txt` is CRLF in the repository, and `old.js` no longer has a version on the disk: two things `git status` doesn't say as clearly.
+
+**`-o`**: what Git doesn't track; with **`--exclude-standard`**, without the ignored files.
+
+```console
+$ git ls-files -o --exclude-standard
+notes.txt
+
+$ git ls-files -o
+debug.log
+notes.txt
+```
+
+**`-m`** and **`-d`**: the tracked files modified on the disk, and those that disappeared from it.
+
+```console
+$ git ls-files -m
+README.md
+old.js
+
+$ git ls-files -d
+old.js
+```
+
+**`--error-unmatch file`**: fails if the file isn't tracked. The test to ask in a script when the code depends on a file that might exist only on your machine.
+
+```console
+$ git ls-files --error-unmatch notes.txt
+error: pathspec 'notes.txt' did not match any file(s) known to git
+Did you forget to 'git add'?
+
+$ git ls-files --error-unmatch README.md && echo "suivi"
+README.md
+suivi
+```
+
+The `echo` string, `suivi`, means "tracked".
+
+## Pitfalls
+
+- **From a subfolder**, `ls-files` lists only that subfolder, like `git add .`. For the whole repository, go to the root or give the path.
+- **`-o` without `--exclude-standard`** also lists the ignored files: it's rarely what you want.
+- **A script's `100644` mode** on Windows is normal, the system doesn't know the executable bit; it's in CI that it's missing. [A CI that checks what the machines don't see](/en/equipe/ci-ce-que-les-postes-ne-voient-pas/).
+- **`i/crlf`** in `--eol` is the sign of a file that arrived with Windows line endings: [My scripts break on the server, line endings](/en/situations/fichiers/fins-de-ligne-crlf-lf/).
+- **A file in `.gitignore` and yet listed**: it's tracked, ignoring it changes nothing. [.gitignore doesn't work, the file is already tracked](/en/situations/fichiers/gitignore-fichier-deja-suivi/).
+
+## Where it's used
+
+Read first: [My scripts break on the server, line endings](/en/situations/fichiers/fins-de-ligne-crlf-lf/), [A CI that checks what the machines don't see](/en/equipe/ci-ce-que-les-postes-ne-voient-pas/), [Secrets never go into the repository](/en/equipe/secrets-jamais-dans-le-depot/).
+
+<CommandUsages command="ls-files" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/ls-files.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/ls-files.sh), run with Git 2.50 on 6 October 2026. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::
