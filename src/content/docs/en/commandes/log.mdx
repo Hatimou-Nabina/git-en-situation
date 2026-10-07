@@ -1,0 +1,107 @@
+---
+title: git log
+description: Reading the history. One line per commit, what one branch has that the other doesn't, filtering by message, by content or by file, the format you want, the branch graph. The forms the pages of this site use, and where they're used.
+gitVersion: "2.50"
+verified: 2026-10-05
+published: 2026-10-05
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git log` answers the questions that start with "when", "who" and "what": what was done, by whom, in what order, and above all what one branch contains that the other doesn't. It's the most run command on this site, almost always with `--oneline`. The full manual: `git help log`.
+
+## The forms that matter
+
+**`git log --oneline`**: one line per commit, the short id and the subject. `-3` limits to the last three.
+
+```console
+$ git log --oneline -3
+b483d37 test(recherche): couvre la recherche vide
+cf6c692 feat(recherche): ajoute la barre de recherche
+343f26a fix(app): corrige le demarrage
+```
+
+**`git log A..B`**: the commits that `B` has and `A` doesn't. The most useful form on the site: what my branch brings, what I haven't pushed yet (`origin/main..main`), what the server received (`main..origin/main`). Three dots and `--left-right` show both sides at once, `<` for the left, `>` for the right.
+
+```console
+$ git log --oneline main..feature/recherche
+b483d37 test(recherche): couvre la recherche vide
+cf6c692 feat(recherche): ajoute la barre de recherche
+
+$ git log --oneline feature/recherche..origin/main
+0699995 feat(contact): ajoute la page contact
+
+$ git log --oneline --left-right origin/main...feature/recherche
+< 0699995 feat(contact): ajoute la page contact
+> b483d37 test(recherche): couvre la recherche vide
+> cf6c692 feat(recherche): ajoute la barre de recherche
+```
+
+**`--grep`, `-S`, `-- file`**: filtering by message, by string added or removed in the content, by file. `--all` extends the search to every branch, not only the one you're on.
+
+```console
+$ git log --oneline --all --grep='^fix'
+343f26a fix(app): corrige le demarrage
+
+$ git log --oneline --all -S'rechercher'
+cf6c692 feat(recherche): ajoute la barre de recherche
+
+$ git log --oneline -- app.js
+343f26a fix(app): corrige le demarrage
+1e0dab4 feat(app): premiere version
+```
+
+**`--format`** composes the line you want, and **`-p`** adds its diff to each commit.
+
+```console
+$ git log -1 --format='%h %an %ad %s' --date=short
+b483d37 Awa 2026-10-05 test(recherche): couvre la recherche vide
+
+$ git log -1 -p
+commit b483d37b4477140df2cb8b823cc1772273d19782
+Author: Awa <awa@example.com>
+Date:   Mon Oct 5 10:00:00 2026 +0000
+
+    test(recherche): couvre la recherche vide
+
+diff --git a/recherche.js b/recherche.js
+index b94dad6..4f852e2 100644
+--- a/recherche.js
++++ b/recherche.js
+@@ -1 +1,2 @@
+ function rechercher() {}
++// cas de la recherche vide
+```
+
+**`--graph --decorate --all`**: the branches, where they part, and where `HEAD`, the branches and their server copies point.
+
+```console
+$ git log --oneline --graph --decorate --all
+* b483d37 (HEAD -> feature/recherche) test(recherche): couvre la recherche vide
+* cf6c692 feat(recherche): ajoute la barre de recherche
+| * 0699995 (origin/main, origin/HEAD) feat(contact): ajoute la page contact
+|/
+* 343f26a (main) fix(app): corrige le demarrage
+* 1e0dab4 feat(app): premiere version
+* d0a0b32 Premier commit
+```
+
+## Pitfalls
+
+- **`log A..B` and `diff A...B`** don't have the same punctuation for the same intention. [Seeing what changed between my branch and main](/en/situations/quotidien/voir-ce-qui-a-change/) explains why, and [`git diff`](/en/commandes/diff/) shows the other side.
+- **`git log` only shows what descends from `HEAD`.** A commit of a deleted branch is no longer there. `--all` widens to the branches that still exist; the reflog keeps the rest: [Finding a lost commit](/en/situations/reparer/retrouver-un-commit-perdu/).
+- **`git log origin/main` reads the local copy** of the server, not the server: without a `git fetch` beforehand, it dates from the last `fetch`.
+- **A renamed file** loses its past with `-- file`: `--follow` tracks it through renames.
+- **`-S` looks for a change in the number of occurrences** of the string, not for a line that contains it: a commit that moves the string without creating or deleting it doesn't show up. `-G` takes a regular expression and also finds moves.
+
+## Where it's used
+
+Read first: [Seeing what changed between my branch and main](/en/situations/quotidien/voir-ce-qui-a-change/), [Deleting an old branch without losing anything](/en/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/), [One branch per change](/en/equipe/une-branche-par-changement/).
+
+<CommandUsages command="log" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/log.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/log.sh), run with Git 2.50 on 5 October 2026. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::
