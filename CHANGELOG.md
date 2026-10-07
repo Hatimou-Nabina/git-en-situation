@@ -7,9 +7,23 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 4, lot 22 : les situations « Réparer » en anglais
+## [Non publié] — Phase 4, lot 23 : les situations « Avec les autres » et « Fichiers et dépôt » en anglais
 
-Branche `en/lot-22-reparer`, partie de `main` (`f3da0ca`).
+Branche `en/lot-23-autres-fichiers`, partie de `main` (`84ec147`).
+
+### Contenu
+
+- **Les huit dernières situations, en anglais** : « My local branch is behind after a merge on GitHub », « Updating my branch with main », « Working on the same project from two machines », « Two GitHub accounts on the same machine », « My scripts break on the server, line endings », « .gitignore doesn't work, the file is already tracked », « I pushed a secret by mistake », « Git sees all my files as modified ». **La section « Situations » est entièrement traduite** : 23 situations, le catalogue anglais ne porte plus aucune marque « in French ». Mêmes blocs de terminal que les pages françaises, vérifiés par les mêmes scripts ; « My scripts break on the server » est en Git 2.55 et se vérifie en CI, comme la page française. Les encadrés d'avertissement de « I pushed a secret » et « Git sees all my files as modified » sont traduits ; les deux commentaires français du `~/.ssh/config` de « Two GitHub accounts » sont traduits dans le texte.
+
+### Suite prévue
+
+- **Lot 24** : les quatre pages « Comprendre ». Puis Travailler en équipe (25 et 26), Commandes (27 à 29), clôture en 1.1.0 (30).
+
+---
+
+## 7 octobre 2026 · Phase 4, lot 22 : les situations « Réparer » en anglais — en ligne le 7 octobre 2026
+
+Branche `en/lot-22-reparer`, partie de `main` (`f3da0ca`), fusionnée par la PR #33 (`84ec147`).
 
 ### Contenu
 
