@@ -11,10 +11,13 @@
  *             « cited », les pages qui la citent dans le texte, entre
  *             accents graves. Pour les commandes qu'aucun script ne peut
  *             exécuter (gh demande un compte connecté).
- * Les fiches elles-mêmes, les pages d'index et la version anglaise sont exclues.
+ * Les pages françaises font référence (les blocs de terminal sont les mêmes
+ * dans les deux langues) ; la version anglaise affiche le titre de la
+ * traduction quand elle existe et pointe vers /en/… (voir src/i18n.ts).
+ * Les fiches elles-mêmes et les pages d'index sont exclues.
  */
 import { getCollection } from 'astro:content';
-import { themes } from '../themes.mjs';
+import { byShownTitle, currentLocale, pageHref, strings, themeLabel, withTranslation } from '../i18n';
 
 interface Props {
   command: string;
@@ -23,6 +26,9 @@ interface Props {
 }
 
 const { command, prefix = 'git', mode = 'executed' } = Astro.props;
+const locale = currentLocale(Astro);
+const t = strings[locale];
+const english = locale === 'en';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const full = prefix ? `${prefix} ${command}` : command;
@@ -31,47 +37,57 @@ const pattern =
     ? new RegExp('`' + escape(full) + '( [^`]*)?`')
     : new RegExp(`^\\$ ${escape(full)}(\\s|$)`, 'm');
 
-const byTitle = (a: { data: { title: string } }, b: { data: { title: string } }) =>
-  a.data.title.localeCompare(b.data.title, 'fr');
-
-const all = await getCollection('docs', ({ id, body }) => {
+const everything = await getCollection('docs');
+const french = everything.filter(({ id, body }) => {
   const parts = id.split('/');
   const isSituation = parts[0] === 'situations' && parts.length === 3;
   const isPage = (parts[0] === 'comprendre' || parts[0] === 'equipe') && parts.length === 2;
   return (isSituation || isPage) && pattern.test(body ?? '');
 });
-all.sort(byTitle);
+const all = withTranslation(french, everything, locale).sort(byShownTitle(locale));
 
 const sections = [
-  { label: 'Situations', entries: all.filter(({ id }) => id.startsWith('situations/')) },
-  { label: 'Comprendre', entries: all.filter(({ id }) => id.startsWith('comprendre/')) },
-  { label: 'Travailler en équipe', entries: all.filter(({ id }) => id.startsWith('equipe/')) },
+  { label: t.sections.situations, entries: all.filter(({ fr }) => fr.id.startsWith('situations/')) },
+  { label: t.sections.comprendre, entries: all.filter(({ fr }) => fr.id.startsWith('comprendre/')) },
+  { label: t.sections.equipe, entries: all.filter(({ fr }) => fr.id.startsWith('equipe/')) },
 ].filter((s) => s.entries.length > 0);
 
-const themeLabel = (id: string) => themes[id.split('/')[1] as keyof typeof themes]?.label;
-const verb = mode === 'cited' ? ['cite', 'citent'] : ['exécute', 'exécutent'];
+// [singulier, pluriel]
+const verb = english
+  ? mode === 'cited' ? ['cites', 'cite'] : ['runs', 'run']
+  : mode === 'cited' ? ['cite', 'citent'] : ['exécute', 'exécutent'];
+const count =
+  all.length === 1
+    ? english ? `One page of this site ${verb[0]}` : `Une page de ce site ${verb[0]}`
+    : english ? `${all.length} pages of this site ${verb[1]}` : `${all.length} pages de ce site ${verb[1]}`;
 ---
 
 <div class="command-usages">
   {
     all.length === 0 ? (
       <p>
-        Aucune page de ce site n'{verb[0]} encore <code>{full}</code>.
+        {english ? (
+          <>No page of this site {verb[0]} <code>{full}</code> yet.</>
+        ) : (
+          <>Aucune page de ce site n'{verb[0]} encore <code>{full}</code>.</>
+        )}
       </p>
     ) : (
       <>
         <p>
-          {all.length === 1 ? `Une page de ce site ${verb[0]}` : `${all.length} pages de ce site ${verb[1]}`}{' '}
-          <code>{full}</code> :
+          {count} <code>{full}</code>{english ? ':' : ' :'}
         </p>
         {sections.map(({ label, entries }) => (
           <>
             <p class="command-usages__section">{label}</p>
             <ul>
-              {entries.map(({ id, data }) => (
+              {entries.map(({ fr, shown, translated }) => (
                 <li>
-                  <a href={`${base}/${id}/`}>{data.title}</a>
-                  {id.startsWith('situations/') && <small> · {themeLabel(id)}</small>}
+                  <a href={pageHref(base, fr.id, locale)} lang={translated ? undefined : 'fr'}>
+                    {shown.data.title}
+                  </a>
+                  {fr.id.startsWith('situations/') && <small> · {themeLabel(fr.id.split('/')[1], locale)}</small>}
+                  {!translated && <small> · {t.inFrench}</small>}
                 </li>
               ))}
             </ul>

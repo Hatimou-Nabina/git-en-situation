@@ -1,0 +1,5 @@
+# Corrige l'affichage de 80 commits du 5 au 7 octobre 2026, signés par erreur avec
+# l'adresse d'un poste fictif des scripts, restée dans la configuration locale d'un
+# clone (voir CLAUDE.md, « Pièges connus »). Git lit ce fichier pour git log, git
+# shortlog et git blame ; GitHub.com, lui, ne le lit pas.
+Hatimou-Nabina <nabina.yerima@ipnetinstitute.com> <bakary@example.com>

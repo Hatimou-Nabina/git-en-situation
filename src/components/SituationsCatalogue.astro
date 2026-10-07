@@ -4,43 +4,58 @@
  * filtre par niveau qui agit sans rechargement. Conçu pour rester lisible à
  * une centaine de pages : les thèmes découpent, le filtre resserre, et la
  * recherche (Ctrl+K) reste le chemin le plus court quand on sait ce qu'on cherche.
+ * Dans la version anglaise, les libellés sont en anglais et les pages encore en
+ * français sont marquées « in French » (voir src/i18n.ts).
  */
 import { getCollection } from 'astro:content';
 import { themes } from '../themes.mjs';
+import {
+  byShownTitle,
+  capitalize,
+  currentLocale,
+  levelLabels,
+  metaLine,
+  pageHref,
+  strings,
+  themeDescription,
+  themeLabel,
+  withTranslation,
+} from '../i18n';
 
+const locale = currentLocale(Astro);
+const t = strings[locale];
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const levels: Record<string, string> = { debutant: 'Débutant', intermediaire: 'Intermédiaire', avance: 'Avancé' };
+const levels = levelLabels[locale];
 
-const all = await getCollection('docs', ({ id }) => {
+const everything = await getCollection('docs');
+const french = everything.filter(({ id }) => {
   const parts = id.split('/');
   return parts[0] === 'situations' && parts.length === 3;
 });
+const all = withTranslation(french, everything, locale);
+const byTitle = byShownTitle(locale);
 
-const byTitle = (a: { data: { title: string } }, b: { data: { title: string } }) =>
-  a.data.title.localeCompare(b.data.title, 'fr');
-
-const sections = Object.entries(themes).map(([key, theme]) => ({
+const sections = Object.keys(themes).map((key) => ({
   key,
-  ...theme,
-  items: all.filter(({ id }) => id.startsWith(`situations/${key}/`)).sort(byTitle),
+  label: themeLabel(key, locale),
+  description: themeDescription(key, locale),
+  items: all.filter(({ fr }) => fr.id.startsWith(`situations/${key}/`)).sort(byTitle),
 }));
 
 const countByLevel = Object.fromEntries(
-  Object.keys(levels).map((level) => [level, all.filter(({ data }) => data.level === level).length]),
+  Object.keys(levels).map((level) => [level, all.filter(({ fr }) => fr.data.level === level).length]),
 );
 ---
 
 <div class="catalogue" data-catalogue>
-  <p class="catalogue__summary">
-    {all.length} situations, {sections.length} thèmes. Un symptôme précis en tête ? La recherche (Ctrl + K) va plus vite.
-  </p>
+  <p class="catalogue__summary">{t.catalogueSummary(all.length, sections.length)}</p>
 
-  <div class="catalogue__filters" role="group" aria-label="Filtrer par niveau">
-    <button type="button" data-level="" aria-pressed="true">Tous les niveaux</button>
+  <div class="catalogue__filters" role="group" aria-label={t.filterByLevel}>
+    <button type="button" data-level="" aria-pressed="true">{t.allLevels}</button>
     {
       Object.entries(levels).map(([key, label]) => (
         <button type="button" data-level={key} aria-pressed="false">
-          {label} <span class="catalogue__count">{countByLevel[key]}</span>
+          {capitalize(label)} <span class="catalogue__count">{countByLevel[key]}</span>
         </button>
       ))
     }
@@ -50,25 +65,22 @@ const countByLevel = Object.fromEntries(
     sections.map((section) => (
       <section class="catalogue__theme" data-theme={section.key}>
         <h2 id={section.key}>
-          <a href={`${base}/situations/${section.key}/`}>{section.label}</a>
+          <a href={pageHref(base, `situations/${section.key}`, locale)}>{section.label}</a>
           <span class="catalogue__count">{section.items.length}</span>
         </h2>
         <p class="catalogue__description">{section.description}</p>
         <ul class="home-list">
-          {section.items.map(({ id, data }) => (
-            <li data-level={data.level ?? ''}>
-              <a href={`${base}/${id}/`}>{data.title}</a>
-              <p>{data.description}</p>
-              {data.level && (
-                <small>
-                  {levels[data.level].toLowerCase()}
-                  {data.gitVersion && ` · Git ${data.gitVersion}`}
-                </small>
-              )}
+          {section.items.map((item) => (
+            <li data-level={item.fr.data.level ?? ''}>
+              <a href={pageHref(base, item.fr.id, locale)} lang={item.translated ? undefined : 'fr'}>
+                {item.shown.data.title}
+              </a>
+              <p lang={item.translated ? undefined : 'fr'}>{item.shown.data.description}</p>
+              {metaLine(item, locale) && <small>{metaLine(item, locale)}</small>}
             </li>
           ))}
         </ul>
-        <p class="catalogue__empty" hidden>Aucune situation de ce niveau dans ce thème.</p>
+        <p class="catalogue__empty" hidden>{t.emptyTheme}</p>
       </section>
     ))
   }

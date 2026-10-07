@@ -7,13 +7,36 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié]
+## [Non publié] — Phase 4, lot 20 : la version anglaise, sans encore de pages
 
-Rien pour l'instant.
+Branche `en/lot-20-infrastructure`, partie de `main` (`37eb41e`).
 
-## [1.0.0] — 7 octobre 2026 · Phase 4, lot 19 : ouvrir les portes
+### Contenu
 
-Branche `communaute/ouvrir-les-portes`, partie de `main` (`305e917`). **Première version numérotée** : le site est complet en français, vérifié et déployé, et des gens vont s'en servir. À partir d'ici, le changelog suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) à la lettre, comme la page « Tenir un changelog » le recommande : une section par version, numérotée et datée, et un tag annoté `v1.0.0` sur le commit de fusion.
+- **L'accueil anglais** est un vrai accueil : les quatre étapes, les trois dernières situations, la promesse sur les sorties, les quatre entrées, et un encart « English version in progress » qui dit qu'une page non traduite s'affiche en français avec un bandeau.
+- **Les pages d'entrée en anglais** : catalogue, « How to read a situation », les quatre thèmes, Understand, Working as a team, Commands, About. Elles listent toutes les pages du site ; celles qui ne sont pas encore traduites apparaissent avec leur titre français, marquées « in French », et Starlight les sert en français avec un bandeau.
+- **Une première situation traduite**, « My push is rejected, “rejected”, “fetch first” », pour éprouver toute la chaîne : mêmes blocs de terminal que la page française, vérifiés par le même script, encadrés « Try it yourself » et « Verified outputs ».
+- « How to read a situation » dit que les messages de commit du dépôt d'exemple sont en français, et que les messages du mode exercice le sont aussi.
+- « Mon push est refusé » renvoie désormais à « Un conflit pendant un merge ou un rebase » au lieu de l'annoncer « à venir ».
+
+### Pour les contributeurs
+
+- **Les composants lisent la locale** (`src/i18n.ts`) : `SituationsList`, `SituationsCatalogue` et `CommandUsages` partent des pages françaises, qui font référence pour le niveau, la version de Git et les dates, prennent le titre et la description de la traduction quand elle existe, et pointent vers `/en/…` dans la version anglaise. Les libellés et descriptions des thèmes existent dans les deux langues (`themes.mjs`).
+- **Le vérificateur couvre `en/`** : une page anglaise cite le même script que la française, qui n'est rejoué qu'une fois pour les deux. `npm run verifier en/` ne vérifie que les pages anglaises.
+- **Le validateur de liens tolère les liens vers des pages de repli** (`errorOnFallbackPages: false`) le temps de la traduction ; à remettre à la fin (lot 30).
+- **`CONTRIBUTING.md`, « Traduire »** : la méthode, ce qui se traduit et ce qui ne se traduit pas, les deux encadrés en anglais, un glossaire, le scope de commit `en`.
+- **`.mailmap`** : 80 commits du 5 au 7 octobre 2026 portaient par erreur l'adresse d'un poste fictif des scripts, restée dans la configuration locale du clone ; le fichier corrige l'affichage dans `git log` et `git shortlog`. GitHub, lui, ne le lit pas : ces commits y restent sans lien vers le compte. Le piège et la vérification à faire avant chaque lot sont dans `CLAUDE.md`.
+
+### Suite prévue
+
+- **Lots 21 à 23** : les situations, par thème (Au quotidien, Réparer, Avec les autres et Fichiers).
+- Puis Comprendre (lot 24), Travailler en équipe (25 et 26), Commandes (27 à 29), clôture en 1.1.0 (lot 30).
+
+---
+
+## [1.0.0] — 7 octobre 2026 · Phase 4, lot 19 : ouvrir les portes — en ligne le 7 octobre 2026
+
+Branche `communaute/ouvrir-les-portes`, partie de `main` (`305e917`), fusionnée par la PR #29 (`37eb41e`) ; tag `v1.0.0` et [release](https://github.com/Hatimou-Nabina/git-en-situation/releases/tag/v1.0.0) publiés le même jour. **Première version numérotée** : le site est complet en français, vérifié et déployé, et des gens vont s'en servir. À partir d'ici, le changelog suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) à la lettre, comme la page « Tenir un changelog » le recommande : une section par version, numérotée et datée, et un tag annoté `v1.0.0` sur le commit de fusion.
 
 ### Ce que contient la version 1.0.0
 
@@ -37,10 +60,10 @@ Branche `communaute/ouvrir-les-portes`, partie de `main` (`305e917`). **Premièr
 
 Par le mainteneur, ou par l'assistant avec son feu vert explicite : elles engagent le compte.
 
-1. **Le tag et la release** : tag annoté `v1.0.0` sur le commit de fusion de `main`, poussé, puis release GitHub reprenant cette section.
-2. **Le dépôt** : adresse du site et sujets ; Wiki et Projects, non utilisés, désactivés.
-3. **Les Discussions** : une catégorie « Annonces » (format annonce, seuls les mainteneurs publient), et un premier message de bienvenue épinglé.
-4. **Un ruleset de tags `v*`**, pour que personne ne supprime ni ne déplace une version.
+1. ✅ *Fait le 7 octobre 2026.* **Le tag et la release** : tag annoté `v1.0.0` sur le commit de fusion de `main`, poussé, puis release GitHub reprenant cette section.
+2. ✅ *Fait le 7 octobre 2026.* **Le dépôt** : adresse du site et sujets ; Wiki et Projects, non utilisés, désactivés.
+3. **Les Discussions** : une catégorie « Annonces » (format annonce, seuls les mainteneurs publient), à créer dans l'interface, l'API ne le permet pas ; puis un premier message de bienvenue épinglé.
+4. ✅ *Fait le 7 octobre 2026.* **Un ruleset de tags `v*`**, pour que personne ne supprime ni ne déplace une version.
 
 ### Suite prévue
 

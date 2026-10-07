@@ -12,20 +12,75 @@ hero:
       * main               61d6827 [origin/main] Fusionne feature/export-pdf
       <span class="comment"># "gone"? The answer takes two minutes.</span></pre>
   actions:
-    - text: Browse the French site
+    - text: Browse the situations
       # Hero links are not prefixed with the site base by Starlight: the base is written here on purpose.
-      link: /git-en-situation/situations/
+      link: /git-en-situation/en/situations/
       icon: right-arrow
-    - text: Help translate
-      link: https://github.com/Hatimou-Nabina/git-en-situation
+    - text: Propose a situation
+      link: https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=proposer-une-situation.yml
       icon: external
       variant: minimal
 ---
+
+import SituationsList from '../../../components/SituationsList.astro';
+
+<section class="home-section">
+
+## Every page follows the same path
+
+<ol class="home-steps">
+  <li><strong>Symptom</strong>What you see on screen, exact message included.</li>
+  <li><strong>Diagnosis</strong>What happened, in two or three sentences.</li>
+  <li><strong>Solution</strong>The commands in order, each with its real output.</li>
+  <li><strong>Why it works</strong>The piece of mental model that makes it stick, instead of copying.</li>
+</ol>
+
+</section>
+
+<section class="home-section">
+
+## The latest situations
+
+<SituationsList limit={3} sort="recent" />
+
+All the others are in the [catalogue](/en/situations/), sorted by theme and filterable by level. And [yours](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=proposer-une-situation.yml) has its place, even if you don't know the answer.
+
+</section>
+
+<section class="home-section">
+
+## The outputs shown are real
+
+No output is written by hand. Every situation has a versioned script that replays the scenario in throwaway repositories and prints each command followed by its output. The page copies that result, with the Git version and the date it was run. If your output differs, that's a mistake on the site, and [we want to know](https://github.com/Hatimou-Nabina/git-en-situation/issues/new?template=signaler-une-erreur.yml). Details in [How to read a situation](/en/situations/comment-lire/).
+
+</section>
 
 <section class="home-section">
 
 ## English version in progress
 
-The content is written in French first. Pages not translated yet are shown in French, with a notice at the top. Translations are welcome: see the repository's `CONTRIBUTING.md`.
+The content is written in French first and translated page by page. A page not translated yet is shown in French, with a notice at the top; the commands and their outputs are the same in both languages. Translations are welcome: see [how to translate](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/CONTRIBUTING.md#traduire) in the contribution guide.
+
+</section>
+
+<section class="home-section">
+
+## Four entry points
+
+<div class="home-entries">
+
+**[Situations](/en/situations/)**  
+The heart of the site. A symptom, a diagnosis, a solution, and why it works.
+
+**[Understand](/en/comprendre/)**  
+Git's mental model in short pages: commits, branches, remotes, merging. Most trouble comes from there, not from a forgotten option.
+
+**[Working as a team](/en/equipe/)**  
+Branches, pull requests, review, conventional commits, protections, secrets. What self-taught developers and small teams miss most.
+
+**[Commands](/en/commandes/)**  
+One page per command, limited to the ones that matter and their useful options, each pointing to the situations where it is used.
+
+</div>
 
 </section>

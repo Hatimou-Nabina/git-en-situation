@@ -25,7 +25,7 @@ Les issues étiquetées [« bonne première contribution »](https://github.com/
 
 **Une question, plutôt qu'une contribution ?** « Par où je commence ? », « est-ce que cette situation vaut une page ? » : les [Discussions](https://github.com/Hatimou-Nabina/git-en-situation/discussions) sont faites pour ça. Les issues restent pour ce qui est actionnable : une situation précise, une erreur repérée.
 
-Les traductions viendront après la version française : voir « Traduire » en fin de document.
+La version anglaise se construit page par page : voir « Traduire » en fin de document.
 
 ## Installer le projet
 
@@ -243,7 +243,7 @@ chore(deps): met à jour Starlight
 ci: valide les liens internes au build
 ```
 
-Types : `feat` (nouvelle page ou fonctionnalité), `fix` (correction), `docs` (documents du dépôt : README, CONTRIBUTING…), `refactor`, `chore`, `ci`. Scopes : `situations`, `comprendre`, `equipe`, `commandes`, `site`, `scripts`, `deps`.
+Types : `feat` (nouvelle page ou fonctionnalité), `fix` (correction), `docs` (documents du dépôt : README, CONTRIBUTING…), `refactor`, `chore`, `ci`. Scopes : `situations`, `comprendre`, `equipe`, `commandes`, `en` (version anglaise), `site`, `scripts`, `deps`.
 
 Pas de ligne `Co-Authored-By` générée automatiquement. Si plusieurs personnes ont écrit la page, elles sont citées dans la description de la PR.
 
@@ -253,7 +253,52 @@ Chaque PR est relue par le mainteneur (fichier `CODEOWNERS`). La relecture porte
 
 ## Traduire
 
-La version anglaise vivra dans `src/content/docs/en/`, avec les mêmes slugs. Une page absente en anglais affiche automatiquement le français, avec un bandeau. On commencera à traduire quand la structure française sera stable ; d'ici là, les propositions sont bienvenues en issue.
+La version anglaise vit dans `src/content/docs/en/`, avec **les mêmes chemins** que le français : `en/situations/quotidien/push-refuse-fetch-first.md` traduit `situations/quotidien/push-refuse-fetch-first.md`, et l'adresse reste `/en/situations/quotidien/push-refuse-fetch-first/`. Une page absente en anglais affiche automatiquement le français, avec un bandeau : on traduit une page à la fois, dans n'importe quel ordre. L'accueil et les pages d'entrée (catalogue, thèmes, sections, « How to read a situation », About) sont traduits ; les situations, les pages « Comprendre », « Travailler en équipe » et les fiches le sont page par page. Pour choisir : dans le [catalogue anglais](https://hatimou-nabina.github.io/git-en-situation/en/situations/), les pages encore à traduire sont marquées « in French ».
+
+**Ce qui se traduit** : `title`, `description`, `sidebar.label` s'il existe, et tout le texte. Le registre reste direct et tutoyé ; en anglais, « you » fait les deux.
+
+**Ce qui ne se traduit pas** : les commandes, les sorties, les noms de fichiers et de branches, les messages de commit du dépôt d'exemple (une équipe francophone : « Ajoute la page contact »), le chemin du script. Les blocs ` ```console ` sont **copiés tels quels** depuis la page française : Git parle anglais dans les deux langues, et le vérificateur contrôle la page anglaise avec le même script que la française. Les champs `level`, `risk`, `gitVersion`, `verified` et `published` sont recopiés à l'identique : `verified` est la date d'exécution du script, pas celle de la traduction.
+
+**Les liens internes** s'écrivent `/en/…`, par exemple `/en/comprendre/fast-forward-fusion-rebase/`. Un lien vers une page pas encore traduite est permis : Starlight servira le français avec un bandeau, et le validateur de liens le tolère le temps de la traduction. Une mention « (à venir) » devient « (coming) », sans lien, tant que la page française n'existe pas.
+
+**Les deux encadrés** de fin de situation, à recopier en remplaçant `<slug>`, la version de Git et la date par celles de la page française :
+
+````md
+:::note[Try it yourself]
+This page's script can create the problem on your machine. From a clone of the [site's repository](https://github.com/Hatimou-Nabina/git-en-situation), in Git Bash on Windows:
+
+```bash
+EXERCICE=1 bash scripts/situations/<slug>.sh
+```
+
+It stops right after the symptom, tells you which folder to go to and what to do. Fix it, then run it again without `EXERCICE=1` to compare with the solution.
+:::
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/situations/<slug>.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/situations/<slug>.sh), run with Git 2.50 on 5 October 2026. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::
+````
+
+**Le glossaire**, pour que les pages se ressemblent d'un traducteur à l'autre :
+
+| Français | Anglais |
+|---|---|
+| situation, symptôme, diagnostic, solution | situation, symptom, diagnosis, solution |
+| Pourquoi ça marche · Pièges · Voir aussi | Why it works · Pitfalls · See also |
+| Ce que ça évite · Comment on fait · Sur GitHub | What it avoids · How it's done · On GitHub |
+| L'idée · Voir par soi-même · Ce que ça change dans la pratique · Où ça sert | The idea · See for yourself · What it changes in practice · Where it's used |
+| À quoi ça sert · Les formes qui servent | What it's for · The forms that matter |
+| Comprendre · Travailler en équipe · Commandes · fiche | Understand · Working as a team · Commands · command page |
+| Au quotidien · Réparer · Avec les autres · Fichiers et dépôt | Everyday · Repair · With others · Files and repository |
+| débutant · intermédiaire · avancé | beginner · intermediate · advanced |
+| sans risque · réversible · destructif | no risk · reversible · destructive |
+| Sorties vérifiées · Essaie-le toi-même | Verified outputs · Try it yourself |
+| poste · dépôt · serveur · dépôt distant | machine · repository · server · remote |
+| bac à sable · encadré · gabarit · relecture · mainteneur | sandbox · callout · template · review · maintainer |
+| marque-page · instantané · avance rapide · fusion · référence distante | bookmark · snapshot · fast-forward · merge · remote-tracking reference |
+| pousser · récupérer · mettre de côté · branche principale | push · fetch · stash, set aside · main branch |
+
+**Vérifier, puis proposer** : `npm run verifier en/<slug>` confirme que les blocs de la page anglaise correspondent au script, `npm run build` que les liens tiennent. Une branche par page ou par thème, un commit par page, en français : `feat(en): traduit « Mon push est refusé »`. La PR dit quelle page est traduite et que les blocs sont ceux de la page française.
 
 ## Licence
 
