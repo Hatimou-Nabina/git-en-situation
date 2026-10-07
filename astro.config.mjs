@@ -85,11 +85,10 @@ export default defineConfig({
         '@fontsource/ibm-plex-mono/500.css',
         './src/styles/custom.css',
       ],
-      // Le temps de la traduction, une page anglaise peut pointer vers une page pas encore
-      // traduite : Starlight sert alors le français avec un bandeau. Le validateur refuse ces
-      // liens par défaut (errorOnFallbackPages) ; on le relâche jusqu'à la fin de la
-      // traduction (lot 30), où il faudra le remettre.
-      plugins: [starlightLinksValidator({ errorOnFallbackPages: false })],
+      // Le validateur refuse aussi un lien vers une page de repli (errorOnFallbackPages, son
+      // défaut) : une page anglaise qui cite une page française pas encore traduite casse le
+      // build. Relâché du 7 octobre 2026 à la fin de la traduction, strict depuis.
+      plugins: [starlightLinksValidator()],
     }),
   ],
 });
