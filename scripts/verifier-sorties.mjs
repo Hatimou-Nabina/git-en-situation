@@ -10,12 +10,18 @@
  * un extrait de son script, dans l'ordre qu'elle veut : c'est une inclusion,
  * pas une égalité.
  *
+ * Une page anglaise (en/…) reprend les blocs de la page française et cite le
+ * même script : Git parle anglais dans les deux langues. Un script n'est rejoué
+ * qu'une fois pour toutes les pages qui le citent.
+ *
  * Les blocs text, bash et yaml sont cités par nature et ne sont pas vérifiés.
  * Une page sans script (index, à propos, la fiche gh) est ignorée.
  *
  * Usage :
  *   node scripts/verifier-sorties.mjs                  les pages dont gitVersion est celle du git installé
- *   node scripts/verifier-sorties.mjs commandes/log    seulement les pages dont le chemin contient ce texte
+ *   node scripts/verifier-sorties.mjs commandes/log    seulement les pages dont le chemin contient ce texte,
+ *                                                      à partir d'un début de segment (push-refuse, commandes/log)
+ *   node scripts/verifier-sorties.mjs en/              seulement les pages anglaises
  *   node scripts/verifier-sorties.mjs --git-version 2.50
  *   node scripts/verifier-sorties.mjs --toutes         sans tenir compte de la version de Git
  *   node scripts/verifier-sorties.mjs --parallele 2    nombre de scripts rejoués en même temps (4 par défaut)
@@ -80,16 +86,27 @@ function analyser(chemin) {
   return { id, gitVersion, script, blocs };
 }
 
-let toutesLesPages = pages(docs)
+// Un filtre s'aligne sur un début de segment du chemin : « en/ » ne retient que la
+// version anglaise, et pas « quotidien/ », qui finit pareil.
+const correspond = (id, filtre) => `/${id}/`.includes(`/${filtre}`);
+const toutesLesPages = pages(docs)
   .map(analyser)
-  .filter((p) => !p.id.startsWith('en/'))
-  .filter((p) => options.filtres.length === 0 || options.filtres.some((f) => p.id.includes(f)));
+  .filter((p) => options.filtres.length === 0 || options.filtres.some((f) => correspond(p.id, f)));
 
 const sansScript = toutesLesPages.filter((p) => !p.script);
 const autreVersion = toutesLesPages.filter((p) => p.script && !options.toutes && p.gitVersion !== versionCible);
 const aVerifier = toutesLesPages.filter((p) => p.script && (options.toutes || p.gitVersion === versionCible));
 
-console.log(`Git installé : ${gitInstallee}. Pages à vérifier : ${aVerifier.length} (Git ${options.toutes ? 'toutes versions' : versionCible}).`);
+// Un script par groupe de pages : la page française et sa traduction citent le même
+const parScript = new Map();
+for (const page of aVerifier) {
+  if (!parScript.has(page.script)) parScript.set(page.script, []);
+  parScript.get(page.script).push(page);
+}
+
+console.log(
+  `Git installé : ${gitInstallee}. Pages à vérifier : ${aVerifier.length}, scripts à rejouer : ${parScript.size} (Git ${options.toutes ? 'toutes versions' : versionCible}).`,
+);
 if (autreVersion.length) {
   console.log(`Ignorées, autre version de Git : ${autreVersion.map((p) => `${p.id} (${p.gitVersion})`).join(', ')}.`);
 }
@@ -97,15 +114,22 @@ if (sansScript.length && options.filtres.length) {
   console.log(`Sans script : ${sansScript.map((p) => p.id).join(', ')}.`);
 }
 
-// Rejouer un script et comparer
-async function verifier(page) {
-  let sortie;
+// Rejouer un script, puis comparer chaque page qui le cite
+async function rejouer(script) {
   try {
-    const { stdout, stderr } = await exec('bash', [page.script], { cwd: racine, maxBuffer: 16 * 1024 * 1024 });
-    sortie = normaliser(stdout + stderr);
+    const { stdout, stderr } = await exec('bash', [script], { cwd: racine, maxBuffer: 16 * 1024 * 1024 });
+    return { sortie: normaliser(stdout + stderr) };
   } catch (erreur) {
-    return { page, erreurs: [`le script a échoué : ${erreur.message.split('\n')[0]}`] };
+    return { echec: `le script a échoué : ${erreur.message.split('\n')[0]}` };
   }
+}
+
+async function verifierScript([script, pagesDuScript]) {
+  const { sortie, echec } = await rejouer(script);
+  return pagesDuScript.map((page) => ({ page, erreurs: echec ? [echec] : comparer(page, sortie) }));
+}
+
+function comparer(page, sortie) {
   const lignesSortie = new Set(sortie.split('\n'));
   const erreurs = [];
   page.blocs.forEach((bloc, n) => {
@@ -121,11 +145,15 @@ async function verifier(page) {
         continue;
       }
       const absente = segment.find((l) => !lignesSortie.has(l));
-      const ou = sortie.includes(texte) ? 'présente, mais pas dans cet ordre' : absente !== undefined ? `ligne absente de la sortie : « ${absente} »` : 'lignes présentes, mais pas contiguës';
+      const ou = sortie.includes(texte)
+        ? 'présente, mais pas dans cet ordre'
+        : absente !== undefined
+          ? `ligne absente de la sortie : « ${absente} »`
+          : 'lignes présentes, mais pas contiguës';
       erreurs.push(`bloc ${n + 1}, « ${segment[0]} » : ${ou}`);
     }
   });
-  return { page, erreurs };
+  return erreurs;
 }
 
 // Découpe un bloc en segments : une ligne « $ commande » et les lignes de
@@ -149,10 +177,10 @@ function segments(bloc) {
 
 // Quatre scripts à la fois : chacun a son propre bac à sable
 const resultats = [];
-const file = [...aVerifier];
+const file = [...parScript.entries()];
 await Promise.all(
   Array.from({ length: Math.max(1, options.parallele) }, async () => {
-    while (file.length) resultats.push(await verifier(file.shift()));
+    while (file.length) resultats.push(...(await verifierScript(file.shift())));
   }),
 );
 resultats.sort((a, b) => a.page.id.localeCompare(b.page.id, 'fr'));
@@ -171,7 +199,7 @@ for (const { page, erreurs } of resultats) {
 }
 console.log(
   pagesEnEchec === 0
-    ? `\n${resultats.length} pages, ${blocsVerifies} blocs : tout correspond.`
+    ? `\n${resultats.length} pages, ${blocsVerifies} blocs, ${parScript.size} scripts rejoués : tout correspond.`
     : `\n${pagesEnEchec} page(s) sur ${resultats.length} ne correspondent plus à leur script.`,
 );
 process.exit(pagesEnEchec === 0 ? 0 : 1);
