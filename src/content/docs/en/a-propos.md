@@ -18,7 +18,7 @@ This site was born that day.
 - **Always the why.** A command without its mental model is forgotten within a week.
 - **Git first, GitHub flagged.** What holds for GitLab or Bitbucket stays reusable.
 - **Short.** A page reads in five minutes. What exceeds that becomes another page.
-- **In French first**, for French-speaking developers of all levels. The English version is being built page by page; a page not translated yet is shown in French, with a notice.
+- **In French first**, for French-speaking developers of all levels, and in English since 7 October 2026. The French page remains the reference; the commands and their outputs are the same in both languages.
 
 ## Who
 
