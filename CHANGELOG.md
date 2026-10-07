@@ -19,9 +19,13 @@ Branche `en/lots-24-30`, partie de `main` (`f030614`). **Une seule branche et un
 
 - « The pull request, from opening to merge », « Conventional commits », « One branch per change », « Protecting the main branch », « Secrets never go into the repository », « Reviewing a pull request ». Les messages des hooks et des scripts d'exemple restent en français dans les blocs et sont traduits dans le texte.
 
+### Lot 26 : « Travailler en équipe », pages 7 à 12, en anglais
+
+- « Working branch and production branch », « Keeping a changelog », « Versions and tags », « CODEOWNERS, issue and PR templates », « A CI that checks what the machines don't see » (Git 2.55, vérifiée en CI), « Forking and contributing to an open source project ». **La section « Working as a team » est entièrement traduite.** Les fichiers d'exemple montrés dans les blocs (changelog, CODEOWNERS, gabarits, script de vérification) restent en français et sont résumés dans le texte.
+
 ### Suite prévue
 
-- **Lot 26** : Travailler en équipe, pages 7 à 12. **Lots 27 à 29** : Commandes (29 fiches). **Lot 30** : clôture, validateur de liens strict, accueil anglais définitif, release 1.1.0.
+- **Lots 27 à 29** : Commandes (29 fiches). **Lot 30** : clôture, validateur de liens strict, accueil anglais définitif, release 1.1.0.
 
 ---
 
