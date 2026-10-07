@@ -7,9 +7,23 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 4, lot 23 : les situations « Avec les autres » et « Fichiers et dépôt » en anglais
+## [Non publié] — Phase 4, lots 24 à 30 : la fin de la version anglaise
 
-Branche `en/lot-23-autres-fichiers`, partie de `main` (`84ec147`).
+Branche `en/lots-24-30`, partie de `main` (`f030614`). **Une seule branche et une seule pull request pour les sept derniers lots**, à la demande du mainteneur le 7 octobre 2026 : un commit par page, la PR ouverte en brouillon dès le premier lot pour que la CI tourne à chaque poussée et que la relecture se fasse au fil de l'eau, une fusion à la fin.
+
+### Lot 24 : les pages « Comprendre » en anglais
+
+- **Les quatre pages « Understand »** : « A commit is a snapshot », « A branch is a bookmark », « Remotes and remote-tracking references », « Fast-forward, merge, rebase ». La section est entièrement traduite. Mêmes blocs de terminal que les pages françaises, vérifiés par les mêmes scripts.
+
+### Suite prévue
+
+- **Lots 25 et 26** : Travailler en équipe (12 pages). **Lots 27 à 29** : Commandes (29 fiches). **Lot 30** : clôture, validateur de liens strict, accueil anglais définitif, release 1.1.0.
+
+---
+
+## 7 octobre 2026 · Phase 4, lot 23 : les situations « Avec les autres » et « Fichiers et dépôt » en anglais — en ligne le 7 octobre 2026
+
+Branche `en/lot-23-autres-fichiers`, partie de `main` (`84ec147`), fusionnée par la PR #34 (`f030614`).
 
 ### Contenu
 
