@@ -31,9 +31,13 @@ Branche `en/lots-24-30`, partie de `main` (`f030614`). **Une seule branche et un
 
 - `git add`, `git commit`, `git stash`, `git rm`, `git reset`, `git restore`, `git revert`, `git reflog`, `git merge`, `git rebase`.
 
+### Lot 29 : fiches « Commandes » 21 à 29, en anglais
+
+- `git cherry-pick`, `git tag`, `git config`, `git show`, `git ls-files`, `git check-ignore`, `gh`, `git cat-file`, `git merge-base`. **La section « Commands » est entièrement traduite, et avec elle les 68 pages du site** : plus aucune page anglaise ne s'affiche en français.
+
 ### Suite prévue
 
-- **Lot 29** : les 9 dernières fiches. **Lot 30** : clôture, validateur de liens strict, accueil anglais définitif, release 1.1.0.
+- **Lot 30** : clôture, validateur de liens strict, accueil anglais définitif, « version anglaise en préparation » retiré, version 1.1.0.
 
 ---
 
