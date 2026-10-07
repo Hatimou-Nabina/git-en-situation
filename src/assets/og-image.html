@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Image de partage de git-en-situation</title>
+<!--
+  Source de public/og-image.png (1200 × 630), l'image affichée quand un lien du site est partagé
+  sur une messagerie ou un réseau. Rendue avec Chrome headless, commande dans CLAUDE.md.
+  Les polices sont celles du site, lues dans node_modules (Fontsource) : rien n'est chargé depuis un service tiers.
+-->
+<style>
+  @font-face { font-family: 'IBM Plex Sans'; font-weight: 400; src: url('../../node_modules/@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'IBM Plex Sans'; font-weight: 600; src: url('../../node_modules/@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-600-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'IBM Plex Mono'; font-weight: 400; src: url('../../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'IBM Plex Mono'; font-weight: 500; src: url('../../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2') format('woff2'); }
+
+  html, body { margin: 0; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden; box-sizing: border-box;
+    padding: 56px 80px;
+    background: #1a1715; color: #f3eee8;
+    font-family: 'IBM Plex Sans', sans-serif;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .top { display: flex; justify-content: space-between; align-items: baseline; font-family: 'IBM Plex Mono', monospace; font-size: 22px; }
+  .top .name { color: #d9623c; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; }
+  .top .url { color: #8d8176; }
+  h1 { font-size: 62px; line-height: 1.08; margin: 18px 0 18px; font-weight: 600; letter-spacing: -0.01em; max-width: 980px; }
+  .tagline { font-size: 27px; line-height: 1.35; color: #bfb5ab; margin: 0; max-width: 900px; }
+  .terminal {
+    margin: 0; background: #272220; border: 1px solid #39322c; border-radius: 10px;
+    padding: 24px 28px; font-family: 'IBM Plex Mono', monospace; font-size: 19px; line-height: 1.6;
+    white-space: pre; color: #e6dfd8; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  }
+  .terminal .cmd { color: #f3eee8; font-weight: 500; }
+  .terminal .hl { color: #d9623c; font-weight: 500; }
+  .terminal .comment { color: #8d8176; }
+</style>
+</head>
+<body>
+  <div>
+    <div class="top"><span class="name">Git en situation</span><span class="url">hatimou-nabina.github.io/git-en-situation</span></div>
+    <h1>Git, à partir des situations que tu vis vraiment.</h1>
+    <p class="tagline">Le symptôme, la solution, le pourquoi. En cinq minutes, et chaque commande affichée a été réellement exécutée.</p>
+  </div>
+  <pre class="terminal"><span class="cmd">$ git branch -vv</span>
+  feature/export-pdf 7abda0a [origin/feature/export-pdf: <span class="hl">gone</span>] Ajoute l'export PDF
+* main               61d6827 [origin/main] Fusionne feature/export-pdf
+<span class="comment"># « gone » ? La réponse tient en deux minutes.</span></pre>
+</body>
+</html>

@@ -30,6 +30,16 @@ export default defineConfig({
       title: 'Git en situation',
       description: 'Git et GitHub, à partir des situations que tu vis vraiment.',
       logo: { src: './src/assets/logo.svg', alt: '' },
+      // Image de partage, affichée quand un lien du site est posté sur une messagerie ou un
+      // réseau. Starlight pose og:title, og:description et twitter:card, mais pas og:image.
+      // Source : src/assets/og-image.html, rendue en public/og-image.png (commande dans CLAUDE.md).
+      head: [
+        { tag: 'meta', attrs: { property: 'og:image', content: `${site}${base}/og-image.png` } },
+        { tag: 'meta', attrs: { property: 'og:image:width', content: '1200' } },
+        { tag: 'meta', attrs: { property: 'og:image:height', content: '630' } },
+        { tag: 'meta', attrs: { property: 'og:image:alt', content: 'Git en situation : Git, à partir des situations que tu vis vraiment.' } },
+        { tag: 'meta', attrs: { name: 'twitter:image', content: `${site}${base}/og-image.png` } },
+      ],
       defaultLocale: 'root',
       locales: {
         root: { label: 'Français', lang: 'fr' },
