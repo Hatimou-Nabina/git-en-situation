@@ -19,6 +19,7 @@ Branche `comprendre/pages-a-venir`, partie de `main` (`431ee36`). Hors phase : c
 ### Pour les contributeurs
 
 - Les issues #11, #24 et #25 sont fermées par cette PR. Les deux relectures (#12, #13) restent ouvertes.
+- **La catégorie « Annonces » existe dans les Discussions** (format annonce : seuls les mainteneurs publient, tout le monde commente), créée le 7 octobre 2026 dans l'interface, l'API ne le permettant pas. Le [message de bienvenue](https://github.com/Hatimou-Nabina/git-en-situation/discussions/31) y a été déplacé, mis à jour (1.1.0, 74 pages dans les deux langues, deux tâches « bonne première contribution » ouvertes) et épinglé en tête des Discussions.
 
 ### Suite prévue
 
@@ -111,7 +112,7 @@ Branche `en/lot-21-quotidien`, partie de `main` (`8e98cab`), fusionnée par la P
 ### Contenu
 
 - **Les huit situations restantes du thème « Au quotidien », en anglais** : « A remote branch was deleted, but I still see it », « After cloning, I don't see the other people's branches », « git pull asks me to choose between merge and rebase », « Setting my work in progress aside to change branch », « First push of a branch, "has no upstream branch" », « Renaming a branch, locally and on the server », « Deleting an old branch without losing anything », « Seeing what changed between my branch and main ». Avec la pilote du lot 20, le thème est entièrement traduit : sa page anglaise ne porte plus aucune marque « in French ». Mêmes blocs de terminal que les pages françaises, vérifiés par les mêmes scripts.
-- **Un message de bienvenue** dans les Discussions ([#31](https://github.com/Hatimou-Nabina/git-en-situation/discussions/31)), publié dans « Ideas » faute de catégorie « Annonces », que l'API ne sait pas créer ; à déplacer le jour où la catégorie existera.
+- **Un message de bienvenue** dans les Discussions ([#31](https://github.com/Hatimou-Nabina/git-en-situation/discussions/31)), publié d'abord dans « Ideas » faute de catégorie « Annonces », que l'API ne sait pas créer ; déplacé dans « Annonces » le 7 octobre 2026, une fois la catégorie créée dans l'interface.
 
 ### Suite prévue
 
@@ -170,11 +171,11 @@ Branche `communaute/ouvrir-les-portes`, partie de `main` (`305e917`), fusionnée
 
 ### Actions requises après la fusion
 
-Par le mainteneur, ou par l'assistant avec son feu vert explicite : elles engagent le compte.
+Elles engagent le compte du propriétaire : rien ne se fait sans son feu vert explicite.
 
 1. ✅ *Fait le 7 octobre 2026.* **Le tag et la release** : tag annoté `v1.0.0` sur le commit de fusion de `main`, poussé, puis release GitHub reprenant cette section.
 2. ✅ *Fait le 7 octobre 2026.* **Le dépôt** : adresse du site et sujets ; Wiki et Projects, non utilisés, désactivés.
-3. ✅ *Fait le 7 octobre 2026, dans « Ideas ».* **Les Discussions** : le message de bienvenue est publié ([#31](https://github.com/Hatimou-Nabina/git-en-situation/discussions/31)). La catégorie « Annonces » ne se crée que dans l'interface ; le message y sera déplacé, et épinglé, quand elle existera.
+3. ✅ *Fait le 7 octobre 2026.* **Les Discussions** : la catégorie « Annonces » (format annonce, seuls les mainteneurs publient), créée dans l'interface, l'API ne le permettant pas ; le message de bienvenue ([#31](https://github.com/Hatimou-Nabina/git-en-situation/discussions/31)), publié d'abord dans « Ideas », y est déplacé, mis à jour et épinglé.
 4. ✅ *Fait le 7 octobre 2026.* **Un ruleset de tags `v*`**, pour que personne ne supprime ni ne déplace une version.
 
 ### Suite prévue
