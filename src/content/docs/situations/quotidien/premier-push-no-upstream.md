@@ -86,7 +86,7 @@ Une branche créée depuis une branche du serveur, par exemple avec `git switch 
 
 - [Après un clone, je ne vois pas les branches des autres](/situations/quotidien/branches-invisibles-apres-clone/)
 - [Renommer une branche, en local et sur le serveur](/situations/quotidien/renommer-une-branche/)
-- Comprendre : *Upstream, la branche que la tienne suit* (à venir)
+- [Comprendre : upstream, la branche que la tienne suit](/comprendre/upstream-la-branche-que-la-tienne-suit/)
 
 :::note[Essaie-le toi-même]
 Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :

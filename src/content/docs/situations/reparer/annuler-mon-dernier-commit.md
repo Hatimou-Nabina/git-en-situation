@@ -123,7 +123,7 @@ Un commit ne se modifie pas : `--amend` en crée un nouveau, avec le même paren
 - [J'ai commité sur la mauvaise branche](/situations/reparer/commit-sur-la-mauvaise-branche/)
 - [Annuler un commit déjà poussé](/situations/reparer/annuler-un-commit-deja-pousse/)
 - [Retrouver un commit perdu](/situations/reparer/retrouver-un-commit-perdu/)
-- Comprendre : *Le reflog, ton filet de sécurité* (à venir)
+- [Comprendre : le reflog, ton filet de sécurité](/comprendre/le-reflog-ton-filet-de-securite/)
 
 :::note[Essaie-le toi-même]
 Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :

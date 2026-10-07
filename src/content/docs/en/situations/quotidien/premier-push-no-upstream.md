@@ -86,7 +86,7 @@ A branch created from a server branch, for instance with `git switch feature/x` 
 
 - [After cloning, I don't see the other people's branches](/en/situations/quotidien/branches-invisibles-apres-clone/)
 - [Renaming a branch, locally and on the server](/en/situations/quotidien/renommer-une-branche/)
-- Understand: *Upstream, the branch yours follows* (coming)
+- [Understand: upstream, the branch yours follows](/en/comprendre/upstream-la-branche-que-la-tienne-suit/)
 
 :::note[Try it yourself]
 This page's script can create the problem on your machine. From a clone of the [site's repository](https://github.com/Hatimou-Nabina/git-en-situation), in Git Bash on Windows:

@@ -98,7 +98,7 @@ Since it's a commit, a stash keeps indefinitely, can be listed, shown with `git 
 ## See also
 
 - [Seeing what changed between my branch and main](/en/situations/quotidien/voir-ce-qui-a-change/)
-- Understand: *The index, the step between your folder and the commit* (coming)
+- [Understand: the index, the step between your folder and the commit](/en/comprendre/l-index-l-etape-entre-ton-dossier-et-le-commit/)
 
 :::note[Try it yourself]
 This page's script can create the problem on your machine. From a clone of the [site's repository](https://github.com/Hatimou-Nabina/git-en-situation), in Git Bash on Windows:

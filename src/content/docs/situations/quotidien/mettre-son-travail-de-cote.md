@@ -98,7 +98,7 @@ Comme c'est un commit, un stash se garde indéfiniment, se liste, se montre avec
 ## Voir aussi
 
 - [Voir ce qui a changé entre ma branche et main](/situations/quotidien/voir-ce-qui-a-change/)
-- Comprendre : *L'index, l'étape entre ton dossier et le commit* (à venir)
+- [Comprendre : l'index, l'étape entre ton dossier et le commit](/comprendre/l-index-l-etape-entre-ton-dossier-et-le-commit/)
 
 :::note[Essaie-le toi-même]
 Le script de cette page sait fabriquer la panne sur ton poste. Depuis un clone du [dépôt du site](https://github.com/Hatimou-Nabina/git-en-situation), dans Git Bash sous Windows :
