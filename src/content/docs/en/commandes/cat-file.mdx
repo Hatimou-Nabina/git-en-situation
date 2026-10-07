@@ -1,0 +1,97 @@
+---
+title: git cat-file
+description: Reading a Git object as it is stored. An object's type, a commit's content with its tree and its parent, the tree with its files, the blob with its content and its size, the annotated tag. The command that shows everything is there, in plain sight.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git cat-file` reads an object from Git's database as it is stored: its type, its content, its size. There are only four types, blob, tree, commit and tag, and the whole repository is made of nothing else. It's the command of this site's "Understand" pages: showing the inside of a commit is better than a diagram. The full manual: `git help cat-file`.
+
+## The forms that matter
+
+**`-t`**: an object's type, designated by its id, a reference, or a path in a commit.
+
+```console
+$ git rev-parse HEAD
+1d5663bd6e6fa06c4f968cd5bb1d1b899580a467
+
+$ git cat-file -t HEAD
+commit
+
+$ git cat-file -t HEAD^{tree}
+tree
+
+$ git cat-file -t HEAD:src/app.js
+blob
+
+$ git cat-file -t v1.0.0
+tag
+```
+
+**`-p` on a commit**: its tree, its parent, its author and its committer with their dates in seconds, and its message. Nothing else: a commit is only that.
+
+```console
+$ git cat-file -p HEAD
+tree f9a370e301e8f9195f87daec8908e9bd753d9193
+parent d0a0b32921f0e3e6484b075d9ff287b1f409cc5c
+author Awa <awa@example.com> 1791194400 +0000
+committer Awa <awa@example.com> 1791194400 +0000
+
+feat(app): premiere version
+```
+
+**`-p` on a tree**: the files and folders, with their mode, their type and their id. A folder is a tree in its turn.
+
+```console
+$ git cat-file -p HEAD^{tree}
+100644 blob b60e1ad35025d69cbe886686e6a0b040551b9fde	README.md
+040000 tree 6bf39f886ffb9362a2d2c1fae780940353ea5bb5	src
+
+$ git cat-file -p HEAD:src
+100644 blob e14c4f2a9561ade31986f9319d5c639094509905	app.js
+```
+
+**`-p` on a blob**: the file's raw content; **`-s`**: its size in bytes. A blob has no name, it's the tree that names it.
+
+```console
+$ git cat-file -p HEAD:src/app.js
+console.log(1)
+
+$ git cat-file -s HEAD:src/app.js
+15
+```
+
+**An annotated tag** is a full object: the object it points to, its type, the name, the tag's author and its message.
+
+```console
+$ git cat-file -p v1.0.0
+object 1d5663bd6e6fa06c4f968cd5bb1d1b899580a467
+type commit
+tag v1.0.0
+tagger Awa <awa@example.com> 1791194400 +0000
+
+Version 1.0.0
+```
+
+## Pitfalls
+
+- **`HEAD^{tree}` and the shell**: in zsh, the braces must be quoted, `'HEAD^{tree}'`. In bash, it goes through as is.
+- **Dates are in seconds since 1970**, as Git stores them. `git show` or `git log` translate them.
+- **`-p` on a binary file** displays unreadable bytes: `-s` for the size, `git show` for a summary.
+- **Two files with identical content have the same blob**, even with two names: [A commit is a snapshot](/en/comprendre/un-commit-est-un-instantane/) shows it, and that's why a repository doesn't grow when you copy a file.
+- **To read comfortably**, it's [`git show`](/en/commandes/show/); `cat-file` is the tool when you want to see exactly what is stored.
+
+## Where it's used
+
+Read first: [A commit is a snapshot](/en/comprendre/un-commit-est-un-instantane/), [A branch is a bookmark](/en/comprendre/une-branche-est-un-marque-page/), [`git tag`](/en/commandes/tag/).
+
+<CommandUsages command="cat-file" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/cat-file.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/cat-file.sh), run with Git 2.50 on 6 October 2026. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::
