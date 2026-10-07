@@ -18,7 +18,7 @@ Ce site est né ce jour-là.
 - **Toujours le pourquoi.** Une commande sans son modèle mental s'oublie en une semaine.
 - **Git d'abord, GitHub étiqueté.** Ce qui vaut pour GitLab ou Bitbucket reste réutilisable.
 - **Court.** Une page se lit en cinq minutes. Ce qui dépasse devient une autre page.
-- **En français d'abord**, pour les développeurs francophones de tous niveaux. Une version anglaise suivra.
+- **En français d'abord**, pour les développeurs francophones de tous niveaux. Une version anglaise est en préparation.
 
 ## Qui
 
@@ -31,3 +31,5 @@ Le contenu de ce site est sous licence [Creative Commons Attribution - Partage d
 ## Le dépôt
 
 <https://github.com/Hatimou-Nabina/git-en-situation>
+
+Le site est versionné comme il le recommande : chaque version est consignée dans le [changelog](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/CHANGELOG.md) et annoncée dans les [releases](https://github.com/Hatimou-Nabina/git-en-situation/releases) du dépôt. Pour en être prévenu, « Watch », puis « Custom » et « Releases ». Une étoile aide le projet à être trouvé.
