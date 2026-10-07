@@ -1,0 +1,93 @@
+---
+title: git switch
+description: Changing branch, creating one from the right starting point, going back to the previous one, fetching a branch that only exists on the server, placing yourself on a commit without a branch. What happens when changes are in progress, and what switch refuses.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-05
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git switch` moves `HEAD`: it changes the current branch and puts the working folder in that branch's state. It replaces half of `git checkout`, the half about branches; the other half, restoring a file, became `git restore`. The full manual: `git help switch`.
+
+## The forms that matter
+
+**`git switch name`** goes to an existing branch; **`-c name`** creates one and goes there, from the current commit or from the starting point given after it.
+
+```console
+$ git switch feature/recherche
+Switched to branch 'feature/recherche'
+
+$ git switch -c fix/titre main
+Switched to a new branch 'fix/titre'
+```
+
+Starting from `main` rather than from the branch you're on avoids taking work in progress into the new one: [One branch per change](/en/equipe/une-branche-par-changement/).
+
+**`git switch -`**: the previous branch, like `cd -`.
+
+```console
+$ git switch -
+Switched to branch 'feature/recherche'
+```
+
+**`git switch name`** when only `origin/name` exists: Git creates the local branch and ties it to the server's, in one command.
+
+```console
+$ git switch feature/export
+Switched to a new branch 'feature/export'
+branch 'feature/export' set up to track 'origin/feature/export'.
+```
+
+**With changes in progress**, two cases. If the target branch has another version of a file you modified, `switch` refuses: it would have to overwrite your work. Otherwise, your changes follow you, as they are.
+
+```console
+$ git switch feature/recherche
+error: Your local changes to the following files would be overwritten by checkout:
+	README.md
+Please commit your changes or stash them before you switch branches.
+Aborting
+
+$ git switch fix/titre
+Switched to branch 'fix/titre'
+M	README.md
+
+$ git status --short
+ M README.md
+```
+
+The `M	README.md` line says it: the change came along. Nothing was committed, nothing is lost. To set it aside while you go to `feature/recherche`: [Setting my work in progress aside to change branch](/en/situations/quotidien/mettre-son-travail-de-cote/).
+
+**`--detach`** places you on a commit without a branch, to look or rebuild. `switch` refuses a remote reference without that flag, and says why; `-` then brings you back where you came from.
+
+```console
+$ git switch origin/main
+fatal: a branch is expected, got remote branch 'origin/main'
+hint: If you want to detach HEAD at the commit, try again with the --detach option.
+
+$ git switch --detach origin/main
+HEAD is now at d0a0b32 Premier commit
+
+$ git switch -
+Switched to branch 'fix/titre'
+```
+
+## Pitfalls
+
+- **"detached HEAD" is not a breakdown**: it's the state after `--detach`, or after a `switch` onto a tag. A commit made there must receive a branch before you leave: [I am in "detached HEAD"](/en/situations/reparer/detached-head/).
+- **`git switch origin/main` doesn't exist**: `origin/main` is a copy, not a branch of yours. To work on it: `git switch main` then `git pull`, or `git switch -c name origin/main`: [Remotes and remote-tracking references](/en/comprendre/remotes-et-references-distantes/).
+- **`git checkout` still does everything.** It works, but it mixes two moves. `switch` for branches, `restore` for files: one command, one meaning.
+- **`--discard-changes`**, or `-f`, forces the switch by throwing away the changes in progress. They are in no commit: there is no way back. A `stash` costs one more command and loses nothing.
+- **Changes that follow you** can surprise: a file modified on `main` arrives on the new branch. It's intended, and it's the way to recover work started on the wrong branch before the commit. After the commit, it's another page: [I committed on the wrong branch](/en/situations/reparer/commit-sur-la-mauvaise-branche/).
+
+## Where it's used
+
+Read first: [After cloning, I don't see the other people's branches](/en/situations/quotidien/branches-invisibles-apres-clone/), [I committed on the wrong branch](/en/situations/reparer/commit-sur-la-mauvaise-branche/), [I am in "detached HEAD"](/en/situations/reparer/detached-head/).
+
+<CommandUsages command="switch" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/switch.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/switch.sh), run with Git 2.50 on 6 October 2026. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::
