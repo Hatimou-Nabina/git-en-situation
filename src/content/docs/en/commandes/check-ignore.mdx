@@ -1,0 +1,91 @@
+---
+title: git check-ignore
+description: Knowing whether a path is ignored, and by which rule of which file. The three sources of rules, negation, --non-matching to also see what gets through, the exit code for a script, and the already tracked file that no rule ignores.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git check-ignore` says whether a path is ignored, and with `-v`, by which rule, at which line, of which file. The rules come from three places: the project's `.gitignore`, versioned; `.git/info/exclude`, local to the clone; and your machine's global file, `core.excludesFile`. When a file isn't ignored although it should be, or the reverse, it's the command that settles it. The full manual: `git help check-ignore`.
+
+## The forms that matter
+
+**`git check-ignore paths`** displays the ones that are ignored; **`-v`** adds the responsible rule, including a `!` negation.
+
+```console
+$ cat .gitignore
+*.log
+node_modules/
+/dist
+!important.log
+
+$ git check-ignore debug.log app.js
+debug.log
+
+$ git check-ignore -v debug.log important.log node_modules/x.js dist/app.js src/dist/app.js
+.gitignore:1:*.log	debug.log
+.gitignore:4:!important.log	important.log
+.gitignore:2:node_modules/	node_modules/x.js
+.gitignore:3:/dist	dist/app.js
+```
+
+`src/dist/app.js` doesn't show up: `/dist`, with its leading slash, only targets the root's `dist`. And `important.log` is listed with the rule that brings it back in: it isn't ignored, but a rule concerns it.
+
+**`--non-matching`** also shows the paths no rule touches, prefixed with `::`.
+
+```console
+$ git check-ignore -v --non-matching src/dist/app.js important.log
+::	src/dist/app.js
+.gitignore:4:!important.log	important.log
+```
+
+**The rules that aren't in the project's `.gitignore`**: `-v` names the file, and that's often the answer to "why is this file ignored on my machine and not on theirs?".
+
+```console
+$ git check-ignore -v .DS_Store
+/home/awa/.gitignore_global:1:.DS_Store	.DS_Store
+
+$ git check-ignore -v scratch/notes.txt
+.git/info/exclude:7:scratch/	scratch/notes.txt
+```
+
+**`-q`** says nothing and answers with the exit code, for a script. The two `echo` strings, in French, mean "ignored" and "not ignored".
+
+```console
+$ git check-ignore -q debug.log && echo "ignore" || echo "pas ignore"
+ignore
+
+$ git check-ignore -q app.js && echo "ignore" || echo "pas ignore"
+pas ignore
+```
+
+**An already tracked file is never ignored**, and `check-ignore` doesn't flag it, unless you ask it to forget the index with `--no-index`.
+
+```console
+$ git check-ignore -v suivi.log
+
+$ git check-ignore -v --no-index suivi.log
+.gitignore:1:*.log	suivi.log
+```
+
+## Pitfalls
+
+- **The already tracked file**: `.gitignore` only concerns files Git doesn't track yet. For a file tracked by mistake, `git rm --cached`: [.gitignore doesn't work, the file is already tracked](/en/situations/fichiers/gitignore-fichier-deja-suivi/).
+- **`/dist` and `dist/`** don't say the same thing: the slash in front anchors to the root, the slash behind only targets folders. Without a slash, `dist` targets files and folders at every level.
+- **The negation must come after** the rule it cancels, and can't bring back a file whose parent folder is ignored.
+- **A `.gitignore` in a subfolder** has its rules relative to that subfolder; `-v` says which one applies.
+- **The UTF-16 `.gitignore`**, written by PowerShell 5, isn't read: `check-ignore` finds no rule, although the file is there. The situation about `.gitignore` shows the case.
+
+## Where it's used
+
+Read first: [.gitignore doesn't work, the file is already tracked](/en/situations/fichiers/gitignore-fichier-deja-suivi/), [Secrets never go into the repository](/en/equipe/secrets-jamais-dans-le-depot/), [`git ls-files`](/en/commandes/ls-files/).
+
+<CommandUsages command="check-ignore" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/check-ignore.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/check-ignore.sh), run with Git 2.50 on 6 October 2026. The global exclusions file is placed there in a fake home folder, `/home/awa/.gitignore_global`. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::
