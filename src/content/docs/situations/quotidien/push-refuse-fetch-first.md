@@ -93,7 +93,7 @@ En une seule commande, `git pull --rebase` enchaîne les étapes 1 et 2.
 
 ### Et si les deux commits touchent la même ligne ?
 
-Le rebase s'arrête et te dit quels fichiers sont en conflit. Tu les corriges, `git add` sur chacun, puis `git rebase --continue`. À tout moment, `git rebase --abort` te ramène exactement à l'état d'avant. Une situation dédiée aux conflits est à venir.
+Le rebase s'arrête et te dit quels fichiers sont en conflit. Tu les corriges, `git add` sur chacun, puis `git rebase --continue`. À tout moment, `git rebase --abort` te ramène exactement à l'état d'avant. [Un conflit pendant un merge ou un rebase](/situations/reparer/resoudre-un-conflit/) déroule le cas.
 
 ### Pourquoi pas simplement `git pull` ?
 
