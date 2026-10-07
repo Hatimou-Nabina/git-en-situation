@@ -7,9 +7,24 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 4, lot 20 : la version anglaise, sans encore de pages
+## [Non publié] — Phase 4, lot 21 : les situations « Au quotidien » en anglais
 
-Branche `en/lot-20-infrastructure`, partie de `main` (`37eb41e`).
+Branche `en/lot-21-quotidien`, partie de `main` (`8e98cab`).
+
+### Contenu
+
+- **Les huit situations restantes du thème « Au quotidien », en anglais** : « A remote branch was deleted, but I still see it », « After cloning, I don't see the other people's branches », « git pull asks me to choose between merge and rebase », « Setting my work in progress aside to change branch », « First push of a branch, "has no upstream branch" », « Renaming a branch, locally and on the server », « Deleting an old branch without losing anything », « Seeing what changed between my branch and main ». Avec la pilote du lot 20, le thème est entièrement traduit : sa page anglaise ne porte plus aucune marque « in French ». Mêmes blocs de terminal que les pages françaises, vérifiés par les mêmes scripts.
+- **Un message de bienvenue** dans les Discussions ([#31](https://github.com/Hatimou-Nabina/git-en-situation/discussions/31)), publié dans « Ideas » faute de catégorie « Annonces », que l'API ne sait pas créer ; à déplacer le jour où la catégorie existera.
+
+### Suite prévue
+
+- **Lot 22** : les six situations « Réparer ». **Lot 23** : « Avec les autres » et « Fichiers et dépôt ».
+
+---
+
+## 7 octobre 2026 · Phase 4, lot 20 : la version anglaise, sans encore de pages — en ligne le 7 octobre 2026
+
+Branche `en/lot-20-infrastructure`, partie de `main` (`37eb41e`), fusionnée par la PR #30 (`8e98cab`).
 
 ### Contenu
 
@@ -62,7 +77,7 @@ Par le mainteneur, ou par l'assistant avec son feu vert explicite : elles engage
 
 1. ✅ *Fait le 7 octobre 2026.* **Le tag et la release** : tag annoté `v1.0.0` sur le commit de fusion de `main`, poussé, puis release GitHub reprenant cette section.
 2. ✅ *Fait le 7 octobre 2026.* **Le dépôt** : adresse du site et sujets ; Wiki et Projects, non utilisés, désactivés.
-3. **Les Discussions** : une catégorie « Annonces » (format annonce, seuls les mainteneurs publient), à créer dans l'interface, l'API ne le permet pas ; puis un premier message de bienvenue épinglé.
+3. ✅ *Fait le 7 octobre 2026, dans « Ideas ».* **Les Discussions** : le message de bienvenue est publié ([#31](https://github.com/Hatimou-Nabina/git-en-situation/discussions/31)). La catégorie « Annonces » ne se crée que dans l'interface ; le message y sera déplacé, et épinglé, quand elle existera.
 4. ✅ *Fait le 7 octobre 2026.* **Un ruleset de tags `v*`**, pour que personne ne supprime ni ne déplace une version.
 
 ### Suite prévue
