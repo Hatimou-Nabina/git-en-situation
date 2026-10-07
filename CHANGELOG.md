@@ -23,9 +23,13 @@ Branche `en/lots-24-30`, partie de `main` (`f030614`). **Une seule branche et un
 
 - « Working branch and production branch », « Keeping a changelog », « Versions and tags », « CODEOWNERS, issue and PR templates », « A CI that checks what the machines don't see » (Git 2.55, vérifiée en CI), « Forking and contributing to an open source project ». **La section « Working as a team » est entièrement traduite.** Les fichiers d'exemple montrés dans les blocs (changelog, CODEOWNERS, gabarits, script de vérification) restent en français et sont résumés dans le texte.
 
+### Lot 27 : fiches « Commandes » 1 à 10, en anglais
+
+- `git log`, `git diff`, `git branch`, `git switch`, `git checkout`, `git fetch`, `git pull`, `git push`, `git remote`, `git status`. La liste « Where it's used » de chaque fiche anglaise est calculée au build par le même composant que la française, en anglais, avec les titres traduits.
+
 ### Suite prévue
 
-- **Lots 27 à 29** : Commandes (29 fiches). **Lot 30** : clôture, validateur de liens strict, accueil anglais définitif, release 1.1.0.
+- **Lots 28 et 29** : les 19 autres fiches. **Lot 30** : clôture, validateur de liens strict, accueil anglais définitif, release 1.1.0.
 
 ---
 
