@@ -1,0 +1,119 @@
+---
+title: git revert
+description: Undoing a commit with a new commit, without rewriting the history. The ordinary commit, the merge commit that requires -m, the revert of the revert, and why it's the only undo possible on a branch others have already fetched.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git revert` creates a new commit that undoes exactly what a previous commit had done. The history isn't rewritten: the undone commit stays, the commit that undoes it is added, and the push goes through without forcing. It's the only way to undo on a branch others have already fetched. The full manual: `git help revert`.
+
+## The forms that matter
+
+**`git revert <commit>`**: a commit that does the opposite, with a ready-made message that quotes the undone commit. `--no-edit` keeps that message without opening the editor. Any commit, not only the last one: here, "feat: b", three commits back.
+
+```console
+$ git log --oneline -5
+f8d7f52 Merge branch feature/x
+d3e7dbe feat: c
+5a8ef40 feat: x
+4b99ea3 feat: b
+8952b33 feat: a
+
+$ git revert --no-edit 4b99ea3
+[main a97ba68] Revert "feat: b"
+ Date: Mon Oct 5 10:00:00 2026 +0000
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 b.js
+
+$ git log --oneline -2
+a97ba68 Revert "feat: b"
+f8d7f52 Merge branch feature/x
+
+$ git show --stat --format='%B' HEAD
+Revert "feat: b"
+
+This reverts commit 4b99ea302f16132c78ff6ca2f439aafecebc5840.
+
+
+ b.js | 1 -
+ 1 file changed, 1 deletion(-)
+```
+
+**A merge commit requires `-m`**: it has two parents, and Git doesn't know which one is the main line. `-m 1` designates the first parent, the branch you merged into, and that's almost always what you want: everything the merged branch had brought is undone.
+
+```console
+$ git revert --no-edit f8d7f52
+error: commit f8d7f52b805e744e69d8074008849f0e95bf3385 is a merge but no -m option was given.
+fatal: revert failed
+
+$ git revert --no-edit -m 1 f8d7f52
+[main c932c3c] Revert "Merge branch feature/x"
+ Date: Mon Oct 5 10:00:00 2026 +0000
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 x.js
+
+$ git log --oneline -3
+c932c3c Revert "Merge branch feature/x"
+a97ba68 Revert "feat: b"
+f8d7f52 Merge branch feature/x
+```
+
+**The revert of the revert** puts the change back, and Git names it "Reapply". It's the way to replay a change undone in an emergency, once fixed.
+
+```console
+$ git revert --no-edit HEAD~1
+[main bfb7e85] Reapply "feat: b"
+ Date: Mon Oct 5 10:00:00 2026 +0000
+ 1 file changed, 1 insertion(+)
+ create mode 100644 b.js
+
+$ git log --oneline -1
+bfb7e85 Reapply "feat: b"
+
+$ ls
+README.md
+a.js
+b.js
+c.js
+```
+
+**The history is intact, and the push goes through**: nothing was rewritten, everything was added.
+
+```console
+$ git log --oneline -8
+bfb7e85 Reapply "feat: b"
+c932c3c Revert "Merge branch feature/x"
+a97ba68 Revert "feat: b"
+f8d7f52 Merge branch feature/x
+d3e7dbe feat: c
+5a8ef40 feat: x
+4b99ea3 feat: b
+8952b33 feat: a
+
+$ git push
+To github.com:equipe/projet.git
+   f8d7f52..bfb7e85  main -> main
+```
+
+## Pitfalls
+
+- **A conflict**, if later commits touched the same lines. `git status` shows the files, you resolve, `git add`, then `git revert --continue`; `git revert --abort` gives up. [A conflict during a merge or a rebase](/en/situations/reparer/resoudre-un-conflit/).
+- **Reverting a merge with `-m 1`, then merging the branch again** brings nothing back: Git considers its commits already merged. You have to undo the revert first, then merge again.
+- **Several commits**: `git revert --no-edit A..B` undoes them from the most recent to the oldest, one undo commit each; `--no-commit` groups them in the index to make only one.
+- **`revert` is not `reset`**: `reset` erases commits, `revert` adds some. On a branch of your own, not yet pushed, `reset` is cleaner: [`git reset`](/en/commandes/reset/).
+- **The undone commit stays readable by everyone**: a committed secret doesn't disappear with `revert`. [I pushed a secret by mistake](/en/situations/fichiers/secret-pousse-par-erreur/).
+
+## Where it's used
+
+Read first: [Undoing a commit already pushed](/en/situations/reparer/annuler-un-commit-deja-pousse/), [Protecting the main branch](/en/equipe/proteger-la-branche-principale/), [`git reset`](/en/commandes/reset/).
+
+<CommandUsages command="revert" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/revert.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/revert.sh), run with Git 2.50 on 6 October 2026. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::
