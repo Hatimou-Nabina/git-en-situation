@@ -1,0 +1,74 @@
+---
+title: git merge-base
+description: The commit a branch started from. Finding the common ancestor of two branches, using it to see what the branch brought, understanding diff's three dots, and answering "is this commit already in this branch?".
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git merge-base A B` gives the most recent commit that `A` and `B` have in common: the place where a branch left `main`. It's what `merge` and `rebase` compute before working, what `diff A...B` hides behind its three dots, and what makes it possible to say whether a commit is already in a branch. The full manual: `git help merge-base`.
+
+## The forms that matter
+
+**`git merge-base main branch`**: the common ancestor's id. On the graph, it's the commit where the two lines meet.
+
+```console
+$ git log --oneline --graph --all
+* e2b8e53 feat(x): seconde partie
+* 7614151 feat(x): premiere partie
+| * 4b99ea3 feat: b
+|/
+* 8952b33 feat: a
+* d0a0b32 Premier commit
+
+$ git merge-base main feature/x
+8952b33d4bb2fc8dd5d65355e72668b17d4ae56a
+```
+
+**What the branch brought since**: the commits with `log`, the content with `diff`. And `diff main...feature/x`, three dots, does exactly that computation on its own.
+
+```console
+$ git log --oneline $(git merge-base main feature/x)..feature/x
+e2b8e53 feat(x): seconde partie
+7614151 feat(x): premiere partie
+
+$ git diff --stat $(git merge-base main feature/x) feature/x
+ x.js | 2 ++
+ 1 file changed, 2 insertions(+)
+
+$ git diff --stat main...feature/x
+ x.js | 2 ++
+ 1 file changed, 2 insertions(+)
+```
+
+**`--is-ancestor A B`**: is `A` an ancestor of `B`? Nothing is displayed, only the exit code answers. "Is what's on the server really in my `main`?", "is my branch already in `main`?": two questions, two answers. The `echo` strings, `oui` and `non`, mean "yes" and "no".
+
+```console
+$ git merge-base --is-ancestor origin/main main && echo "oui" || echo "non"
+oui
+
+$ git merge-base --is-ancestor feature/x main && echo "oui" || echo "non"
+non
+```
+
+## Pitfalls
+
+- **Several common ancestors** exist when two branches merged into each other in both directions; `--all` lists them all. Rare with one branch per change.
+- **After a rebase, the merge-base moves**: the branch starts again from a more recent commit, and what "the branch brought" is recomputed.
+- **`--is-ancestor` says nothing**, it answers with the exit code. In a terminal, the page's `&& echo … || echo …` makes it readable.
+- **After a "Squash and merge"**, the branch is never an ancestor of `main`: the commits were remade. `--is-ancestor` says no although everything is in it: [Deleting an old branch without losing anything](/en/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/).
+- **`git branch --merged` and `--contains`** answer the same questions for every branch at once: [`git branch`](/en/commandes/branch/).
+
+## Where it's used
+
+Read first: [Fast-forward, merge, rebase](/en/comprendre/fast-forward-fusion-rebase/), [Seeing what changed between my branch and main](/en/situations/quotidien/voir-ce-qui-a-change/), [`git diff`](/en/commandes/diff/).
+
+<CommandUsages command="merge-base" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/merge-base.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/merge-base.sh), run with Git 2.50 on 6 October 2026. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::
