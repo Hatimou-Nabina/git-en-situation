@@ -19,7 +19,7 @@ Site : https://hatimou-nabina.github.io/git-en-situation/
 | **Travailler en équipe** | Branches, pull requests, revue, commits conventionnels, changelog, protections, secrets, plusieurs machines. |
 | **Commandes** | Une fiche par commande, limitée aux options utiles, qui renvoie aux situations où elle sert. |
 
-En français d'abord, pour les développeurs francophones de tous niveaux. Une version anglaise est en préparation.
+En français d'abord, pour les développeurs francophones de tous niveaux, et en anglais : https://hatimou-nabina.github.io/git-en-situation/en/. Les 68 pages existent dans les deux langues, avec les mêmes commandes et les mêmes sorties.
 
 ## Les sorties sont vraies
 

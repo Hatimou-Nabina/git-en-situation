@@ -1,0 +1,99 @@
+---
+title: git restore
+description: Putting files back in a commit's state. Removing from the index with --staged, throwing away a change in the folder, both at once, taking back an old version with --source, resetting everything. The command that never touches the branch, and that doesn't warn.
+risk: destructif
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git restore` puts one or more files back in a commit's state, by default the last one. It works on the index with `--staged`, on the working folder without options, or on both. It never moves the branch: for that, it's [`git reset`](/en/commandes/reset/). It's the "files" half of the old `git checkout`, the other half being [`git switch`](/en/commandes/switch/). The full manual: `git help restore`.
+
+## The forms that matter
+
+**`--staged file`**: removed from the index, the file on the disk isn't touched. The opposite of `git add`.
+
+```console
+$ git status --short
+M  config.js
+M  x.js
+
+$ git restore --staged x.js
+
+$ git status --short
+M  config.js
+ M x.js
+```
+
+**`git restore file`**: the change in the folder is thrown away, the file takes back the index's version. No confirmation, no way back.
+
+```console
+$ git restore x.js
+
+$ git status --short
+M  config.js
+
+$ cat x.js
+x
+```
+
+**`--staged --worktree`**: both at once, index and folder reset to the last commit's level.
+
+```console
+$ git restore --staged --worktree config.js
+
+$ git status --short
+
+$ cat config.js
+v3
+```
+
+**`--source=<commit> file`**: an old commit's version arrives in the folder, like an ordinary change, to commit or not. It's the way to take back a file as it was two commits ago without touching the rest.
+
+```console
+$ git restore --source=HEAD~2 config.js
+
+$ cat config.js
+v1
+
+$ git status --short
+ M config.js
+
+$ git diff --stat
+ config.js | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+**`git restore .`**: the whole folder put back as at the last commit. Untracked files are not concerned.
+
+```console
+$ git status --short
+ M config.js
+ M x.js
+
+$ git restore .
+
+$ git status --short
+```
+
+## Pitfalls
+
+- **No way back.** A change thrown away by `restore` is in no commit, no reflog, no stash. Before, `git diff` to see what you're throwing away; when in doubt, `git stash`.
+- **`restore` doesn't touch untracked files.** To remove them, `git clean -n` to see, then `git clean -f`; `clean` has no way back either.
+- **`--source` doesn't move the branch**: the history is intact, only the file changes. To go back to a whole commit, it's [`git reset`](/en/commandes/reset/), or `git switch --detach` to look.
+- **`git checkout -- file`** does the same thing as `git restore file`, and `git checkout branch` changes branch: two moves under one name. `restore` and `switch` separate them.
+- **A deleted file** can be restored too: `git restore file` brings it back as it was at the last commit.
+
+## Where it's used
+
+Read first: [A commit is a snapshot](/en/comprendre/un-commit-est-un-instantane/), [`git add`](/en/commandes/add/), [`git switch`](/en/commandes/switch/).
+
+<CommandUsages command="restore" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/restore.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/restore.sh), run with Git 2.50 on 6 October 2026. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::

@@ -1,0 +1,120 @@
+---
+title: git cherry-pick
+description: Taking a commit from another branch, as is, without merging the rest. One commit, the trace of the origin with -x, several commits at once, preparing without committing, and the conflict with its emergency exit.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git cherry-pick` copies a commit from another branch onto yours: same change, new commit, new id. It's for taking an urgent fix without waiting for the whole branch to be ready, carrying a fix from production over to the work in progress, or recovering a commit made in the wrong place. The full manual: `git help cherry-pick`.
+
+## The forms that matter
+
+**`git cherry-pick <commit>`**: the commit arrives on the current branch, with its message, its author and its original date; the id, for its part, is new. Here, the export fix comes out of a branch still in progress.
+
+```console
+$ git log --oneline main..feature/x
+c3bb537 docs(x): documente x
+c3806bb fix(export): corrige l export d une liste vide
+3f87a68 feat(x): ajoute x
+
+$ git cherry-pick c3806bb
+[main f460151] fix(export): corrige l export d une liste vide
+ Date: Mon Oct 5 10:00:00 2026 +0000
+ 1 file changed, 1 insertion(+)
+ create mode 100644 urgent.js
+
+$ git log --oneline -2
+f460151 fix(export): corrige l export d une liste vide
+44a3210 docs: titre version main
+```
+
+**`-x`** adds to the message where the commit comes from. Useful when the original branch is public and you'll want to find the link again.
+
+```console
+$ git cherry-pick -x 3f87a68
+[main ddacbd4] feat(x): ajoute x
+ Date: Mon Oct 5 10:00:00 2026 +0000
+ 1 file changed, 1 insertion(+)
+ create mode 100644 x.js
+
+$ git log -1 --format='%B'
+feat(x): ajoute x
+
+(cherry picked from commit 3f87a68b7afe250c25379fc558ce3534afce66c4)
+
+```
+
+**Several commits at once**: a list of ids, or a range `A..B`, replayed in order, one commit each.
+
+```console
+$ git cherry-pick feature/y~2..feature/y
+[main 7ed2c11] feat(y): premiere partie
+ Date: Mon Oct 5 10:00:00 2026 +0000
+ 1 file changed, 1 insertion(+)
+ create mode 100644 y1.js
+[main a34cf7d] feat(y): seconde partie
+ Date: Mon Oct 5 10:00:00 2026 +0000
+ 1 file changed, 1 insertion(+)
+ create mode 100644 y2.js
+
+$ git log --oneline -4
+a34cf7d feat(y): seconde partie
+7ed2c11 feat(y): premiere partie
+ddacbd4 feat(x): ajoute x
+f460151 fix(export): corrige l export d une liste vide
+```
+
+**`--no-commit`** applies the change in the index without committing: to rework it, or to group several commits into a single one before committing yourself.
+
+```console
+$ git cherry-pick --no-commit c3bb537
+
+$ git status --short
+A  x.md
+```
+
+**A conflict** stops the cherry-pick; you resolve then `--continue`, or `--abort` brings back the previous state.
+
+```console
+$ git cherry-pick feature/z
+error: could not apply 678f6d1... docs(z): titre version z
+hint: After resolving the conflicts, mark them with
+hint: "git add/rm <pathspec>", then run
+hint: "git cherry-pick --continue".
+hint: You can instead skip this commit with "git cherry-pick --skip".
+hint: To abort and get back to the state before "git cherry-pick",
+hint: run "git cherry-pick --abort".
+hint: Disable this message with "git config set advice.mergeConflict false"
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+
+$ git status --short
+UU README.md
+
+$ git cherry-pick --abort
+
+$ git status --short
+```
+
+## Pitfalls
+
+- **The same change, two commits.** When the original branch is merged, Git will most often recognise the duplicate and not apply it twice; but if the file moved in the meantime, it's a conflict. A cherry-pick is a loan, not a merge: [`git merge`](/en/commandes/merge/) for the whole branch.
+- **A merge commit** can only be taken with `-m 1`, as for [`git revert`](/en/commandes/revert/): a merge has two parents.
+- **Taking onto a shared branch** is harmless, it's a new commit; taking then deleting the original on a shared branch is not: that's a rewrite.
+- **Order matters** in a range: `A..B` excludes `A`. To include it, `A^..B`.
+- **The commit made on the wrong branch** is taken this way, then removed from the other one: [I committed on the wrong branch](/en/situations/reparer/commit-sur-la-mauvaise-branche/).
+
+## Where it's used
+
+Read first: [I committed on the wrong branch](/en/situations/reparer/commit-sur-la-mauvaise-branche/), [Working branch and production branch](/en/equipe/branche-de-travail-et-de-production/), [`git revert`](/en/commandes/revert/).
+
+<CommandUsages command="cherry-pick" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/cherry-pick.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/cherry-pick.sh), run with Git 2.50 on 6 October 2026. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::

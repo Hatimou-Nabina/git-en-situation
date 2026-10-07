@@ -1,0 +1,105 @@
+---
+title: git rm
+description: Untracking a file. From the disk and the index at once, or from tracking only with --cached, a folder with -r, the refusal when the file is modified and -f that forces, and how to go back before the commit.
+risk: destructif
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git rm` removes a file from Git's tracking and, by default, from the disk, staging the deletion for the next commit. With `--cached`, it only removes it from tracking and leaves the file in place: that's the move for a file committed by mistake, a `.env`, a build folder. The full manual: `git help rm`.
+
+## The forms that matter
+
+**`git rm file`**: the file disappears from the disk, and its deletion is in the index, ready to be committed.
+
+```console
+$ git rm a.js
+rm 'a.js'
+
+$ git status --short
+D  a.js
+```
+
+**`--cached`**: removed from tracking, the file stays on the disk. It then shows up as untracked, and that's the moment to add it to the `.gitignore`.
+
+```console
+$ git rm --cached .env
+rm '.env'
+
+$ git status --short
+D  .env
+D  a.js
+?? .env
+
+$ ls -a
+.
+..
+.env
+.git
+README.md
+c.js
+docs
+```
+
+**`-r`** for a folder, with everything it contains.
+
+```console
+$ git rm -r docs
+rm 'docs/x.md'
+rm 'docs/y.md'
+
+$ git status --short
+D  .env
+D  a.js
+D  docs/x.md
+D  docs/y.md
+?? .env
+```
+
+**A modified file is refused**: its change is in no commit, deleting it would lose it. `-f` forces, and loses it.
+
+```console
+$ git rm c.js
+error: the following file has local modifications:
+    c.js
+(use --cached to keep the file, or -f to force removal)
+
+$ git rm -f c.js
+rm 'c.js'
+```
+
+**Going back before the commit**: `restore --staged --worktree` puts the file back in the index and on the disk, as it was at the last commit.
+
+```console
+$ git restore --staged --worktree a.js
+
+$ git status --short
+D  .env
+D  c.js
+D  docs/x.md
+D  docs/y.md
+?? .env
+```
+
+## Pitfalls
+
+- **`--cached` removes nothing from the history.** A committed secret stays readable in every past commit: [I pushed a secret by mistake](/en/situations/fichiers/secret-pousse-par-erreur/). `rm --cached` prevents what follows, not the past.
+- **On colleagues' machines, the next `pull` deletes the file** removed with `--cached`, since the commit says "deleted". Warn them to back up their copy: [.gitignore doesn't work, the file is already tracked](/en/situations/fichiers/gitignore-fichier-deja-suivi/).
+- **Deleting with the file explorer or `rm`** works too: `git status` shows ` D`, and `git add file` or `git add -A` records the deletion. `git rm` does both moves at once.
+- **`-f` loses the change in progress**, with no way back: read the message, and `git stash` or `git diff` first if in doubt.
+- **After the commit**, a deleted file can still be read: `git show HEAD~1:file`, and restored with `git restore --source=HEAD~1 file`: [`git restore`](/en/commandes/restore/).
+
+## Where it's used
+
+Read first: [.gitignore doesn't work, the file is already tracked](/en/situations/fichiers/gitignore-fichier-deja-suivi/), [I pushed a secret by mistake](/en/situations/fichiers/secret-pousse-par-erreur/), [`git restore`](/en/commandes/restore/).
+
+<CommandUsages command="rm" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/rm.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/rm.sh), run with Git 2.50 on 6 October 2026. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::

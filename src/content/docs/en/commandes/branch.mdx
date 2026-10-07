@@ -1,0 +1,142 @@
+---
+title: git branch
+description: Listing branches, yours and the server's, with their tracking. Creating one without going there, renaming, deleting with -d which refuses what isn't merged, knowing which branches contain a commit, and why -D loses nothing right away.
+risk: reversible
+gitVersion: "2.50"
+verified: 2026-10-05
+published: 2026-10-05
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git branch` manages the bookmarks that branches are: listing them, placing one, renaming it, removing it, seeing which server branch each one relies on. It never changes branch: for that, it's [`git switch`](/en/commandes/switch/). The full manual: `git help branch`.
+
+## The forms that matter
+
+**`git branch`**, **`-vv`**, **`-r`**: the local branches, the star on the current one; with `-vv`, each one's last commit and, in brackets, the server branch it tracks; with `-r`, the copies of the server's branches.
+
+```console
+$ git branch
+  feature/poussee
+  feature/recherche
+  fix/ancien
+* main
+
+$ git branch -vv
+  feature/poussee   a1f76e2 [origin/feature/poussee] feat(poussee): travail en cours, deja pousse
+  feature/recherche 7fb3039 feat(recherche): ajoute la barre de recherche
+  fix/ancien        02bcbed fix: ancien correctif
+* main              02bcbed [origin/main] fix: ancien correctif
+
+$ git branch -r
+  origin/HEAD -> origin/main
+  origin/feature/export
+  origin/feature/poussee
+  origin/main
+```
+
+`feature/recherche` has no brackets: it was never pushed, the server doesn't know it.
+
+**`git branch name`** creates a branch at the current commit without going there; **`-m`** renames.
+
+```console
+$ git branch feature/filtres
+
+$ git branch -m feature/filtres feature/filtres-date
+
+$ git branch
+  feature/filtres-date
+  feature/poussee
+  feature/recherche
+  fix/ancien
+* main
+```
+
+**`-d`** deletes a merged branch and refuses the others; **`--merged`** and **`--no-merged`** say in advance which ones will go through.
+
+```console
+$ git branch -d fix/ancien
+Deleted branch fix/ancien (was 02bcbed).
+
+$ git branch -d feature/recherche
+error: the branch 'feature/recherche' is not fully merged
+hint: If you are sure you want to delete it, run 'git branch -D feature/recherche'
+hint: Disable this message with "git config set advice.forceDeleteBranch false"
+
+$ git branch -d feature/poussee
+warning: deleting branch 'feature/poussee' that has been merged to
+         'refs/remotes/origin/feature/poussee', but not yet merged to HEAD
+Deleted branch feature/poussee (was a1f76e2).
+
+$ git branch --merged
+  feature/filtres-date
+* main
+
+$ git branch --no-merged
+  feature/recherche
+```
+
+The middle case surprises: `feature/poussee` isn't merged into `main`, but it is merged into its own server copy, and that's enough for `-d`. The work isn't lost, it's on the server; but that's not what "merged" means to you. The warning says so, in two lines nobody ever reads.
+
+**`git branch name origin/name`** creates a local branch from a server branch, with the tracking link; `-u origin/name` sets that link afterwards on a branch that already exists.
+
+```console
+$ git branch feature/export origin/feature/export
+branch 'feature/export' set up to track 'origin/feature/export'.
+
+$ git branch -vv
+  feature/export       ad18806 [origin/feature/export] feat(export): ajoute l export CSV
+  feature/filtres-date 02bcbed fix: ancien correctif
+  feature/recherche    7fb3039 feat(recherche): ajoute la barre de recherche
+* main                 02bcbed [origin/main] fix: ancien correctif
+```
+
+**`--contains`**: which branches contain this commit, `-a` to include the server's. The support question: "is this fix in the production branch?"
+
+```console
+$ git branch -a --contains 02bcbed
+  feature/export
+  feature/filtres-date
+  feature/recherche
+* main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/feature/export
+  remotes/origin/feature/poussee
+  remotes/origin/main
+```
+
+**`-D`** deletes without checking. The commit isn't erased for all that: as long as you have its id, and the message gives it, a branch can be recreated on it.
+
+```console
+$ git branch -D feature/recherche
+Deleted branch feature/recherche (was 7fb3039).
+
+$ git branch feature/recherche 7fb3039
+
+$ git branch -vv
+  feature/export       ad18806 [origin/feature/export] feat(export): ajoute l export CSV
+  feature/filtres-date 02bcbed fix: ancien correctif
+  feature/recherche    7fb3039 feat(recherche): ajoute la barre de recherche
+* main                 02bcbed [origin/main] fix: ancien correctif
+```
+
+## Pitfalls
+
+- **`git branch name` doesn't move you**: you stay where you were, and the next commit will go to the old branch. To create and go there at once: `git switch -c name`.
+- **`-d` refuses after a "Squash and merge"**: GitHub created a brand-new commit, your branch isn't an ancestor of `main` even though everything is merged. Check the PR, then `-D`: [Deleting an old branch without losing anything](/en/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/).
+- **`-d` accepts a branch that is pushed but not merged**, because it is merged into its server copy. That's the case shown above.
+- **Deleting locally doesn't delete on the server**: `git push origin --delete name`. And the reverse: a branch deleted on GitHub stays on your machine until `git fetch --prune`: [A remote branch was deleted, but I still see it](/en/situations/quotidien/branche-distante-supprimee-encore-visible/).
+- **After `-D`, the commit survives**: its id is in the message, `(was 7fb3039)`, and in the reflog for weeks: [Finding a lost commit](/en/situations/reparer/retrouver-un-commit-perdu/).
+- **Renaming a pushed branch** also requires renaming on the server, in two more commands: [Renaming a branch, locally and on the server](/en/situations/quotidien/renommer-une-branche/).
+
+## Where it's used
+
+Read first: [A branch is a bookmark](/en/comprendre/une-branche-est-un-marque-page/), [Deleting an old branch without losing anything](/en/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/), [A remote branch was deleted, but I still see it](/en/situations/quotidien/branche-distante-supprimee-encore-visible/).
+
+<CommandUsages command="branch" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/branch.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/branch.sh), run with Git 2.50 on 5 October 2026. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::

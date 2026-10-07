@@ -7,9 +7,59 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 4, lot 23 : les situations « Avec les autres » et « Fichiers et dépôt » en anglais
+## [Non publié]
 
-Branche `en/lot-23-autres-fichiers`, partie de `main` (`84ec147`).
+Rien pour l'instant.
+
+## [1.1.0] — 7 octobre 2026 · Phase 4, lots 24 à 30 : la fin de la version anglaise
+
+Branche `en/lots-24-30`, partie de `main` (`f030614`). **Deuxième version numérotée** : le site existe entièrement en anglais, et la phase 4 est terminée.
+
+### Ce que contient la version 1.1.0
+
+- **Les 68 pages en anglais**, sous `/en/`, avec les mêmes chemins que le français : 23 situations, 4 pages « Understand », 12 pages « Working as a team », 29 fiches « Commands », plus l'accueil, le catalogue, « How to read a situation », les pages de thème et de section, et About. Les blocs de terminal sont ceux des pages françaises, vérifiés par les mêmes scripts : 130 pages et 702 blocs vérifiés en Git 2.50 sur le poste, les quatre pages en Git 2.55 en CI.
+- **Le français reste la référence** : la page française porte le niveau, le risque, la version de Git et les dates, la traduction les reprend. Les messages de commit du dépôt d'exemple restent en français dans les deux langues.
+- **Les composants du site lisent la locale** et listent les pages dans la langue du lecteur ; « Where it's used » est calculé au build en anglais comme en français. **Une seule branche et une seule pull request pour les sept derniers lots**, à la demande du mainteneur le 7 octobre 2026 : un commit par page, la PR ouverte en brouillon dès le premier lot pour que la CI tourne à chaque poussée et que la relecture se fasse au fil de l'eau, une fusion à la fin.
+
+### Lot 24 : les pages « Comprendre » en anglais
+
+- **Les quatre pages « Understand »** : « A commit is a snapshot », « A branch is a bookmark », « Remotes and remote-tracking references », « Fast-forward, merge, rebase ». La section est entièrement traduite. Mêmes blocs de terminal que les pages françaises, vérifiés par les mêmes scripts.
+
+### Lot 25 : « Travailler en équipe », pages 1 à 6, en anglais
+
+- « The pull request, from opening to merge », « Conventional commits », « One branch per change », « Protecting the main branch », « Secrets never go into the repository », « Reviewing a pull request ». Les messages des hooks et des scripts d'exemple restent en français dans les blocs et sont traduits dans le texte.
+
+### Lot 26 : « Travailler en équipe », pages 7 à 12, en anglais
+
+- « Working branch and production branch », « Keeping a changelog », « Versions and tags », « CODEOWNERS, issue and PR templates », « A CI that checks what the machines don't see » (Git 2.55, vérifiée en CI), « Forking and contributing to an open source project ». **La section « Working as a team » est entièrement traduite.** Les fichiers d'exemple montrés dans les blocs (changelog, CODEOWNERS, gabarits, script de vérification) restent en français et sont résumés dans le texte.
+
+### Lot 27 : fiches « Commandes » 1 à 10, en anglais
+
+- `git log`, `git diff`, `git branch`, `git switch`, `git checkout`, `git fetch`, `git pull`, `git push`, `git remote`, `git status`. La liste « Where it's used » de chaque fiche anglaise est calculée au build par le même composant que la française, en anglais, avec les titres traduits.
+
+### Lot 28 : fiches « Commandes » 11 à 20, en anglais
+
+- `git add`, `git commit`, `git stash`, `git rm`, `git reset`, `git restore`, `git revert`, `git reflog`, `git merge`, `git rebase`.
+
+### Lot 29 : fiches « Commandes » 21 à 29, en anglais
+
+- `git cherry-pick`, `git tag`, `git config`, `git show`, `git ls-files`, `git check-ignore`, `gh`, `git cat-file`, `git merge-base`. **La section « Commands » est entièrement traduite, et avec elle les 68 pages du site** : plus aucune page anglaise ne s'affiche en français.
+
+### Lot 30 : clôture
+
+- **Le validateur de liens est de nouveau strict** : un lien vers une page de repli casse le build. Une page française nouvelle arrive désormais avec sa traduction (`CONTRIBUTING.md`, « Traduire »).
+- **L'accueil anglais** ne parle plus de chantier : une section « One site, two languages » dit que le français fait référence et que les sorties sont identiques. Le catalogue, les pages de section et About, en anglais, ne mentionnent plus de pages en français. « À propos », le README et le CONTRIBUTING disent que le site existe en anglais, avec l'adresse.
+- **Version 1.1.0**, à taguer sur le commit de fusion, et release GitHub reprenant cette section.
+
+### Suite prévue
+
+- **Plus de phase prévue.** Le site vit des contributions : les pages « Comprendre » encore annoncées « (à venir) » (#11, #24, #25, et « HEAD, ou « où je suis » », « Ce que Git supprime, et quand », « Les fichiers de `.git/` »), chacune avec sa traduction ; les situations que les lecteurs proposeront ; les relectures (#12, #13).
+
+---
+
+## 7 octobre 2026 · Phase 4, lot 23 : les situations « Avec les autres » et « Fichiers et dépôt » en anglais — en ligne le 7 octobre 2026
+
+Branche `en/lot-23-autres-fichiers`, partie de `main` (`84ec147`), fusionnée par la PR #34 (`f030614`).
 
 ### Contenu
 
@@ -551,5 +601,6 @@ Squelette poussé directement sur `main`, puis identité visuelle par la PR #1. 
 - **Phase 3** : exercices dans un dépôt bac à sable ; vérification automatique en CI que les sorties des pages correspondent toujours aux scripts.
 - **Phase 4** : traduction anglaise, animation de la communauté.
 
-[Non publié]: https://github.com/Hatimou-Nabina/git-en-situation/compare/v1.0.0...HEAD
+[Non publié]: https://github.com/Hatimou-Nabina/git-en-situation/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/Hatimou-Nabina/git-en-situation/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/Hatimou-Nabina/git-en-situation/releases/tag/v1.0.0

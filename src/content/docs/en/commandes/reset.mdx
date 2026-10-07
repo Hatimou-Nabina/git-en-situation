@@ -1,0 +1,117 @@
+---
+title: git reset
+description: Moving the current branch, and choosing what you keep. --soft keeps everything in the index, no option keeps the files, --hard throws everything away, --keep moves without touching the work in progress. The reflog's net, and what it doesn't catch.
+risk: destructif
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git reset` moves the current branch onto another commit, and decides what becomes of the index and the working folder: kept as they are, reset to the commit's level, or both. It's the tool to undo commits not yet pushed, and the only form on this page that can lose work is `--hard`. The full manual: `git help reset`.
+
+## The forms that matter
+
+**`--soft HEAD~1`**: the branch moves back one commit, everything it contained stays in the index, ready to be recommitted differently. The commit hasn't disappeared, nothing points to it any more.
+
+```console
+$ git log --oneline -3
+d3e7dbe feat: c
+4b99ea3 feat: b
+8952b33 feat: a
+
+$ git reset --soft HEAD~1
+
+$ git status --short
+A  c.js
+
+$ git log --oneline -2
+4b99ea3 feat: b
+8952b33 feat: a
+```
+
+**No option**: the branch moves back, the index too, the files stay on the disk. What the commit contained becomes "to add" again.
+
+```console
+$ git reset HEAD~1
+
+$ git status --short
+?? c.js
+```
+
+**`--hard`**: the branch moves back, the index and the folder are reset to the commit's level. What was committed ends up in the reflog, from where you catch it back; what wasn't is lost.
+
+```console
+$ git reset --hard HEAD~1
+HEAD is now at 4b99ea3 feat: b
+
+$ git status --short
+
+$ git log --oneline -2
+4b99ea3 feat: b
+8952b33 feat: a
+
+$ git reflog -3
+4b99ea3 HEAD@{0}: reset: moving to HEAD~1
+d3e7dbe HEAD@{1}: commit: feat: c
+4b99ea3 HEAD@{2}: reset: moving to HEAD~1
+
+$ git reset --hard HEAD@{1}
+HEAD is now at d3e7dbe feat: c
+
+$ git log --oneline -3
+d3e7dbe feat: c
+4b99ea3 feat: b
+8952b33 feat: a
+```
+
+**`--keep`**: the branch goes elsewhere, and the changes in progress follow, provided they don't touch the files that change between the two commits. With a branch placed first on the commits you're leaving, nothing is lost: that's the recipe of [I committed on the wrong branch](/en/situations/reparer/commit-sur-la-mauvaise-branche/).
+
+```console
+$ git branch feature/b-et-c
+
+$ git reset --keep origin/main
+
+$ git status --short
+ M a.js
+
+$ git log --oneline -1
+8952b33 feat: a
+
+$ git log --oneline feature/b-et-c -3
+d3e7dbe feat: c
+4b99ea3 feat: b
+8952b33 feat: a
+```
+
+**`git reset file`** removes a file from the index, the old way; [`git restore --staged`](/en/commandes/restore/) does the same thing with a name that says what it does.
+
+```console
+$ git reset a.js
+Unstaged changes after reset:
+M	a.js
+
+$ git status --short
+ M a.js
+```
+
+## Pitfalls
+
+- **`--hard` doesn't ask for confirmation**, and what wasn't committed is nowhere: neither reflog nor stash. Before a `--hard`, `git status`; at the slightest doubt, `git stash` first.
+- **`reset` onto a commit already pushed** rewrites the history: the next push is refused, and forcing it erases the commit on other people's machines. On a shared branch, it's [`git revert`](/en/commandes/revert/): [Undoing a commit already pushed](/en/situations/reparer/annuler-un-commit-deja-pousse/).
+- **The undone commits stay in the reflog** for at least thirty days: [`git reflog`](/en/commandes/reflog/), and [Finding a lost commit](/en/situations/reparer/retrouver-un-commit-perdu/).
+- **`git reset --hard origin/main`** puts your `main` level with the server by throwing away your local commits: the right command after a colleague's force push that they asked you for, the wrong one if you had work of your own on it.
+- **`reset`, `restore`, `checkout`** overlap: `reset` moves the branch, `restore` touches only files. For a file, `restore`.
+
+## Where it's used
+
+Read first: [Undoing my last commit, not yet pushed](/en/situations/reparer/annuler-mon-dernier-commit/), [I committed on the wrong branch](/en/situations/reparer/commit-sur-la-mauvaise-branche/), [A branch is a bookmark](/en/comprendre/une-branche-est-un-marque-page/).
+
+<CommandUsages command="reset" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/reset.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/reset.sh), run with Git 2.50 on 6 October 2026. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::

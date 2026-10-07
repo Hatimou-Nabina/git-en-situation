@@ -1,0 +1,75 @@
+---
+title: gh
+description: GitHub from the command line. The gh commands this site cites, for pull requests, issues, forks, releases, secrets, workflows and accounts, what they do, where they're used, and why this page is the only one without verified outputs.
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`gh` is GitHub's command-line tool: it talks to GitHub, where `git` talks to the repository. Pull requests, issues, releases, secrets, workflows, from the terminal, for the repository of the folder you're in. It requires a signed-in account, `gh auth login`, once per machine. It is specific to GitHub: nothing below holds on another Git server. The manual: `gh help`, and `gh <command> --help` for each one.
+
+:::note[The only page without verified outputs]
+This site's scripts depend on no external service, and `gh` needs GitHub and a signed-in account. The commands below are those the site's pages cite; their outputs aren't shown, because they would change at every run and from one person to the next.
+:::
+
+## The forms that matter
+
+**Pull requests**, on the side of the one who opens it and of the one who reviews it:
+
+```bash
+gh pr create                 # opens the current branch's PR, title and description asked
+gh pr checks                 # the CI's state on the current PR
+gh pr view --web             # the PR in the browser
+gh pr merge                  # merges, with --merge, --squash or --rebase
+gh pr checkout 14            # fetches PR 14's branch onto your machine, to review it
+gh pr diff 14                # its diff, without changing branch
+```
+
+**Issues and the branches that start from them**:
+
+```bash
+gh issue create              # an issue, with the repository's templates
+gh issue develop 12 --checkout   # creates the branch linked to issue 12, and switches to it
+gh label create "bonne première contribution"   # a label, which the templates can then set
+```
+
+**The repository and forks**:
+
+```bash
+gh repo fork --clone         # forks, clones, and adds upstream, in one command
+gh repo view --web           # the repository in the browser
+```
+
+**Versions, secrets, workflows**:
+
+```bash
+gh release create v1.2.0 --generate-notes   # a release on the tag, notes drafted from the PRs
+gh secret set API_KEY        # a secret for the workflows, typed without displaying it
+gh workflow run situation.yml -f script=fins-de-ligne-crlf-lf   # runs a workflow on demand
+gh run watch                 # follows the run in progress
+gh run view --log            # a run's log
+```
+
+**Accounts**:
+
+```bash
+gh auth login                # sign in, once
+gh auth status               # which account we're talking to GitHub with
+gh auth switch               # switch to another signed-in account
+```
+
+## Pitfalls
+
+- **`gh` acts on the current folder's repository**, `origin`'s. Elsewhere, or for another repository, `-R owner/repository`.
+- **Two accounts**: `gh auth status` says which one is active, `gh auth switch` changes. A `gh pr create` under the wrong account opens the PR in the other's name: [Two GitHub accounts on the same machine](/en/situations/avec-les-autres/deux-comptes-github-sur-un-poste/).
+- **`gh pr merge` respects the repository's rules**: a PR without a green CI or without the required approval is refused, as by the button. [Protecting the main branch](/en/equipe/proteger-la-branche-principale/).
+- **`gh` is not `git`.** After a `gh pr merge`, your local `main` is behind: `git pull --ff-only`, then the cleanup. [My local branch is behind after a merge on GitHub](/en/situations/avec-les-autres/branche-locale-en-retard-apres-fusion/).
+- **`gh workflow run` only knows the default branch's workflows.** On a branch, it's the `push` trigger that serves: [A CI that checks what the machines don't see](/en/equipe/ci-ce-que-les-postes-ne-voient-pas/).
+
+## Where it's used
+
+Read first: [The pull request, from opening to merge](/en/equipe/la-pull-request/), [Reviewing a pull request](/en/equipe/relire-une-pull-request/), [Forking and contributing to an open source project](/en/equipe/forker-et-contribuer/).
+
+<CommandUsages command="gh" prefix="" mode="cited" />

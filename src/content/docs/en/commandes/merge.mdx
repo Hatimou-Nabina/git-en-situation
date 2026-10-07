@@ -1,0 +1,129 @@
+---
+title: git merge
+description: Bringing a branch into the current one. The fast-forward when main hasn't moved, the merge commit when both moved, --no-ff to force it, --ff-only to forbid it, --squash for a single commit, and the conflict with its emergency exit.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git merge` brings into the current branch everything another branch has in addition. Depending on the situation, the current branch simply moves forward up to the other, or a merge commit with two parents joins the two lines. On GitHub, it's what a pull request's merge button does. The full manual: `git help merge`.
+
+## The forms that matter
+
+**`git merge branch`**, when the current one hasn't moved since the branch left it: fast-forward, "Fast-forward", no merge commit.
+
+```console
+$ git merge feature/a
+Updating d0a0b32..c18da03
+Fast-forward
+ a.js | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 a.js
+```
+
+**When both moved**: a merge commit, with two parents. `--graph` shows it.
+
+```console
+$ git merge feature/b
+Merge made by the 'ort' strategy.
+ b.js | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 b.js
+
+$ git log --oneline --graph -4
+*   fa84cca Merge branch 'feature/b'
+|\
+| * c3cc1dc feat(b): ajoute b
+* | 00f3be5 feat(contact): ajoute la page contact
+|/
+* c18da03 feat(a): ajoute a
+```
+
+**`--no-ff`** forces the merge commit even when the fast-forward is possible: the branch stays visible in the history. It's what GitHub does with "Create a merge commit".
+
+```console
+$ git merge --no-ff feature/c
+Merge made by the 'ort' strategy.
+ c.js | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 c.js
+
+$ git log --oneline -2
+ea5ea6e Merge branch 'feature/c'
+fa84cca Merge branch 'feature/b'
+```
+
+**`--ff-only`** refuses anything that isn't a fast-forward. It's the safe setting to bring `main` level with the server without creating a commit by accident.
+
+```console
+$ git merge --ff-only feature/d
+hint: Diverging branches can't be fast-forwarded, you need to either:
+hint:
+hint: 	git merge --no-ff
+hint:
+hint: or:
+hint:
+hint: 	git rebase
+hint:
+hint: Disable this message with "git config set advice.diverging false"
+fatal: Not possible to fast-forward, aborting.
+```
+
+**`--squash`** prepares in the index everything the branch brings, as a single change, without committing: the next commit is yours, with your message. The branch's history isn't taken up, and that's what GitHub does with "Squash and merge".
+
+```console
+$ git merge --squash feature/d
+Automatic merge went well; stopped before committing as requested
+Squash commit -- not updating HEAD
+
+$ git status --short
+A  d.js
+
+$ git commit -m "feat(d): ajoute d"
+[main fb29340] feat(d): ajoute d
+ 1 file changed, 2 insertions(+)
+ create mode 100644 d.js
+
+$ git log --oneline -3
+fb29340 feat(d): ajoute d
+a454aa7 feat(export): ajoute l export
+ea5ea6e Merge branch 'feature/c'
+```
+
+**A conflict** stops the merge before the commit; `--abort` brings back exactly the previous state.
+
+```console
+$ git merge feature/e
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.
+
+$ git status --short
+UU README.md
+
+$ git merge --abort
+
+$ git status --short
+```
+
+## Pitfalls
+
+- **Merge or rebase?** Merge keeps the history as it happened, with its crossings; rebase rewrites it in a straight line. [Fast-forward, merge, rebase](/en/comprendre/fast-forward-fusion-rebase/) compares the two on the same state.
+- **`git branch -d` refuses after a `--squash`**: the branch isn't an ancestor of `main`, even though everything is in it. `-D`, after checking: [Deleting an old branch without losing anything](/en/situations/quotidien/supprimer-une-vieille-branche-sans-rien-perdre/).
+- **The wrong direction**: you merge the branch into `main`, from `main`. Merging `main` into your branch is for updating it, and it's another move: [Updating my branch with main](/en/situations/avec-les-autres/mettre-ma-branche-a-jour-avec-main/).
+- **The conflict** is resolved file by file, then `git add` and `git commit`: [A conflict during a merge or a rebase](/en/situations/reparer/resoudre-un-conflit/). With `merge`, "ours" is the current branch.
+- **`git pull` is a `fetch` followed by a `merge`**, hence the "Merge branch 'main' of …" commits when you pull without thinking: [`git pull`](/en/commandes/pull/).
+
+## Where it's used
+
+Read first: [Fast-forward, merge, rebase](/en/comprendre/fast-forward-fusion-rebase/), [A conflict during a merge or a rebase](/en/situations/reparer/resoudre-un-conflit/), [Working branch and production branch](/en/equipe/branche-de-travail-et-de-production/).
+
+<CommandUsages command="merge" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/merge.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/merge.sh), run with Git 2.50 on 6 October 2026. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::

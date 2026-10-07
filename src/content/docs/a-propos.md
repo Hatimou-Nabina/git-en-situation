@@ -18,7 +18,7 @@ Ce site est né ce jour-là.
 - **Toujours le pourquoi.** Une commande sans son modèle mental s'oublie en une semaine.
 - **Git d'abord, GitHub étiqueté.** Ce qui vaut pour GitLab ou Bitbucket reste réutilisable.
 - **Court.** Une page se lit en cinq minutes. Ce qui dépasse devient une autre page.
-- **En français d'abord**, pour les développeurs francophones de tous niveaux. Une version anglaise est en préparation.
+- **En français d'abord**, pour les développeurs francophones de tous niveaux, et [en anglais](/en/) depuis le 7 octobre 2026. La page française fait référence ; les commandes et leurs sorties sont les mêmes dans les deux langues.
 
 ## Qui
 

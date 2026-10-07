@@ -24,4 +24,4 @@ Available:
 11. [A CI that checks what the machines don't see](/en/equipe/ci-ce-que-les-postes-ne-voient-pas/): the executable bit, the case of file names, the file that only exists on your machine, and the check script the CI runs.
 12. [Forking and contributing to an open source project](/en/equipe/forker-et-contribuer/): fork, `upstream`, one branch per contribution, the PR between two repositories, keeping up to date, keeping your fork level.
 
-The section is complete; pages not translated yet are shown in French, with a notice. A practice is missing, or a page looks wrong to you? [Open an issue](https://github.com/Hatimou-Nabina/git-en-situation/issues/new/choose), or fix it: the template is in the repository's `CONTRIBUTING.md`.
+The section is complete. A practice is missing, or a page looks wrong to you? [Open an issue](https://github.com/Hatimou-Nabina/git-en-situation/issues/new/choose), or fix it: the template is in the repository's `CONTRIBUTING.md`.

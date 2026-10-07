@@ -1,0 +1,126 @@
+---
+title: git rebase
+description: Replaying your commits on top of another branch. The update onto main, cleaning up commits with -i, the conflict with --abort or --continue, and the --force-with-lease that always follows the rebase of a pushed branch.
+risk: reversible
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git rebase` takes your branch's commits and replays them, one by one, on top of another commit, most often the up-to-date `main`. The history is rewritten in a straight line, and the replayed commits are new, with new ids. It's for your own branches, never for a branch others have already fetched. The full manual: `git help rebase`.
+
+## The forms that matter
+
+**`git rebase origin/main`**: your branch starts again from the up-to-date `main`, its commits replayed on top. Before, both sides had moved; after, the history is a line.
+
+```console
+$ git log --oneline --left-right origin/main...feature/x
+< 4bb498d feat(contact): ajoute la page contact
+> 5c6b75f test(x): couvre x
+> e5d8ec2 fix typo
+> 3f87a68 feat(x): ajoute x
+
+$ git rebase origin/main
+Rebasing (1/3)Rebasing (2/3)Rebasing (3/3)Successfully rebased and updated refs/heads/feature/x.
+
+$ git log --oneline -5
+13ca03d test(x): couvre x
+ee8efb3 fix typo
+ee81f90 feat(x): ajoute x
+4bb498d feat(contact): ajoute la page contact
+d0a0b32 Premier commit
+```
+
+**`-i`**, interactive: before the review, melting a "fix typo" into the commit it fixes, reordering, rewording. Git opens the list of commits in your editor, one line per commit, and you change the verb at the start of the line. Here a `sed` plays the editor's part so that the script runs without a terminal: the first command shows the list as Git proposes it, the second replaces `pick` with `fixup` on the second line.
+
+```console
+$ GIT_SEQUENCE_EDITOR='sed -n /^pick/p' git rebase -i HEAD~3
+Successfully rebased and updated refs/heads/feature/x.
+pick ee81f90 # feat(x): ajoute x
+pick ee8efb3 # fix typo
+pick 13ca03d # test(x): couvre x
+
+$ GIT_SEQUENCE_EDITOR='sed -i 2s/^pick/fixup/' git rebase -i HEAD~3
+Rebasing (2/3)Rebasing (3/3)Successfully rebased and updated refs/heads/feature/x.
+
+$ git log --oneline -4
+04bd82a test(x): couvre x
+8e597e0 feat(x): ajoute x
+4bb498d feat(contact): ajoute la page contact
+d0a0b32 Premier commit
+```
+
+The verbs that matter: `pick` keeps, `reword` keeps and changes the message, `fixup` melts into the previous one, `squash` likewise while keeping both messages, `drop` deletes; and the order of the lines is the final order.
+
+**A conflict** stops the rebase on the offending commit. `--abort` brings back exactly the previous state; or else you fix the file, `git add`, and `--continue` resumes. Here the rebase is started again after giving up, the conflict fixed by hand, then:
+
+```console
+$ git rebase origin/main
+Rebasing (1/3)Rebasing (2/3)Rebasing (3/3)error: could not apply 7b8f524... docs(x): titre version x
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config set advice.mergeConflict false"
+Could not apply 7b8f524... # docs(x): titre version x
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+
+$ git status --short
+UU README.md
+
+$ git rebase --abort
+
+$ git status --short
+
+$ git rebase --continue
+Successfully rebased and updated refs/heads/feature/x.
+[detached HEAD d5bb9df] docs(x): titre version x
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+$ git log --oneline -5
+d5bb9df docs(x): titre version x
+40ea206 test(x): couvre x
+da5d474 feat(x): ajoute x
+7d73545 docs: titre version main
+4bb498d feat(contact): ajoute la page contact
+```
+
+**After a rebase, the pushed branch changed**: the server has the old commits, `push` is refused, `--force-with-lease` replaces them. On your branch only, and with `--force-with-lease`, never `--force`.
+
+```console
+$ git push
+To github.com:equipe/projet.git
+ ! [rejected]        feature/x -> feature/x (non-fast-forward)
+error: failed to push some refs to 'github.com:equipe/projet.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. If you want to integrate the remote changes,
+hint: use 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+$ git push --force-with-lease
+To github.com:equipe/projet.git
+ + 5c6b75f...d5bb9df feature/x -> feature/x (forced update)
+```
+
+## Pitfalls
+
+- **Never rebase a shared branch.** The commits change id; for those who had the old version, everything diverges. `main` first of all: [Protecting the main branch](/en/equipe/proteger-la-branche-principale/).
+- **The old commits stay in the reflog**: a rebase gone wrong is undone with `git reset --hard ORIG_HEAD` right after, or through [`git reflog`](/en/commandes/reflog/) later.
+- **"ours" and "theirs" are inverted** during a rebase: "ours" is the branch you're replaying onto, "theirs" your commit. [A conflict during a merge or a rebase](/en/situations/reparer/resoudre-un-conflit/).
+- **Changes in progress** prevent the rebase: `--autostash` tucks them away and brings them back on its own, `git config --global rebase.autoStash true` for always.
+- **During a review**, a rebase makes the reviewer lose the thread of what they already read: [Reviewing a pull request](/en/equipe/relire-une-pull-request/). You add commits, you clean up at the end.
+
+## Where it's used
+
+Read first: [Updating my branch with main](/en/situations/avec-les-autres/mettre-ma-branche-a-jour-avec-main/), [Fast-forward, merge, rebase](/en/comprendre/fast-forward-fusion-rebase/), [A conflict during a merge or a rebase](/en/situations/reparer/resoudre-un-conflit/).
+
+<CommandUsages command="rebase" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/rebase.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/rebase.sh), run with Git 2.50 on 6 October 2026. In the interactive rebase, `GIT_SEQUENCE_EDITOR` replaces the editor with a `sed`, so that the script runs without a terminal. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::

@@ -1,0 +1,82 @@
+---
+title: git reflog
+description: The journal of everything HEAD and the branches did on your machine. Finding a commit after a reset --hard, a force-deleted branch, a branch's journal with its dates, what the reflog doesn't contain and how long it keeps.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git reflog` displays the journal of the successive positions of `HEAD`, and of each branch: every commit, branch change, reset, rebase or merge leaves a line there, with the commit you were on. When a commit has "disappeared", it's almost always there. The full manual: `git help reflog`.
+
+## The forms that matter
+
+**`git reflog`**: from the most recent to the oldest, what `HEAD` did. Here, `main` lost "feat: b" in a `reset --hard`, and the `feature/x` branch was force-deleted. `git log` no longer shows them, the reflog does.
+
+```console
+$ git log --oneline
+8952b33 feat: a
+d0a0b32 Premier commit
+
+$ git reflog
+8952b33 HEAD@{0}: reset: moving to HEAD~1
+4b99ea3 HEAD@{1}: checkout: moving from feature/x to main
+ae0fb9e HEAD@{2}: commit: feat: x
+4b99ea3 HEAD@{3}: checkout: moving from main to feature/x
+4b99ea3 HEAD@{4}: commit: feat: b
+8952b33 HEAD@{5}: commit: feat: a
+d0a0b32 HEAD@{6}: commit (initial): Premier commit
+```
+
+**Finding a commit after a `reset --hard`**: `HEAD@{1}` is where `HEAD` was just before the last operation.
+
+```console
+$ git reset --hard HEAD@{1}
+HEAD is now at 4b99ea3 feat: b
+
+$ git log --oneline
+4b99ea3 feat: b
+8952b33 feat: a
+d0a0b32 Premier commit
+```
+
+**Finding a deleted branch**: its last commit is in the "commit: feat: x" line, with its id. A branch can be recreated on it.
+
+```console
+$ git branch feature/x ae0fb9e
+
+$ git log --oneline feature/x -1
+ae0fb9e feat: x
+```
+
+**`git reflog show branch`**: the journal of a specific branch, and `--date=iso` for the dates. Those of this sandbox are frozen; on your machine, they say when each thing happened, and that's often what lets you find "last night's commit".
+
+```console
+$ git reflog show --date=iso main
+4b99ea3 main@{2026-10-05 10:00:00 +0000}: reset: moving to HEAD@{1}
+8952b33 main@{2026-10-05 10:00:00 +0000}: reset: moving to HEAD~1
+4b99ea3 main@{2026-10-05 10:00:00 +0000}: commit: feat: b
+8952b33 main@{2026-10-05 10:00:00 +0000}: commit: feat: a
+d0a0b32 main@{2026-10-05 10:00:00 +0000}: commit (initial): Premier commit
+```
+
+## Pitfalls
+
+- **The reflog is local.** It is neither pushed nor cloned: a freshly cloned repository has none, and the server keeps none by default. What a `push --force` erased on the server can only be found in the reflog of someone who had fetched it: [Protecting the main branch](/en/equipe/proteger-la-branche-principale/).
+- **It expires**: ninety days for what is still reachable, thirty for what no longer is, then `git gc` deletes the orphan commits. A lost commit is recovered quickly, not in six months.
+- **`HEAD@{1}` is not `HEAD~1`**: with the braces, the journal, "where `HEAD` was before"; with the tilde, the history, "the commit's parent". The two are often confused, and only point to the same commit by chance.
+- **What was never committed isn't there**: a `restore` or a `reset --hard` on uncommitted changes leaves no trace. The reflog catches commits, not work in progress.
+- **`main@{1}` and `HEAD@{1}` differ**: the first is `main`'s previous position, the second `HEAD`'s, which also moves at every branch change.
+
+## Where it's used
+
+Read first: [Finding a lost commit](/en/situations/reparer/retrouver-un-commit-perdu/), [Undoing my last commit, not yet pushed](/en/situations/reparer/annuler-mon-dernier-commit/), [`git reset`](/en/commandes/reset/).
+
+<CommandUsages command="reflog" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/reflog.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/reflog.sh), run with Git 2.50 on 6 October 2026. The reflog's dates are the sandbox's frozen ones. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::

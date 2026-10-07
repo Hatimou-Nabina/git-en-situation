@@ -25,4 +25,4 @@ Coming:
 - **What Git deletes, and when**: unreachable objects, automatic cleanup, delays.
 - **The files in `.git/`**: a guided tour, to demystify.
 
-Pages not translated yet are shown in French, with a notice. Want to write or translate one of these pages? The template is in the repository's `CONTRIBUTING.md`.
+Want to write one of these pages? It starts in French, its translation follows: the template is in the repository's `CONTRIBUTING.md`.
