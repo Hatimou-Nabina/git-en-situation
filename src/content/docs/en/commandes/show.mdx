@@ -1,0 +1,85 @@
+---
+title: git show
+description: Looking closely at an object. The last commit with its tally and its diff, any commit in the format you want, the files it touches, and a file as it was at a given commit.
+gitVersion: "2.50"
+verified: 2026-10-06
+published: 2026-10-06
+---
+
+import CommandUsages from '../../../../components/CommandUsages.astro';
+
+## What it's for
+
+`git show` displays an object: a commit with its message and its diff, a file as it was at a commit, a tag with its annotation. Where [`git log`](/en/commandes/log/) walks the history, `show` stops at one point and shows it in full. The full manual: `git help show`.
+
+## The forms that matter
+
+**`git show --stat HEAD`**: the last commit, its message, and the tally per file. **`git show HEAD -- file`**: the same commit, but only one file's diff.
+
+```console
+$ git show --stat HEAD
+commit e370e857ac7e232a1ed92f20a2d1b80942741aa4
+Author: Awa <awa@example.com>
+Date:   Mon Oct 5 10:00:00 2026 +0000
+
+    fix(config): passe le port a 8080
+
+ README.md | 1 +
+ config.js | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+$ git show HEAD -- config.js
+commit e370e857ac7e232a1ed92f20a2d1b80942741aa4
+Author: Awa <awa@example.com>
+Date:   Mon Oct 5 10:00:00 2026 +0000
+
+    fix(config): passe le port a 8080
+
+diff --git a/config.js b/config.js
+index 899fe75..fc6826a 100644
+--- a/config.js
++++ b/config.js
+@@ -1 +1 @@
+-port=80
++port=8080
+```
+
+**Any commit, in the format you want**: `--no-patch` without the diff, `--format` to compose, `--name-only` for the list of files.
+
+```console
+$ git show --no-patch --format='%h %an %ad%n%s' --date=short HEAD~1
+145e96d Awa 2026-10-05
+docs: complete le README
+
+$ git show --name-only --oneline HEAD~1
+145e96d docs: complete le README
+README.md
+```
+
+**`git show commit:file`**: a file's content as it was at that commit, without touching the working folder. To recover it: `git show HEAD~2:config.js > config.ancien.js`.
+
+```console
+$ git show HEAD~2:config.js
+port=80
+
+$ git show HEAD:config.js
+port=8080
+```
+
+## Pitfalls
+
+- **`commit:file` without a space**, and the path from the repository's root, even from a subfolder. With a space and two dashes, `git show HEAD -- file`, it's the commit's diff limited to the file, not the content.
+- **A merge commit** shows without a diff by default: it has two. `git show -m` displays them one after the other, `--first-parent` only relative to `main`.
+- **`git show` of a deleted file**: `git show HEAD~1:file` still reads it, as long as a commit contains it. It's the way to reread what you erased.
+- **`git show` of a tag** displays the annotation then the commit: [`git tag`](/en/commandes/tag/); of a branch, its last commit.
+- **For the raw inside of an object**, tree and parents included, it's [`git cat-file`](/en/commandes/cat-file/); `show` formats.
+
+## Where it's used
+
+Read first: [A commit is a snapshot](/en/comprendre/un-commit-est-un-instantane/), [I pushed a secret by mistake](/en/situations/fichiers/secret-pousse-par-erreur/), [Reviewing a pull request](/en/equipe/relire-une-pull-request/).
+
+<CommandUsages command="show" />
+
+:::tip[Verified outputs]
+The outputs on this page come from the script [`scripts/commandes/show.sh`](https://github.com/Hatimou-Nabina/git-en-situation/blob/main/scripts/commandes/show.sh), run with Git 2.50 on 6 October 2026. The "Where it's used" list is computed at build time from the site's content. Only the server address and the commit ids are those of the example repository, whose commit messages are in French.
+:::
