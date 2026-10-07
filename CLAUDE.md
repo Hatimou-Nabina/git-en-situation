@@ -23,6 +23,7 @@ Le propriétaire travaille sur **plusieurs machines**. Tout ce qui est nécessai
 
 - **Ne jamais pousser** sans autorisation explicite du propriétaire.
 - Commits conventionnels en français, **sans ligne `Co-Authored-By`**. Types et scopes dans `CONTRIBUTING.md`.
+- **Aucune mention d'outil, nulle part** : ni « Generated with Claude Code » en fin de description de PR, ni `Co-Authored-By`, ni équivalent dans les commits, les releases, les discussions ou les issues. Le projet est le travail de son mainteneur et de ses contributeurs (décision du 7 octobre 2026, seize PR nettoyées).
 - `main` est la branche publiée. Une fois protégée, tout passe par une pull request ; seul le squelette initial a été poussé directement.
 - `CHANGELOG.md` à jour à chaque ajout, renommage ou retrait de page, et à chaque changement visible du site.
 - Machine locale : **un seul processus lourd à la fois** (`npm ci`, `npm run build`).
