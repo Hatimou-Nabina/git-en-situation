@@ -27,9 +27,13 @@ Branche `en/lots-24-30`, partie de `main` (`f030614`). **Une seule branche et un
 
 - `git log`, `git diff`, `git branch`, `git switch`, `git checkout`, `git fetch`, `git pull`, `git push`, `git remote`, `git status`. La liste « Where it's used » de chaque fiche anglaise est calculée au build par le même composant que la française, en anglais, avec les titres traduits.
 
+### Lot 28 : fiches « Commandes » 11 à 20, en anglais
+
+- `git add`, `git commit`, `git stash`, `git rm`, `git reset`, `git restore`, `git revert`, `git reflog`, `git merge`, `git rebase`.
+
 ### Suite prévue
 
-- **Lots 28 et 29** : les 19 autres fiches. **Lot 30** : clôture, validateur de liens strict, accueil anglais définitif, release 1.1.0.
+- **Lot 29** : les 9 dernières fiches. **Lot 30** : clôture, validateur de liens strict, accueil anglais définitif, release 1.1.0.
 
 ---
 
