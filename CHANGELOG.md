@@ -7,13 +7,28 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié]
+## [Non publié] — Les six pages « Comprendre » qui manquaient
 
-Rien pour l'instant.
+Branche `comprendre/pages-a-venir`, partie de `main` (`431ee36`). Hors phase : ces pages étaient laissées aux contributeurs comme « bonne première contribution » ; le mainteneur a demandé le 7 octobre 2026 qu'elles soient écrites.
 
-## [1.1.0] — 7 octobre 2026 · Phase 4, lots 24 à 30 : la fin de la version anglaise
+### Contenu
 
-Branche `en/lots-24-30`, partie de `main` (`f030614`). **Deuxième version numérotée** : le site existe entièrement en anglais, et la phase 4 est terminée.
+- **Six pages « Comprendre », en français et en anglais, chacune avec son script** dans `scripts/comprendre/` et ses sorties réelles (Git 2.50, 7 octobre 2026) : « Upstream, la branche que la tienne suit » (#11), « Le reflog, ton filet de sécurité » (#24), « L'index, l'étape entre ton dossier et le commit » (#25), « HEAD, ou « où je suis » », « Ce que Git supprime, et quand », « Les fichiers de `.git/` ». **La section « Comprendre » est complète, dix pages**, et le site passe à 74 pages dans chaque langue.
+- **Plus aucune mention « (à venir) »** dans les situations : les sept renvois, dans six situations, et leurs six équivalents anglais, sont devenus des liens. Le sommaire « Comprendre », dans les deux langues, ne liste plus de pages à venir.
+
+### Pour les contributeurs
+
+- Les issues #11, #24 et #25 sont fermées par cette PR. Les deux relectures (#12, #13) restent ouvertes.
+
+### Suite prévue
+
+- Rien de cadré : le site vit des situations que les lecteurs proposeront et des relectures.
+
+---
+
+## [1.1.0] — 7 octobre 2026 · Phase 4, lots 24 à 30 : la fin de la version anglaise — en ligne le 7 octobre 2026
+
+Branche `en/lots-24-30`, partie de `main` (`f030614`), fusionnée par la PR #35 (`431ee36`) ; tag `v1.1.0` et [release](https://github.com/Hatimou-Nabina/git-en-situation/releases/tag/v1.1.0) publiés le même jour. **Deuxième version numérotée** : le site existe entièrement en anglais, et la phase 4 est terminée.
 
 ### Ce que contient la version 1.1.0
 
