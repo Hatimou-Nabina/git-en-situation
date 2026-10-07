@@ -7,9 +7,19 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 4, lots 24 à 30 : la fin de la version anglaise
+## [Non publié]
 
-Branche `en/lots-24-30`, partie de `main` (`f030614`). **Une seule branche et une seule pull request pour les sept derniers lots**, à la demande du mainteneur le 7 octobre 2026 : un commit par page, la PR ouverte en brouillon dès le premier lot pour que la CI tourne à chaque poussée et que la relecture se fasse au fil de l'eau, une fusion à la fin.
+Rien pour l'instant.
+
+## [1.1.0] — 7 octobre 2026 · Phase 4, lots 24 à 30 : la fin de la version anglaise
+
+Branche `en/lots-24-30`, partie de `main` (`f030614`). **Deuxième version numérotée** : le site existe entièrement en anglais, et la phase 4 est terminée.
+
+### Ce que contient la version 1.1.0
+
+- **Les 68 pages en anglais**, sous `/en/`, avec les mêmes chemins que le français : 23 situations, 4 pages « Understand », 12 pages « Working as a team », 29 fiches « Commands », plus l'accueil, le catalogue, « How to read a situation », les pages de thème et de section, et About. Les blocs de terminal sont ceux des pages françaises, vérifiés par les mêmes scripts : 130 pages et 702 blocs vérifiés en Git 2.50 sur le poste, les quatre pages en Git 2.55 en CI.
+- **Le français reste la référence** : la page française porte le niveau, le risque, la version de Git et les dates, la traduction les reprend. Les messages de commit du dépôt d'exemple restent en français dans les deux langues.
+- **Les composants du site lisent la locale** et listent les pages dans la langue du lecteur ; « Where it's used » est calculé au build en anglais comme en français. **Une seule branche et une seule pull request pour les sept derniers lots**, à la demande du mainteneur le 7 octobre 2026 : un commit par page, la PR ouverte en brouillon dès le premier lot pour que la CI tourne à chaque poussée et que la relecture se fasse au fil de l'eau, une fusion à la fin.
 
 ### Lot 24 : les pages « Comprendre » en anglais
 
@@ -35,9 +45,15 @@ Branche `en/lots-24-30`, partie de `main` (`f030614`). **Une seule branche et un
 
 - `git cherry-pick`, `git tag`, `git config`, `git show`, `git ls-files`, `git check-ignore`, `gh`, `git cat-file`, `git merge-base`. **La section « Commands » est entièrement traduite, et avec elle les 68 pages du site** : plus aucune page anglaise ne s'affiche en français.
 
+### Lot 30 : clôture
+
+- **Le validateur de liens est de nouveau strict** : un lien vers une page de repli casse le build. Une page française nouvelle arrive désormais avec sa traduction (`CONTRIBUTING.md`, « Traduire »).
+- **L'accueil anglais** ne parle plus de chantier : une section « One site, two languages » dit que le français fait référence et que les sorties sont identiques. Le catalogue, les pages de section et About, en anglais, ne mentionnent plus de pages en français. « À propos », le README et le CONTRIBUTING disent que le site existe en anglais, avec l'adresse.
+- **Version 1.1.0**, à taguer sur le commit de fusion, et release GitHub reprenant cette section.
+
 ### Suite prévue
 
-- **Lot 30** : clôture, validateur de liens strict, accueil anglais définitif, « version anglaise en préparation » retiré, version 1.1.0.
+- **Plus de phase prévue.** Le site vit des contributions : les pages « Comprendre » encore annoncées « (à venir) » (#11, #24, #25, et « HEAD, ou « où je suis » », « Ce que Git supprime, et quand », « Les fichiers de `.git/` »), chacune avec sa traduction ; les situations que les lecteurs proposeront ; les relectures (#12, #13).
 
 ---
 
@@ -585,5 +601,6 @@ Squelette poussé directement sur `main`, puis identité visuelle par la PR #1. 
 - **Phase 3** : exercices dans un dépôt bac à sable ; vérification automatique en CI que les sorties des pages correspondent toujours aux scripts.
 - **Phase 4** : traduction anglaise, animation de la communauté.
 
-[Non publié]: https://github.com/Hatimou-Nabina/git-en-situation/compare/v1.0.0...HEAD
+[Non publié]: https://github.com/Hatimou-Nabina/git-en-situation/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/Hatimou-Nabina/git-en-situation/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/Hatimou-Nabina/git-en-situation/releases/tag/v1.0.0
