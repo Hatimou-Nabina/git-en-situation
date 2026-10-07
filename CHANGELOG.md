@@ -7,9 +7,27 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
-## [Non publié] — Phase 4, lot 21 : les situations « Au quotidien » en anglais
+## [Non publié] — Phase 4, lot 22 : les situations « Réparer » en anglais
 
-Branche `en/lot-21-quotidien`, partie de `main` (`8e98cab`).
+Branche `en/lot-22-reparer`, partie de `main` (`f3da0ca`).
+
+### Contenu
+
+- **Les six situations du thème « Réparer », en anglais** : « Undoing my last commit, not yet pushed », « Undoing a commit already pushed », « I committed on the wrong branch », « I am in "detached HEAD" », « A conflict during a merge or a rebase », « Finding a lost commit ». Le thème est entièrement traduit. Mêmes blocs de terminal que les pages françaises, vérifiés par les mêmes scripts ; l'encadré d'avertissement de « Undoing my last commit » est traduit.
+
+### Pour les contributeurs
+
+- `CLAUDE.md` : **aucune mention d'outil nulle part**, ni en pied de description de PR, ni `Co-Authored-By`, ni dans les releases, les discussions ou les issues. Les seize PR qui portaient une telle ligne ont été nettoyées le 7 octobre 2026.
+
+### Suite prévue
+
+- **Lot 23** : « Avec les autres » et « Fichiers et dépôt », huit situations ; la section « Situations » sera alors entièrement traduite.
+
+---
+
+## 7 octobre 2026 · Phase 4, lot 21 : les situations « Au quotidien » en anglais — en ligne le 7 octobre 2026
+
+Branche `en/lot-21-quotidien`, partie de `main` (`8e98cab`), fusionnée par la PR #32 (`f3da0ca`).
 
 ### Contenu
 
