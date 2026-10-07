@@ -15,9 +15,13 @@ Branche `en/lots-24-30`, partie de `main` (`f030614`). **Une seule branche et un
 
 - **Les quatre pages « Understand »** : « A commit is a snapshot », « A branch is a bookmark », « Remotes and remote-tracking references », « Fast-forward, merge, rebase ». La section est entièrement traduite. Mêmes blocs de terminal que les pages françaises, vérifiés par les mêmes scripts.
 
+### Lot 25 : « Travailler en équipe », pages 1 à 6, en anglais
+
+- « The pull request, from opening to merge », « Conventional commits », « One branch per change », « Protecting the main branch », « Secrets never go into the repository », « Reviewing a pull request ». Les messages des hooks et des scripts d'exemple restent en français dans les blocs et sont traduits dans le texte.
+
 ### Suite prévue
 
-- **Lots 25 et 26** : Travailler en équipe (12 pages). **Lots 27 à 29** : Commandes (29 fiches). **Lot 30** : clôture, validateur de liens strict, accueil anglais définitif, release 1.1.0.
+- **Lot 26** : Travailler en équipe, pages 7 à 12. **Lots 27 à 29** : Commandes (29 fiches). **Lot 30** : clôture, validateur de liens strict, accueil anglais définitif, release 1.1.0.
 
 ---
 
