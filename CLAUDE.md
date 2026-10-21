@@ -9,7 +9,7 @@ Le propriétaire travaille sur **plusieurs machines**. Tout ce qui est nécessai
 - **Nom** : `git-en-situation`. Public et open source : contenu sous CC BY-SA 4.0 (`LICENSE-CONTENT.md`), code du site sous MIT (`LICENSE`).
 - **Langue** : français d'abord (locale racine), anglais ensuite (`src/content/docs/en/`, repli automatique sur le français).
 - **Public** : développeurs francophones de tous niveaux. Tutoiement.
-- **Hébergement** : GitHub Pages, `https://hatimou-nabina.github.io/git-en-situation/`, d'où `base: '/git-en-situation'` dans `astro.config.mjs`. Un domaine propre viendra peut-être : il suffira de changer `site` et `base`, le contenu n'a pas à bouger.
+- **Hébergement** : GitHub Pages. Au départ `https://hatimou-nabina.github.io/git-en-situation/` (`base: '/git-en-situation'`) ; depuis le 21 octobre 2026, **domaine propre `https://learn.hateam-labs.online/`** (réglage « Custom domain » de Pages, HTTPS forcé), d'où `site` = ce domaine et `base: '/'` dans `astro.config.mjs`. Le contenu n'a pas bougé.
 - **Le projet s'applique à lui-même** : commits conventionnels, pull requests, `CODEOWNERS`, CI, changelog, gabarits d'issue.
 
 ## Décisions (7 octobre 2026, phase 4)
@@ -40,7 +40,7 @@ Le propriétaire travaille sur **plusieurs machines**. Tout ce qui est nécessai
 
 ```bash
 npm ci
-npm run dev                              # http://localhost:4321/git-en-situation/
+npm run dev                              # http://localhost:4321/
 npm run build                            # valide aussi les liens internes
 npm run check                            # types des composants Astro
 npm run verifier                         # rejoue les scripts et compare avec les blocs des pages
@@ -79,7 +79,7 @@ EXERCICE=1 bash scripts/situations/<slug>.sh   # fabrique la panne dans exercice
 
 ## Pièges connus
 
-- **`base`** : ne jamais écrire `/git-en-situation` dans le contenu. Les liens sont `/section/slug/`, le plugin fait le reste. Les liens de la barre latérale sont gérés par Starlight. **Une exception** : les boutons du héros (`hero.actions` dans `index.mdx` et `en/index.mdx`) ne sont pas préfixés par Starlight ni par le plugin (ils sont dans l'en-tête, pas dans le Markdown) ; ils contiennent la base en clair. À changer avec `site` et `base` le jour du domaine propre.
+- **`base`** : ne jamais écrire `/git-en-situation` dans le contenu. Les liens sont `/section/slug/`, le plugin fait le reste. Les liens de la barre latérale sont gérés par Starlight. **Une exception** : les boutons du héros (`hero.actions` dans `index.mdx` et `en/index.mdx`) ne sont pas préfixés par Starlight ni par le plugin (ils sont dans l'en-tête, pas dans le Markdown) ; ils contiennent la base en clair (aujourd'hui aucune, le site est à la racine du domaine). À changer avec `base` si le site change de chemin. `astro.config.mjs` compose ses adresses avec `prefix` (`base` sans barre finale), jamais avec `base` directement : `${base}/x` donnerait `//x`.
 - **`lastUpdated`** lit l'historique Git : les workflows font un `checkout` avec `fetch-depth: 0`, sinon toutes les pages affichent la date du build.
 - **i18n** : la locale racine est le français. Une page absente en anglais affiche le français avec un bandeau ; ce n'est pas une erreur. Les liens des pages anglaises s'écrivent `/en/…`. Les composants ne filtrent jamais sur les identifiants `en/…` : ils partent des pages françaises et cherchent la traduction (`src/i18n.ts`).
 - **Validation des liens** : un lien vers une page qui n'existe pas encore casse le build. Les pages futures se citent en italique avec « (à venir) », sans lien. Le validateur refuse aussi un lien vers une page de repli (`errorOnFallbackPages`, son défaut) : une page anglaise qui cite une page française sans traduction casse le build, d'où la règle « une page française nouvelle arrive avec sa traduction » du CONTRIBUTING. Relâché le 7 octobre 2026 le temps de traduire les 68 pages, strict depuis la fin du lot 30, le même jour.

@@ -4,7 +4,7 @@
 
 Personne ne cherche « fetch prune ». On cherche « je vois encore une branche qui a été supprimée ». Ce site part de là : chaque page répond à une situation, du symptôme au pourquoi, en moins de cinq minutes, avec des commandes **réellement exécutées** dont la sortie affichée est la vraie.
 
-Site : https://hatimou-nabina.github.io/git-en-situation/
+Site : https://learn.hateam-labs.online/
 
 [![CI](https://github.com/Hatimou-Nabina/git-en-situation/actions/workflows/ci.yml/badge.svg)](https://github.com/Hatimou-Nabina/git-en-situation/actions/workflows/ci.yml)
 [![Vérifier les sorties](https://github.com/Hatimou-Nabina/git-en-situation/actions/workflows/verifier-sorties.yml/badge.svg)](https://github.com/Hatimou-Nabina/git-en-situation/actions/workflows/verifier-sorties.yml)
@@ -19,7 +19,7 @@ Site : https://hatimou-nabina.github.io/git-en-situation/
 | **Travailler en équipe** | Branches, pull requests, revue, commits conventionnels, changelog, protections, secrets, plusieurs machines. |
 | **Commandes** | Une fiche par commande, limitée aux options utiles, qui renvoie aux situations où elle sert. |
 
-En français d'abord, pour les développeurs francophones de tous niveaux, et en anglais : https://hatimou-nabina.github.io/git-en-situation/en/. Les 74 pages existent dans les deux langues, avec les mêmes commandes et les mêmes sorties.
+En français d'abord, pour les développeurs francophones de tous niveaux, et en anglais : https://learn.hateam-labs.online/en/. Les 74 pages existent dans les deux langues, avec les mêmes commandes et les mêmes sorties.
 
 ## Les sorties sont vraies
 
@@ -49,7 +49,7 @@ Node.js 22 et Git. Sous Windows, les scripts s'exécutent dans Git Bash.
 
 ```bash
 npm ci
-npm run dev        # http://localhost:4321/git-en-situation/
+npm run dev        # http://localhost:4321/
 npm run build      # construit le site et valide les liens internes
 ```
 
