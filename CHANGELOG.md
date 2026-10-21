@@ -7,6 +7,17 @@ Ce fichier suit les évolutions du site et de son contenu. Format inspiré de [K
 
 ---
 
+## [Non publié] — Domaine propre `learn.hateam-labs.online`
+
+Branche `fix/base-domaine-propre`. Le site est servi à la racine de `https://learn.hateam-labs.online/` (Pages, « Custom domain »).
+
+- `astro.config.mjs` : `site` = le domaine, `base` = `/`. Les redirections et l'adresse de l'image de partage passent par `prefix` (la base sans barre finale), sinon `//situations/…` et `…//og-image.png`.
+- Boutons du héros (accueil français et anglais) et page 404 : liens sans `/git-en-situation`.
+- Image de partage régénérée avec la nouvelle adresse.
+- `README.md`, `CONTRIBUTING.md`, `CLAUDE.md` : adresses du site et de `npm run dev` (`http://localhost:4321/`).
+
+---
+
 ## [Non publié] — Les six pages « Comprendre » qui manquaient
 
 Branche `comprendre/pages-a-venir`, partie de `main` (`431ee36`). Hors phase : ces pages étaient laissées aux contributeurs comme « bonne première contribution » ; le mainteneur a demandé le 7 octobre 2026 qu'elles soient écrites.

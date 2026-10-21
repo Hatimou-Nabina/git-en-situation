@@ -35,7 +35,7 @@ Il faut Node.js 22 et Git. Sous Windows, les scripts s'exécutent dans Git Bash.
 git clone https://github.com/<ton-compte>/git-en-situation.git
 cd git-en-situation
 npm ci
-npm run dev      # http://localhost:4321/git-en-situation/
+npm run dev      # http://localhost:4321/
 ```
 
 | Commande | Rôle |

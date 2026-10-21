@@ -8,11 +8,13 @@ import { pluginConsolePrompts } from './src/plugins/expressive-code-prompts.mjs'
 import { themes } from './src/themes.mjs';
 import { redirects } from './src/redirects.mjs';
 
-// Adresse du site. Sur GitHub Pages, le site vit sous /git-en-situation/.
-// Avec un domaine à nous, il suffira de changer ces deux valeurs : les liens
-// du contenu sont écrits depuis la racine (/situations/...) et préfixés au build.
-const site = 'https://hatimou-nabina.github.io';
-const base = '/git-en-situation';
+// Adresse du site : le domaine propre, à la racine (GitHub Pages, « Custom domain »).
+// Les liens du contenu sont écrits depuis la racine (/situations/...) et préfixés
+// au build quand `base` n'est pas « / ».
+const site = 'https://learn.hateam-labs.online';
+const base = '/';
+// `base` sans barre finale, pour composer des adresses (vide à la racine).
+const prefix = base.replace(/\/+$/, '');
 
 const repository = 'https://github.com/Hatimou-Nabina/git-en-situation';
 
@@ -21,7 +23,7 @@ export default defineConfig({
   base,
   // Anciennes adresses des situations (avant le classement par thème). Astro ne
   // préfixe pas la cible avec la base : on le fait ici.
-  redirects: Object.fromEntries(Object.entries(redirects).map(([from, to]) => [from, `${base}${to}`])),
+  redirects: Object.fromEntries(Object.entries(redirects).map(([from, to]) => [from, `${prefix}${to}`])),
   markdown: {
     processor: satteri({ hastPlugins: [baseLinksPlugin({ base })] }),
   },
@@ -34,11 +36,11 @@ export default defineConfig({
       // réseau. Starlight pose og:title, og:description et twitter:card, mais pas og:image.
       // Source : src/assets/og-image.html, rendue en public/og-image.png (commande dans CLAUDE.md).
       head: [
-        { tag: 'meta', attrs: { property: 'og:image', content: `${site}${base}/og-image.png` } },
+        { tag: 'meta', attrs: { property: 'og:image', content: `${site}${prefix}/og-image.png` } },
         { tag: 'meta', attrs: { property: 'og:image:width', content: '1200' } },
         { tag: 'meta', attrs: { property: 'og:image:height', content: '630' } },
         { tag: 'meta', attrs: { property: 'og:image:alt', content: 'Git en situation : Git, à partir des situations que tu vis vraiment.' } },
-        { tag: 'meta', attrs: { name: 'twitter:image', content: `${site}${base}/og-image.png` } },
+        { tag: 'meta', attrs: { name: 'twitter:image', content: `${site}${prefix}/og-image.png` } },
       ],
       defaultLocale: 'root',
       locales: {
